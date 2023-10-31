@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import Colors from "../../constants/Colors";
 import Icon from "../../components/common/Icon";
 
@@ -9,7 +9,8 @@ const Loading = () => {
       {/* <Icon name="bigLogo" style={styles.bigLogo} />
       <Icon name="originLogo" /> */}
       <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
-      <Icon name="loading" style={styles.loading} />
+      {/* <Icon name="loading" style={styles.loading} /> */}
+      <ActivityIndicator color="white" />
       <Icon name="shape" style={styles.shape} />
       <Icon name="shapeLine" style={styles.shapeLine} />
     </SafeAreaView>
@@ -20,7 +21,8 @@ export default Loading;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height : '100%',
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.primary,

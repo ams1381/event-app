@@ -7,10 +7,10 @@ import Icon from "../../common/Icon";
 const OtpSms = () => {
   return (
     <View style={styles.container}>
-      <Icon name="otpBigLogo" style={styles.bigLogo} />
-      <Icon name="otpLogo" style={styles.originLogo} />
-      <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
-      <BottomSheet isSmsPage={true} title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/>
+        <Icon name="otpBigLogo" style={styles.bigLogo} />
+        <Icon name="otpLogo" style={styles.originLogo} />
+        <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
+        <BottomSheet isSmsPage={true} title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/>
     </View>
   );
 };

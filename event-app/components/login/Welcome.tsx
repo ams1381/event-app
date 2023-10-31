@@ -5,20 +5,57 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Animated,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Colors from "../../constants/Colors";
 import Icon from "../common/Icon";
 
 const Welcome = () => {
+  const TopImageAnimation  = useState(new Animated.Value(0))[0];
+  const BottomImageAnimation = useState(new Animated.Value(0))[0];
+
+  useEffect(() => {
+    Animated.timing(TopImageAnimation,{
+      toValue : 1 ,
+      duration : 3500,
+      useNativeDriver : false,
+    }).start();
+    Animated.timing(BottomImageAnimation,{
+      toValue : 1,
+      duration : 3500,
+      useNativeDriver : false,
+    }).start()
+  },[])
+
   return (
     <SafeAreaView style={styles?.container}>
         <Icon name="welComeGif" style={styles.gif} />
-        <Text style={styles.title}>به سوپر اپلیکیشن سبا {"\n"} خوش اومدید</Text>
-        <Text style={styles.subTitle}>سوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتندسوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتند</Text>
-        <Icon name="welComeCircle" style={styles.circle} />
-        <Icon name="welComeLine1" style={styles.line1} />
-        <Icon name="welComeLine2" style={styles.line2} />
+              <Text style={styles.title}>به سوپر اپلیکیشن سبا {"\n"} خوش اومدید</Text>
+              <Text style={styles.subTitle}>سوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتندسوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتند</Text>
+        <Animated.View style={{
+            ...styles.BottomImageContainer,
+            transform : [{
+              translateX : BottomImageAnimation.interpolate({
+                inputRange : [ 0 , 1 ],
+                outputRange : [ 1000 , 0 ]
+              })
+            }]
+        }}>
+          <Icon name="welComeCircle" style={styles.circle} />
+        </Animated.View>      
+        <Animated.View style={{
+          ...styles.TopImageContainer , 
+          transform : [{
+            translateY : TopImageAnimation.interpolate({
+              inputRange : [ 0 , 1] ,
+              outputRange : [ -1000 , 0 ]
+            })
+          }]
+          }}>
+          <Icon name="welComeLine1" style={styles.line1} />
+          <Icon name="welComeLine2" style={styles.line2} />
+        </Animated.View>
     </SafeAreaView>
   );
 };
@@ -27,7 +64,8 @@ export default Welcome;
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height : '100%',
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.whiteColor,
@@ -71,5 +109,18 @@ export const styles = StyleSheet.create({
     paddingHorizontal:30,
     marginTop:16,
     lineHeight:30
+  },
+  TopImageContainer : {
+    width : '100%',
+    height : '40%',
+    position : 'absolute',
+    top : -10
+  },
+  BottomImageContainer : {
+    width : '100%',
+    height : '40%',
+    position : 'absolute',
+    bottom : -35,
+    right : 0
   }
 });
