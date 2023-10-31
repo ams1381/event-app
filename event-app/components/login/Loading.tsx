@@ -16,7 +16,7 @@ const Loading = () => {
       <Icon name="shapeLine" style={styles.shapeLine} />
       <Button
         title="Profile"
-        onPress={() => router.push("/user-panel/profile")}
+        onPress={() => router.push("/help")}
       />
     </SafeAreaView>
   );
