@@ -7,10 +7,17 @@ import Icon from "../../common/Icon";
 const OtpSms = () => {
   return (
     <View style={styles.container}>
-      <Icon name="otpBigLogo" style={styles.bigLogo} />
-      <Icon name="otpLogo" style={styles.originLogo} />
+      <Icon name="otpSmsShape" style={styles.bigLogo} />
+      <Icon name="otpSmsOrigin" style={styles.originLogo} />
       <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
-      <BottomSheet isSmsPage={true} title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/>
+      <BottomSheet
+        isSmsPage={true}
+        title="تایید شماره"
+        subTitle="لطفا کد ارسال شده به شماره"
+        subTitleColor={"#E4E4E4"}
+        color={Colors.primary}
+        titleColor={Colors.whiteColor}
+      />
     </View>
   );
 };
@@ -37,7 +44,6 @@ const styles = StyleSheet.create({
     height: 210,
   },
   bigLogo: {
-    opacity: 0.1,
     position: "absolute",
     top: 5,
   },

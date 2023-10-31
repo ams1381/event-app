@@ -33,6 +33,10 @@ const iconImages: IconImages = {
   otpLogo: require("./../../assets/images/svg/otp/big.png"),
   otpBigLogo: require("./../../assets/images/svg/otp/org.png"),
   phone: require("./../../assets/images/svg/login/Call.png"),
+  otpSmsShape: require("./../../assets/images/otpsms.png"),
+  otpSmsOrigin: require("./../../assets/images/otpShapeOrigin.png"),
+  user: require("./../../assets/images/svg/profile/User.png"),
+  edit: require("./../../assets/images/svg/profile/Edit.png"),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

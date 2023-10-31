@@ -128,7 +128,7 @@ export const styles = StyleSheet.create({
   btn: {
     width: "100%",
     backgroundColor: Colors.primary,
-    // marginTop: 8,
+    marginTop: 8,
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,

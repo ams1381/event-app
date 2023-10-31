@@ -1,8 +1,10 @@
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { StyleSheet, Text, SafeAreaView, Button } from "react-native";
 import Colors from "../../constants/Colors";
 import Icon from "../../components/common/Icon";
+import { useRouter } from "expo-router";
 
 const Loading = () => {
+  const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
       <Icon name="baseLogo" />
@@ -12,6 +14,10 @@ const Loading = () => {
       <Icon name="loading" style={styles.loading} />
       <Icon name="shape" style={styles.shape} />
       <Icon name="shapeLine" style={styles.shapeLine} />
+      <Button
+        title="Profile"
+        onPress={() => router.push("/user-panel/profile")}
+      />
     </SafeAreaView>
   );
 };

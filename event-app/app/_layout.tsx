@@ -6,6 +6,8 @@
 // } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+
 // import { useEffect } from "react";
 // import { useColorScheme } from "react-native";
 
@@ -29,6 +31,20 @@ export default function RootLayout() {
     bold: require("./../assets/fonts/IRANSansXFaNum-Bold.ttf"),
     Black: require("./../assets/fonts/IRANSansXFaNum-Black.ttf"),
   });
+
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return <RootLayoutNav />;
 }

@@ -6,13 +6,12 @@ import OtpSms from "../components/login/auth/OtpSms";
 
 const index = () => {
   return (
-    //  <Loading />
+     <Loading />
     // <Welcome />
     // <Welcome2 />
     // <Login />
-    <OtpSms />
+    // <OtpSms />
   );
 };
 
 export default index;
-
