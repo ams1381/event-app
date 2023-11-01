@@ -59,13 +59,16 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
       ...styles.container,
       backgroundColor: (loginStatus == 0) ? Colors.primary : 'white',
       }}>
-         <Toast ref={(ref) => Toast.setRef(ref)} />
+        <View style={{ width : 200 , height : 100 , position : 'absolute' , top : 30 , zIndex : 111 }}>
+          <Toast ref={(ref) => Toast.setRef(ref)} />
+        </View>
       <Swiper autoplayTimeout={1}
        ref={swiper1Ref}
        scrollEnabled={false}
         showsPagination={false}>
           <View style={{  width : '100%' , height : '100%' , alignItems : 'center' ,
           justifyContent : 'center' , position : 'absolute' }}>
+          
             <Icon name="backLogo" style={styles.bigLogo} />
             <Icon name="originLogo" style={styles.originLogo} />
             <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>

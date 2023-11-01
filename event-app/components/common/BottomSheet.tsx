@@ -72,6 +72,11 @@ const BottomSheet: FC<BottomSheetProps> = ({
       newOtpCode[index] = value;
       setOtpCode(newOtpCode);
       focusInput(index);
+      if(newOtpCode.length == 4 && newOtpCode.every(item => item.length != 0)) {
+         confirmSmsHandler();
+         inputRefs[3]?.current?.blur()
+      }
+       
     }
   };
   const sendSmsHandler = async () => {
@@ -84,6 +89,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
       setBottomSheetLoading(false);
       setLoginStatus(1);
       setSliderSwipable(false)
+      ToastMessage(Toast,'gfhgfhjfdfj','success')
     }
     catch(err : any) {
       setBottomSheetLoading(false)
@@ -96,15 +102,27 @@ const BottomSheet: FC<BottomSheetProps> = ({
     }
   }
   const confirmSmsHandler = async () => {
+    console.log(otpCode)
+    if(!otpCode.length || otpCode.every(item => item.length == 0)) {
+      ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error');
+      return
+    }
     try {
+      setBottomSheetLoading(true)
       await axiosInstance.post('api/core/auth/login/',{
         phone_number : phoneNumber,
-        code : otpCode
+        code : otpCode.join('')
       })
       // router.push('/user-panel/home')
+      setBottomSheetLoading(false)
     }
     catch(err) {
-
+      console.log(err)
+      setBottomSheetLoading(false)
+      if(err?.response?.status == 500) 
+      ToastMessage(Toast,'خطا در شبکه','error')
+      else 
+        ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error')
     }
      
   }
@@ -121,9 +139,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
         paddingHorizontal: 32,
         paddingVertical: 74,
         alignItems: "center",
-      }}
-    >
-       
+      }}>
       <Text
         style={{
           color: titleColor ? titleColor : Colors?.primary,
@@ -139,8 +155,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           fontFamily: "regular",
           fontSize: 14,
           marginTop: 8,
-        }}
-      >
+        }}>
         لطفا برای استفاده از اپلیکیشن سبا ورود کنید
       </Text>
       {isSmsPage ? (
@@ -159,29 +174,14 @@ const BottomSheet: FC<BottomSheetProps> = ({
                 <View style={styles.OtpItemBottomLine} />
               </View>
             ))}
-            {/* Display the OTP code for testing */}
-              {/* <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1}  style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View> */}
             </View>
           </View>
           <View style={styles.btnSmsContainer}>
             <TouchableNativeFeedback style={{ borderRadius: 16 }}>
-              <View style={styles.btnSms}>
-                <Text style={styles.btnSmsText}>تایید</Text>
+              <View style={styles.btnSms} onTouchEnd={() => confirmSmsHandler()}>
+              {
+                BottomSheetLoading ?  <ActivityIndicator color={'#44898E'} /> : <Text style={styles.btnSmsText}>ثبت</Text>
+                }
               </View>
             </TouchableNativeFeedback>
           </View>
@@ -241,7 +241,8 @@ export const styles = StyleSheet.create({
     textAlign : 'center' , 
     color : 'white' , 
     height : '90%'  , 
-    borderRadius : 4 
+    borderRadius : 4 ,
+    fontFamily : 'bold'
   },
   OtpItemBottomLine : {
     width : 38  , 
@@ -256,6 +257,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 16,
     marginTop: 8,
+    height : 47, 
   },
   phoneIcon: {
     position: "absolute",
