@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Animated , View , Easing , StyleSheet , Text } from 'react-native'
+import { Animated , View , Easing , StyleSheet , Text, Dimensions , KeyboardAvoidingView , SafeAreaView } from 'react-native'
 import Loading from "../components/login/Loading";
 import Welcome from "../components/login/Welcome";
 import Swiper from 'react-native-swiper'
@@ -13,11 +13,15 @@ const HomePage  = () => {
   const boxRotation = useRef(new Animated.Value(0)).current;
   const indexAnimation = new Animated.Value(1);
   const welcomeAnimation = new Animated.Value(0);
-  const [ initialSwierActiveState , setInitialSwiperActiveState ] = useState(true)
+  // let currentIndex = useRef(0).current;
+  const [ currentIndex , setCurrentIndex ] = useState(0)
+  const [ padingEnableState , setPagingEnableState ] = useState(true)
+  const [ initialSwierActiveState , setInitialSwiperActiveState ] = useState(true);
   useEffect(() => {
     // Use a setTimeout to change the state after 400ms
     setTimeout(() => {
-      setInitialSwiperActiveState(false)
+      setInitialSwiperActiveState(false);
+      setPagingEnableState(false)
     },2500)
   }, []);
 
@@ -46,25 +50,41 @@ const HomePage  = () => {
     slideInAnimation();
   }, [homePageState]);
 
-  console.log(boxRotation)
   return (
    
     <View style={{ width : '100%' , height : '100%' }}>
-      <Swiper autoplay={initialSwierActiveState} horizontal={false} scrollEnabled={false} showsPagination={false}>
-          <Loading />
-          <View style={{ width : '100%' , height : '100%'  }}>
-            <Swiper  loop={false} 
-              // onScroll={onScroll}
-              renderPagination={(index, total) => {
-              return <PaginatioinComponent CurPage={index} />
-              }}>
-                  <Welcome />
-                  <Welcome2 />
-                  <Login />
-                  <OtpSms />
-            </Swiper>
-          </View>
-      </Swiper>
+      
+        <Swiper 
+        style={{ height : initialSwierActiveState ? 'auto' : '100%'}}
+        automaticallyAdjustContentInsets={true}
+        index={initialSwierActiveState ? 0 : 1}
+        // index={0}
+        // keyboardShouldPersistTaps='always'
+        autoplay={initialSwierActiveState} 
+        pagingEnabled={padingEnableState}
+        horizontal={false} 
+        scrollEnabled={false}
+        showsPagination={false}>
+            <Loading />
+            <View style={{ width : '100%' , height : '100%'  }}>
+              <Swiper  index={currentIndex}  bounces={true} loop={false} 
+                onIndexChanged={(index) => {
+                  setCurrentIndex(index);
+                  // currentIndex = index;
+                }} 
+                keyboardShouldPersistTaps='handled'
+                renderPagination={(index, total) => {
+                return <PaginatioinComponent CurPage={index} />
+                }}>
+                  {/* <SafeAreaView > */}
+                      {/* <KeyboardAvoidingView  > */}
+                    <Welcome  />
+                    <Welcome2 visitedPage={currentIndex === 1} />
+                    <Login visitedPage={currentIndex === 2} setCurrentIndex={setCurrentIndex} />
+              </Swiper>
+            </View>
+        </Swiper>
+
       {/* { homePageState === "InitialLoading"  && !animateStartedState && 
        <Loading />} 
 

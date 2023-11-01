@@ -4,23 +4,30 @@ import Colors from "../../../constants/Colors";
 import BottomSheet from "../../common/BottomSheet";
 import Icon from "../../common/Icon";
 
-const OtpSms = () => {
+type WelcomeType = {
+  visitedPage : boolean ,
+  setCurrentIndex : any
+}
+
+const OtpSms : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex }) => {
   return (
     <View style={styles.container}>
         <Icon name="otpBigLogo" style={styles.bigLogo} />
         <Icon name="otpLogo" style={styles.originLogo} />
         <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
-        <BottomSheet isSmsPage={true} title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/>
+        {/* <BottomSheet isSmsPage={true} setCurrentIndex={setCurrentIndex}
+         title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" 
+         subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/> */}
     </View>
   );
 };
 
 export default OtpSms;
 
-const styles = StyleSheet.create({
+export const OTPStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.whiteColor,
+    // flex: 1,
+    // backgroundColor: Colors.whiteColor,
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   originLogo: {
-    marginTop: -330,
+    // marginTop: -330,
     width: 210,
     height: 210,
   },
@@ -40,5 +47,6 @@ const styles = StyleSheet.create({
     opacity: 0.1,
     position: "absolute",
     top: 5,
+    right :5
   },
 });

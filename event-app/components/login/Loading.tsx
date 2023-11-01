@@ -10,7 +10,7 @@ const Loading = () => {
       <Icon name="originLogo" /> */}
       <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
       {/* <Icon name="loading" style={styles.loading} /> */}
-      <ActivityIndicator color="white" />
+      <ActivityIndicator size={'large'} color="white" />
       <Icon name="shape" style={styles.shape} />
       <Icon name="shapeLine" style={styles.shapeLine} />
     </SafeAreaView>

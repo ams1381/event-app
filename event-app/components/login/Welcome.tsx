@@ -74,7 +74,8 @@ export const styles = StyleSheet.create({
   gif: {
     width: "100%",
     position:'absolute',
-    top:100
+    top: 60,
+    zIndex : 1
   },
   circle: {
     position: "absolute",
@@ -114,13 +115,15 @@ export const styles = StyleSheet.create({
     width : '100%',
     height : '40%',
     position : 'absolute',
-    top : -10
+    top : -10,
+    zIndex: -1,
   },
   BottomImageContainer : {
     width : '100%',
     height : '40%',
     position : 'absolute',
     bottom : -35,
-    right : 0
+    right : 0,
+    zIndex: -1,
   }
 });

@@ -4,19 +4,26 @@ import {
   TouchableNativeFeedback,
   View,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import Colors from "../../constants/Colors";
 import { TextInput } from "react-native-gesture-handler";
 import Icon from "./Icon";
+import axios from 'axios'
 import OTPInputView from "@twotalltotems/react-native-otp-input";
+import { axiosInstance } from "../../Utills/axios";
 
-interface BottomSheetProps {
+type BottomSheetProps = {
   color?: any;
   titleColor?: any;
   subTitleColor?: any;
   title: string;
+  setLoginStatus : any;
   subTitle: any;
+  setCurrentIndex : any,
+  setPhoneNumber : any ,
+  phoneNumber : number | null,
   isSmsPage: boolean;
 }
 
@@ -26,18 +33,67 @@ const BottomSheet: FC<BottomSheetProps> = ({
   subTitleColor,
   title,
   subTitle,
+  setPhoneNumber,
+  phoneNumber,
   isSmsPage,
+  setCurrentIndex,
+  setLoginStatus,
 }) => {
+
+  
+  const [ BottomSheetLoading , setBottomSheetLoading ] = useState(false);
+  const [otpCode, setOtpCode] = useState(['', '', '', '']);
+  const inputRefs = [
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+  ];
+
+  const focusInput = (index) => {
+    if (index < inputRefs.length - 1) {
+      inputRefs[index + 1].current.focus();
+    }
+  };
+  const handleInput = (value, index) => {
+    if (value && value.match(/[0-9]/)) {
+      const newOtpCode = [...otpCode];
+      newOtpCode[index] = value;
+      setOtpCode(newOtpCode);
+      focusInput(index);
+    }
+  };
+  const sendSmsHandler = async () => {
+    setLoginStatus(1);
+    // setBottomSheetLoading(true)
+    // try {
+    //   await axiosInstance.post('api/core/auth/send-sms/',{
+    //     phone_number : phoneNumber
+    //   })
+    //   setCurrentIndex(3);
+    //   setBottomSheetLoading(false);
+    //   setLoginStatus(1);
+    // }
+    // catch(err) {
+    //   setBottomSheetLoading(false)
+    // }
+  }
+  const confirmSmsHandler = async () => {
+      axiosInstance.post('api/core/auth/login/',{
+        phone_number : phoneNumber,
+        
+      })
+  }
   return (
-    <SafeAreaView
+    <View
       style={{
-        position: "absolute",
+        // position: "absolute",
         backgroundColor: color ? color : Colors.whiteColor,
         width: "100%",
         borderTopEndRadius: 33,
         borderTopStartRadius: 33,
-        height: "50%",
-        bottom: 0,
+        height: "100%",
+        // bottom: 0,
         paddingHorizontal: 32,
         paddingVertical: 74,
         alignItems: "center",
@@ -64,11 +120,43 @@ const BottomSheet: FC<BottomSheetProps> = ({
       </Text>
       {isSmsPage ? (
         <View style={{ width: "100%", overflow: "hidden" }}>
-          <View style={styles.smsBox}></View>
+          <View style={styles.smsBox}>
+            <View style={{ flexDirection : 'row' , justifyContent : 'center' , gap : 16 }}>
+            {inputRefs.map((ref, index) => (
+              <View style={styles.OtpInputContainer} key={index}>
+                <TextInput
+                  maxLength={1}
+                  style={styles.OtpInputItem}
+                  ref={ref}
+                  keyboardType="number-pad"
+                  onChangeText={(value) => handleInput(value, index)}
+                />
+                <View style={styles.OtpItemBottomLine} />
+              </View>
+            ))}
+            {/* Display the OTP code for testing */}
+              {/* <View style={styles.OtpInputContainer}>
+                <TextInput maxLength={1}  style={styles.OtpInputItem} />
+                <View style={styles.OtpItemBottomLine} />
+              </View>
+              <View style={styles.OtpInputContainer}>
+                <TextInput maxLength={1} style={styles.OtpInputItem} />
+                <View style={styles.OtpItemBottomLine} />
+              </View>
+              <View style={styles.OtpInputContainer}>
+                <TextInput maxLength={1} style={styles.OtpInputItem} />
+                <View style={styles.OtpItemBottomLine} />
+              </View>
+              <View style={styles.OtpInputContainer}>
+                <TextInput maxLength={1} style={styles.OtpInputItem} />
+                <View style={styles.OtpItemBottomLine} />
+              </View> */}
+            </View>
+          </View>
           <View style={styles.btnSmsContainer}>
             <TouchableNativeFeedback style={{ borderRadius: 16 }}>
               <View style={styles.btnSms}>
-                <Text style={styles.btnSmsText}>ورود</Text>
+                <Text style={styles.btnSmsText}>تایید</Text>
               </View>
             </TouchableNativeFeedback>
           </View>
@@ -78,20 +166,26 @@ const BottomSheet: FC<BottomSheetProps> = ({
           <View style={styles.input}>
             <TextInput
               keyboardType="number-pad"
+              value={phoneNumber ? phoneNumber : ''}
+              onChangeText={(e : any) => setPhoneNumber(e)}
               style={{ fontFamily: "bold", width: "88%", textAlign: "right" }}
               placeholder="شماره تلفن"
               placeholderTextColor={"#7E7E7E"}
             />
             <Icon style={styles.phoneIcon} name="phone" />
           </View>
-          <TouchableNativeFeedback style={{ borderRadius: 16 }}>
-            <View style={styles.btn}>
-              <Text style={styles.btnText}>ورود</Text>
+          <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
+            <View style={styles.btn} onTouchEnd={sendSmsHandler}>
+
+              {
+                BottomSheetLoading ?  <ActivityIndicator color={'white'} />
+               :  <Text style={styles.btnText}>ورود</Text>
+                }
             </View>
           </TouchableNativeFeedback>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -112,6 +206,24 @@ export const styles = StyleSheet.create({
     textAlign: "right",
     position: "relative",
   },
+  OtpInputContainer : {
+    justifyContent : 'flex-end' , 
+    position : 'relative' , 
+    height : 30
+  },
+  OtpInputItem : {
+    width : '100%' , 
+    textAlign : 'center' , 
+    color : 'white' , 
+    height : '90%'  , 
+    borderRadius : 4 
+  },
+  OtpItemBottomLine : {
+    width : 38  , 
+    height : 5 , 
+    borderRadius : 4 , 
+    backgroundColor : 'white'
+  },
   btnSmsContainer: {
     overflow: "hidden",
     alignItems: "center",
@@ -128,7 +240,8 @@ export const styles = StyleSheet.create({
   btn: {
     width: "100%",
     backgroundColor: Colors.primary,
-    // marginTop: 8,
+    marginTop: 8,
+    height : 47,
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -154,6 +267,7 @@ export const styles = StyleSheet.create({
   smsBox: {
     marginVertical: 16,
     height: 100,
+    justifyContent : 'center',
     paddingHorizontal: 85,
     paddingVertical: 0,
     borderRadius: 13,
