@@ -4,67 +4,56 @@
 //   DefaultTheme,
 //   ThemeProvider,
 // } from "@react-navigation/native";
-import {useFonts} from "expo-font";
-import {SplashScreen, Stack} from "expo-router";
-import {useEffect} from "react";
-import {SafeAreaView, Text, View} from "react-native";
-
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
 // import { useEffect } from "react";
 // import { useColorScheme } from "react-native";
 
 export {
-    // Catch any errors thrown by the Layout component.
-    ErrorBoundary,
+  ErrorBoundary,
 } from "expo-router";
 
 export const unstable_settings = {
-    // Ensure that reloading on `/modal` keeps a back button present.
-    initialRouteName: "index",
+  // Ensure that reloading on `/modal` keeps a back button present.
+  initialRouteName: "index",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-    const [loaded, error] = useFonts({
-        regular: require("./../assets/fonts/IRANSansXFaNum-Regular.ttf"),
-        medium: require("./../assets/fonts/IRANSansXFaNum-Medium.ttf"),
-        bold: require("./../assets/fonts/IRANSansXFaNum-Bold.ttf"),
-        Black: require("./../assets/fonts/IRANSansXFaNum-Black.ttf"),
-    });
+  const [loaded, error] = useFonts({
+    regular: require("./../assets/fonts/IRANSansXFaNum-Regular.ttf"),
+    medium: require("./../assets/fonts/IRANSansXFaNum-Medium.ttf"),
+    bold: require("./../assets/fonts/IRANSansXFaNum-Bold.ttf"),
+    Black: require("./../assets/fonts/IRANSansXFaNum-Black.ttf"),
+  });
 
-    useEffect(() => {
-        if (error) throw error;
-    }, [error]);
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
 
-    useEffect(() => {
-        if (loaded) {
-            SplashScreen.hideAsync();
-        }
-    }, [loaded]);
-
-    if (!loaded) {
-        return null;
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
     }
+  }, [loaded]);
 
-    return <RootLayoutNav/>;
+  if (!loaded) {
+    return null;
+  }
+
+  return <RootLayoutNav />;
+
 }
 
 function RootLayoutNav() {
-    // const colorScheme = useColorScheme();
-    return (
-        // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <>
-            <Stack
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-
-            </Stack>
-        </>
-
-
-        // </ThemeProvider>
-    );
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}>
+    </Stack>
+  );
 }

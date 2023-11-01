@@ -1,24 +1,20 @@
-import { StyleSheet, Text, SafeAreaView, Button } from "react-native";
+import { StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import Colors from "../../constants/Colors";
 import Icon from "../../components/common/Icon";
 import { useRouter } from "expo-router";
 import Navbar from "../common/Navbar";
 
 const Loading = () => {
-  const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
       <Icon name="baseLogo" />
       {/* <Icon name="bigLogo" style={styles.bigLogo} />
       <Icon name="originLogo" /> */}
       <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
-      <Icon name="loading" style={styles.loading} />
+      {/* <Icon name="loading" style={styles.loading} /> */}
+      <ActivityIndicator size={'large'} color="white" />
       <Icon name="shape" style={styles.shape} />
       <Icon name="shapeLine" style={styles.shapeLine} />
-      <Button
-        title="Profile"
-        onPress={() => router.push("/user-panel/profile")}
-      />
     </SafeAreaView>
   );
 };
@@ -27,7 +23,8 @@ export default Loading;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height : '100%',
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.primary,

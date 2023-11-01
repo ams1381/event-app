@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "event-app", 
+    "name": "event-app",
     "slug": "event-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ams1381.eventapp"
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +35,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f3c52632-8ed7-4311-b085-24a981c4c3a4"
+      }
     }
   }
 }
