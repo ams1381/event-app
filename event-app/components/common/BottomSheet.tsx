@@ -13,6 +13,8 @@ import Icon from "./Icon";
 import axios from 'axios'
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { axiosInstance } from "../../Utills/axios";
+import Toast from 'react-native-toast-message';
+import { useRouter } from "expo-router";
 
 type BottomSheetProps = {
   color?: any;
@@ -23,10 +25,17 @@ type BottomSheetProps = {
   subTitle: any;
   setCurrentIndex : any,
   setPhoneNumber : any ,
-  phoneNumber : number | null,
+  phoneNumber : any,
+  setSliderSwipable: any ,
   isSmsPage: boolean;
 }
-
+const ToastMessage = (Toast : any , message : string , messageStatus : string) => {
+  Toast.show({
+    type: messageStatus, 
+    position: 'top',
+    text1: message,
+  });
+} 
 const BottomSheet: FC<BottomSheetProps> = ({
   color,
   titleColor,
@@ -37,12 +46,14 @@ const BottomSheet: FC<BottomSheetProps> = ({
   phoneNumber,
   isSmsPage,
   setCurrentIndex,
+  setSliderSwipable,
   setLoginStatus,
 }) => {
 
   
   const [ BottomSheetLoading , setBottomSheetLoading ] = useState(false);
   const [otpCode, setOtpCode] = useState(['', '', '', '']);
+  const router = useRouter();
   const inputRefs = [
     useRef<TextInput>(null),
     useRef<TextInput>(null),
@@ -64,25 +75,38 @@ const BottomSheet: FC<BottomSheetProps> = ({
     }
   };
   const sendSmsHandler = async () => {
-    setLoginStatus(1);
-    // setBottomSheetLoading(true)
-    // try {
-    //   await axiosInstance.post('api/core/auth/send-sms/',{
-    //     phone_number : phoneNumber
-    //   })
-    //   setCurrentIndex(3);
-    //   setBottomSheetLoading(false);
-    //   setLoginStatus(1);
-    // }
-    // catch(err) {
-    //   setBottomSheetLoading(false)
-    // }
+    setBottomSheetLoading(true)
+    try {
+      await axiosInstance.post('api/core/auth/send-sms/',{
+        phone_number : phoneNumber
+      })
+      setCurrentIndex(3);
+      setBottomSheetLoading(false);
+      setLoginStatus(1);
+      setSliderSwipable(false)
+    }
+    catch(err : any) {
+      setBottomSheetLoading(false)
+      if(err?.response?.status == 500) 
+        ToastMessage(Toast,'خطا در شبکه','error')
+      else 
+        ToastMessage(Toast,'لطفا شماره را درست وارد کنید','error')
+      
+        
+    }
   }
   const confirmSmsHandler = async () => {
-      axiosInstance.post('api/core/auth/login/',{
+    try {
+      await axiosInstance.post('api/core/auth/login/',{
         phone_number : phoneNumber,
-        
+        code : otpCode
       })
+      // router.push('/user-panel/home')
+    }
+    catch(err) {
+
+    }
+     
   }
   return (
     <View
@@ -99,6 +123,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
         alignItems: "center",
       }}
     >
+       
       <Text
         style={{
           color: titleColor ? titleColor : Colors?.primary,
