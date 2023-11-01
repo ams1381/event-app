@@ -4,9 +4,21 @@ import Colors from "../../../constants/Colors";
 import Icon from "../../common/Icon";
 import {TextInput} from "react-native-gesture-handler";
 import {Color} from "ansi-fragments/build/fragments/Color";
+import {axiosInstance} from "../../../Utills/axios";
 
 export default function EditName(p: { setEditName: any, editName: any }) {
     const BottomSheetAnimation = useState(new Animated.Value(0))[0];
+    const [email,setEmail] = useState<string>()
+    const [name,setName] = useState<string>()
+    const [phonePhone,setPhoneNumber] = useState<string>()
+
+    useEffect(() => {
+        axiosInstance.get('api/core/users/me/').then(res => {
+            console.log(res?.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, []);
 
     useEffect(() => {
         if (p.editName) {

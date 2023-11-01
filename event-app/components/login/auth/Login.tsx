@@ -57,7 +57,7 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex }) => {
       ...styles.container,
       backgroundColor: !(loginStatus == 0) ? Colors.primary : 'white',
       }}>
-      <Swiper autoplayTimeout={1}  index={loginStatus}  showsPagination={false}>
+      <Swiper autoplayTimeout={1}  index={1}  showsPagination={false}>
           <View style={{  width : '100%' , height : '100%' , alignItems : 'center' ,
           justifyContent : 'center' , position : 'absolute' }}>
             <Icon name="backLogo" style={styles.bigLogo} />
@@ -74,7 +74,7 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex }) => {
      
       
       {/* <TextInput placeholder="dfghfdshsdfh"  /> */}
-      <Swiper autoplayTimeout={1} autoplay={false} index={loginStatus == 0 ? 1 : 0}  showsPagination={false}>
+      <Swiper autoplayTimeout={1} autoplay={false} index={1}  showsPagination={false}>
         <View style={{ width : '100%' , height : '100%' }}>
           <BottomSheet
           setCurrentIndex={setCurrentIndex}
