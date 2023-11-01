@@ -37,6 +37,12 @@ const iconImages: IconImages = {
   otpSmsOrigin: require("./../../assets/images/otpShapeOrigin.png"),
   user: require("./../../assets/images/svg/profile/User.png"),
   edit: require("./../../assets/images/svg/profile/Edit.png"),
+  homeShape: require('./../../assets/images/shapeHome.png'),
+  shapeGradiant: require('./../../assets/images/linerGradiant.png'),
+  info: require('./../../assets/images/info.png'),
+  X:require('./../../assets/images/X.png'),
+  navbarLogo:require('./../../assets/images/navbarLogo.png'),
+  search:require('./../../assets/images/Search.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

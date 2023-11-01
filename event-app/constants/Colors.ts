@@ -19,5 +19,8 @@ export default {
   textColor: "#B0B0B0",
   whiteColor: "#ffffff",
   textColorDark: "#4D4D4D",
+  border:'#E4E4E4',
+  secondary:'#EEE',
   popup: "rgba(0, 0, 0, 0.10)",
+  secondaryBg:'#FAFAFA'
 };
