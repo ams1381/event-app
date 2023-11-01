@@ -8,9 +8,6 @@ import {axiosInstance} from "../../../Utills/axios";
 
 export default function EditName(p: { setEditName: any, editName: any }) {
     const BottomSheetAnimation = useState(new Animated.Value(0))[0];
-    const [email,setEmail] = useState<string>()
-    const [name,setName] = useState<string>()
-    const [phonePhone,setPhoneNumber] = useState<string>()
 
     useEffect(() => {
         axiosInstance.get('api/core/users/me/').then(res => {
