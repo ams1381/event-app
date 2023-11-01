@@ -62,6 +62,10 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
         <View style={{ width : 200 , height : 100 , position : 'absolute' , top : 30 , zIndex : 111 }}>
           <Toast ref={(ref) => Toast.setRef(ref)} />
         </View>
+      {/* <Swiper autoplayTimeout={1}
+       ref={swiper1Ref}
+       scrollEnabled={false}
+        showsPagination={false}> */}
       <Swiper autoplayTimeout={1}
        ref={swiper1Ref}
        scrollEnabled={false}
@@ -81,6 +85,8 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
           </View>
       </Swiper>
 
+      {/* <Swiper autoplayTimeout={1} scrollEnabled={false} ref={swiper2Ref} autoplay={false}  showsPagination={false}> */}
+      {/* <TextInput placeholder="dfghfdshsdfh"  /> */}
       <Swiper autoplayTimeout={1} scrollEnabled={false} ref={swiper2Ref} autoplay={false}  showsPagination={false}>
         <View style={{ width : '100%' , height : '100%' }}>
           <BottomSheet
@@ -103,7 +109,6 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
           title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" 
           subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/>
         </View>
-        
       </Swiper>
        
     </View>

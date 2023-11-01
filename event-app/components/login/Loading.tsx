@@ -1,6 +1,8 @@
 import { StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import Colors from "../../constants/Colors";
 import Icon from "../../components/common/Icon";
+import { useRouter } from "expo-router";
+import Navbar from "../common/Navbar";
 
 const Loading = () => {
   return (

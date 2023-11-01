@@ -1,14 +1,14 @@
 import {
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  View,
-  SafeAreaView,
-  ActivityIndicator,
+    StyleSheet,
+    Text,
+    TouchableNativeFeedback,
+    View,
+    SafeAreaView,
+    ActivityIndicator,
 } from "react-native";
-import React, { FC, useRef, useState } from "react";
+import React, {FC, useRef, useState} from "react";
 import Colors from "../../constants/Colors";
-import { TextInput } from "react-native-gesture-handler";
+import {TextInput} from "react-native-gesture-handler";
 import Icon from "./Icon";
 import axios from 'axios'
 import OTPInputView from "@twotalltotems/react-native-otp-input";
@@ -61,46 +61,41 @@ const BottomSheet: FC<BottomSheetProps> = ({
     useRef<TextInput>(null),
   ];
 
-  const focusInput = (index : number) => {
-    if (index < inputRefs.length - 1) {
-      inputRefs[index + 1]?.current?.focus();
+    const focusInput = (index: number) => {
+        if (index < inputRefs.length - 1) {
+            inputRefs[index + 1]?.current?.focus();
+        }
+    };
+    const handleInput = (value: any, index: number) => {
+        if (value && value.match(/[0-9]/)) {
+            const newOtpCode = [...otpCode];
+            newOtpCode[index] = value;
+            setOtpCode(newOtpCode);
+            focusInput(index);
+        }
+    };
+    const sendSmsHandler = async () => {
+      router.push('/user-panel/home')
+      return
+
+        setBottomSheetLoading(true)
+        try {
+          await axiosInstance.post('api/core/auth/send-sms/',{
+            phone_number : phoneNumber
+          })
+          setCurrentIndex(3);
+          setBottomSheetLoading(false);
+          setLoginStatus(1);
+          ToastMessage(Toast,'با موفقیت ارسال شد','success')
+        }
+        catch(err) {
+          setBottomSheetLoading(false)
+          if(err?.response?.status == 500) 
+            ToastMessage(Toast,'خطا در شبکه','error')
+        else 
+          ToastMessage(Toast,'لطفا شماره را درست وارد کنید ','error')
+        }
     }
-  };
-  const handleInput = (value : any, index : number) => {
-    if (value && value.match(/[0-9]/)) {
-      const newOtpCode = [...otpCode];
-      newOtpCode[index] = value;
-      setOtpCode(newOtpCode);
-      focusInput(index);
-      if(newOtpCode.length == 4 && newOtpCode.every(item => item.length != 0)) {
-         confirmSmsHandler();
-         inputRefs[3]?.current?.blur()
-      }
-       
-    }
-  };
-  const sendSmsHandler = async () => {
-    setBottomSheetLoading(true)
-    try {
-      await axiosInstance.post('api/core/auth/send-sms/',{
-        phone_number : phoneNumber
-      })
-      setCurrentIndex(3);
-      setBottomSheetLoading(false);
-      setLoginStatus(1);
-      setSliderSwipable(false)
-      ToastMessage(Toast,'gfhgfhjfdfj','success')
-    }
-    catch(err : any) {
-      setBottomSheetLoading(false)
-      if(err?.response?.status == 500) 
-        ToastMessage(Toast,'خطا در شبکه','error')
-      else 
-        ToastMessage(Toast,'لطفا شماره را درست وارد کنید','error')
-      
-        
-    }
-  }
   const confirmSmsHandler = async () => {
     console.log(otpCode)
     if(!otpCode.length || otpCode.every(item => item.length == 0)) {
@@ -113,14 +108,14 @@ const BottomSheet: FC<BottomSheetProps> = ({
         phone_number : phoneNumber,
         code : otpCode.join('')
       })
-      // router.push('/user-panel/home')
       setBottomSheetLoading(false)
+      router.push('/user-panel/home')
     }
     catch(err) {
       console.log(err)
       setBottomSheetLoading(false)
       if(err?.response?.status == 500) 
-      ToastMessage(Toast,'خطا در شبکه','error')
+        ToastMessage(Toast,'خطا در شبکه','error')
       else 
         ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error')
     }
@@ -193,7 +188,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
               keyboardType="number-pad"
               value={phoneNumber ? phoneNumber : ''}
               onChangeText={(e : any) => setPhoneNumber(e)}
-              style={{ fontFamily: "bold", width: "88%", textAlign: "right" }}
+              style={{ fontFamily: "bold", width: "88%", textAlign: "right" , direction : 'ltr' }}
               placeholder="شماره تلفن"
               placeholderTextColor={"#7E7E7E"}
             />
@@ -202,16 +197,16 @@ const BottomSheet: FC<BottomSheetProps> = ({
           <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
             <View style={styles.btn} onTouchEnd={sendSmsHandler}>
 
-              {
-                BottomSheetLoading ?  <ActivityIndicator color={'white'} />
-               :  <Text style={styles.btnText}>ورود</Text>
-                }
-            </View>
-          </TouchableNativeFeedback>
+                            {
+                                BottomSheetLoading ? <ActivityIndicator color={'white'}/>
+                                    : <Text style={styles.btnText}>ورود</Text>
+                            }
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
+            )}
         </View>
-      )}
-    </View>
-  );
+    );
 };
 
 export default BottomSheet;
@@ -230,6 +225,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FAFAFA",
     textAlign: "right",
     position: "relative",
+    direction : 'ltr'
   },
   OtpInputContainer : {
     justifyContent : 'flex-end' , 

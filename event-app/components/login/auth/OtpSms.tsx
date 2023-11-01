@@ -11,12 +11,12 @@ type WelcomeType = {
 
 const OtpSms : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex }) => {
   return (
-    <View style={styles.container}>
-        <Icon name="otpBigLogo" style={styles.bigLogo} />
-        <Icon name="otpLogo" style={styles.originLogo} />
-        <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
+    <View style={OTPStyles.container}>
+        <Icon name="otpBigLogo" style={OTPStyles.bigLogo} />
+        <Icon name="otpLogo" style={OTPStyles.originLogo} />
+        <Text style={OTPStyles.title}>سوپر اپلیکیشن سبا</Text>
         {/* <BottomSheet isSmsPage={true} setCurrentIndex={setCurrentIndex}
-         title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره" 
+         title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره"
          subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/> */}
     </View>
   );

@@ -53,7 +53,7 @@ const HomePage  = () => {
   }, [homePageState]);
 
   return (
-   
+
     <View style={{ width : '100%' , height : '100%' }}>
      
         <Swiper 
@@ -63,9 +63,9 @@ const HomePage  = () => {
         index={initialSwierActiveState ? 0 : 1}
         // index={0}
         // keyboardShouldPersistTaps='always'
-        autoplay={initialSwierActiveState} 
+        autoplay={initialSwierActiveState}
         pagingEnabled={padingEnableState}
-        horizontal={false} 
+        horizontal={false}
         scrollEnabled={false}
         showsPagination={false}>
            
@@ -76,7 +76,7 @@ const HomePage  = () => {
                 onIndexChanged={(index) => {
                   setCurrentIndex(index);
                   // currentIndex = index;
-                }} 
+                }}
                 keyboardShouldPersistTaps='handled'
                 renderPagination={(index, total) => {
                 return <PaginatioinComponent CurPage={index} />
