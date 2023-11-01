@@ -1,16 +1,16 @@
 import {View, Text, StyleSheet, SafeAreaView, StatusBar, Button, TouchableNativeFeedback} from "react-native";
-import Icon from "../components/common/Icon";
+import Icon from "../../components/common/Icon";
 import React, {useState} from "react";
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 import {LinearGradient} from "expo-linear-gradient";
-import InfoBottomSheet from "../components/common/InfoBottomSheet";
-import Navbar from "../components/common/Navbar";
+import InfoBottomSheet from "../../components/common/InfoBottomSheet";
+import Navbar from "../../components/common/Navbar";
 
 export default function Home() {
     const [isActivePopup, setIsActivePopup] = useState<boolean>(false)
     return (
         <SafeAreaView style={styles.container}>
-            <Navbar />
+            <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
             <View style={styles.textContainer}>
                 <Text style={{textAlign: 'center', color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>اموزش استفاده از این اپلیکیشن</Text>
                 <Text style={{textAlign: 'center', color: '#fff', fontSize: 16, fontFamily: 'regular'}}>برای مشاهده اموزش های مربوط به این اپلیکیشن میتوانید از دکمه کنار صفحه یا دکمه زیر استفاده کنید</Text>
@@ -22,9 +22,6 @@ export default function Home() {
                     </TouchableNativeFeedback>
                 </View>
             </View>
-            <View>
-                <InfoBottomSheet bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
-            </View>
 
             <Icon name={'shapeGradiant'} style={styles.shapeGradiant}/>
             <View style={styles.info} onTouchEnd={() => {
@@ -32,8 +29,10 @@ export default function Home() {
             }}>
                 <Icon name={'info'}/>
             </View>
-
             <Icon name={'homeShape'} style={styles.shape}/>
+            <View>
+                <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
+            </View>
         </SafeAreaView>
     )
 }
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 62,
         marginTop: 163,
         gap: 10,
-        zIndex:1
+        zIndex: 1
     },
     shape: {
         position: 'absolute',
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     shapeGradiant: {
         position: 'absolute',
         width: '100%',
-        top:-7
+        top: -6
     },
     info: {
         position: 'absolute',

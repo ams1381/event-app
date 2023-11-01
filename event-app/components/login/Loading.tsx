@@ -8,7 +8,6 @@ const Loading = () => {
   const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
-
       <Icon name="baseLogo" />
       {/* <Icon name="bigLogo" style={styles.bigLogo} />
       <Icon name="originLogo" /> */}

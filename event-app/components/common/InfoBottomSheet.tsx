@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet, ScrollView, Image, TouchableNativeFeedback, Animated} from "react-native";
+import {Text, View, StyleSheet, ScrollView, Image, TouchableNativeFeedback, Animated, Dimensions} from "react-native";
 import Colors from "../../constants/Colors";
 import React, {useEffect, useState} from "react";
 import Icon from "./Icon";
@@ -6,20 +6,28 @@ import Icon from "./Icon";
 export default function InfoBottomSheet(p: {
     isActivePopup: any,
     setIsActivePopup: any,
-    bottomSheetOpen: boolean
+    bottomSheetOpen: boolean,
+    toUp:number
 }) {
     const BottomSheetAnimation = useState(new Animated.Value(0))[0];
+    const windowDimensions = Dimensions.get('window');
+    const screenDimensions = Dimensions.get('screen').height;
+
+    const [dimensions, setDimensions] = useState({
+        window: windowDimensions,
+        screen: screenDimensions,
+    });
     useEffect(() => {
         if (p.isActivePopup) {
             Animated.timing(BottomSheetAnimation, {
                 toValue: 1,
-                duration: 1000,
+                duration: 300,
                 useNativeDriver: false,
             }).start();
         } else {
             Animated.timing(BottomSheetAnimation, {
-                toValue: 0,
-                duration: 1000,
+                toValue: -1,
+                duration: 300,
                 useNativeDriver: false,
             }).start()
         }
@@ -32,7 +40,7 @@ export default function InfoBottomSheet(p: {
             transform: [{
                 translateY: BottomSheetAnimation.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [1000, -320]
+                    outputRange: [1000, p.toUp]
                 })
             }]
         }}>
@@ -67,10 +75,9 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         backgroundColor: Colors.whiteColor,
-        height: '100%',
         position: 'absolute',
-        // bottom: 0,
-        // zIndex: 1,
+        bottom: 0,
+        zIndex: 1,
         borderTopEndRadius: 24,
         borderTopStartRadius: 24,
         paddingVertical: 24,
@@ -79,7 +86,9 @@ const styles = StyleSheet.create({
     Y: {
         width: '100%',
         height: '100%',
-        zIndex: 2
+        zIndex: 2,
+        position: 'absolute',
+        top: 350,
     },
     itemContainer: {
         width: '100%',

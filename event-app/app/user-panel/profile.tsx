@@ -17,17 +17,21 @@ import EditName from "../../components/popup/Profile/editName";
 import EditPhoneNumber from "../../components/popup/Profile/editPhoneNumber";
 import EditEmail from "../../components/popup/Profile/editEmail";
 import Shadow from "../../components/popup/shdow";
+import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 
 const profile = () => {
     const [editName, setEditName] = useState<boolean>(false)
     const [phoneNumber, setPhoneNumber] = useState<boolean>(false)
     const [email, setEmail] = useState<boolean>(false)
+    const [isActivePopup, setIsActivePopup] = useState<boolean>(false)
     return (
         <SafeAreaView style={styles.container}>
+
             <EditName editName={editName} setEditName={setEditName}/>
             <EditPhoneNumber phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}/>
             <EditEmail email={email} setEmail={setEmail}/>
-            <Navbar/>
+            <Navbar isActivePopup={isActivePopup}
+                    setIsActivePopup={setIsActivePopup}/>
             <Shadow isActive={editName} setIsActive={setEditName}/>
             <Shadow isActive={phoneNumber} setIsActive={setPhoneNumber}/>
             <Shadow isActive={email} setIsActive={setEmail}/>
@@ -96,6 +100,7 @@ const profile = () => {
                     </View>
                 </View>
             </View>
+            <InfoBottomSheet toUp={268} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup} bottomSheetOpen={isActivePopup}/>
         </SafeAreaView>
     );
 };
