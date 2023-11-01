@@ -157,7 +157,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
                     </View>
                     <View style={styles.btnSmsContainer}>
                         <TouchableNativeFeedback style={{borderRadius: 16}}>
-                            <View style={styles.btnSms} onTouchEnd={() => router.push('/user-panel/profile')}>
+                            <View style={styles.btnSms} onTouchEnd={() => router.push('/user-panel/')}>
                                 <Text style={styles.btnSmsText}>تایید</Text>
                             </View>
                         </TouchableNativeFeedback>

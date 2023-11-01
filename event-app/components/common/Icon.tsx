@@ -43,6 +43,7 @@ const iconImages: IconImages = {
   X:require('./../../assets/images/X.png'),
   navbarLogo:require('./../../assets/images/navbarLogo.png'),
   search:require('./../../assets/images/Search.png'),
+  arrowLeft:require('./../../assets/images/Arrow-Left.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

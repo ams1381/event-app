@@ -24,5 +24,6 @@ export default {
   border:'#E4E4E4',
   secondary:'#EEE',
   popup: "rgba(0, 0, 0, 0.10)",
-  secondaryBg:'#FAFAFA'
+  secondaryBg:'#FAFAFA',
+  primaryOpacity:'#CEE9EB'
 };

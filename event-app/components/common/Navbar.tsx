@@ -9,7 +9,6 @@ export default function Navbar(p: { isActivePopup: any, setIsActivePopup: any })
             <Icon name={'navbarLogo'}/>
             <View onTouchEnd={() => {
                 p.setIsActivePopup(!p.isActivePopup)
-                console.log('sacascasc')
             }}>
                 <Icon name={'info'}/>
             </View>
