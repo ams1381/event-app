@@ -50,12 +50,12 @@ const BottomSheet: FC<BottomSheetProps> = ({
     useRef<TextInput>(null),
   ];
 
-  const focusInput = (index) => {
+  const focusInput = (index : number) => {
     if (index < inputRefs.length - 1) {
-      inputRefs[index + 1].current.focus();
+      inputRefs[index + 1]?.current?.focus();
     }
   };
-  const handleInput = (value, index) => {
+  const handleInput = (value : any, index : number) => {
     if (value && value.match(/[0-9]/)) {
       const newOtpCode = [...otpCode];
       newOtpCode[index] = value;
