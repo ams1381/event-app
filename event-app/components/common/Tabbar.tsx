@@ -1,6 +1,7 @@
 import { View , Text , StyleSheet , TouchableNativeFeedback } from 'react-native'
 import Icon from './Icon'
 import { useRouter } from 'expo-router'
+import { LinearGradient } from 'expo-linear-gradient'
 
 type TabBarProp = {
     TabName : string ,
@@ -26,7 +27,10 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                         }],
                         marginHorizontal : 20,
                         }}>
-                        <View style={{ width : 80 , 
+                        <LinearGradient colors={[
+                            '#44898E',
+                            '#2CABB4'
+                        ]} style={{ width : 80 , 
                             height : 80 ,  
                             borderRadius : 67 , 
                             backgroundColor : '#44898E' ,
@@ -34,7 +38,7 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                             justifyContent : 'center'
                             }}>
                              <Icon name='ActiveUser' /> 
-                        </View>
+                        </LinearGradient>
                     </View> : <View onTouchEnd={() => {
                         router.push('/user-panel/profile')
                         setCurrentTab('User')
@@ -57,7 +61,10 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                         }],
                         marginHorizontal : 20,
                         }}>
-                        <View style={{ width : 80 , 
+                        <LinearGradient colors={[
+                            '#44898E',
+                            '#2CABB4'
+                        ]} style={{ width : 80 , 
                             height : 80 ,  
                             borderRadius : 67 , 
                             backgroundColor : '#44898E' ,
@@ -65,7 +72,7 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                             justifyContent : 'center'
                             }}>
                              <Icon name='ActiveCart' /> 
-                        </View>
+                        </LinearGradient>
                     </View> : <View style={{ width : '100%' , height : '100%' , justifyContent : 'center' , alignItems : 'center' }}>
                         <Icon name='Cart' /> 
                     </View> }
@@ -86,7 +93,10 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                         }],
                         marginHorizontal : 20,
                         }}>
-                        <View style={{ width : 80 , 
+                        <LinearGradient colors={[
+                            '#44898E',
+                            '#2CABB4'
+                        ]} style={{ width : 80 , 
                             height : 80 ,  
                             borderRadius : 67 , 
                             backgroundColor : '#44898E' ,
@@ -94,7 +104,7 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                             justifyContent : 'center'
                             }}>
                              <Icon name='HomeActive' /> 
-                        </View>
+                        </LinearGradient>
                     </View> : <View onTouchEnd={() => {
                          router.push('/user-panel/')
                          setCurrentTab('Home')
@@ -118,7 +128,10 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                         }],
                         marginHorizontal : 20,
                         }}>
-                        <View style={{ width : 80 , 
+                        <LinearGradient colors={[
+                            '#44898E',
+                            '#2CABB4'
+                        ]} style={{ width : 80 , 
                             height : 80 ,  
                             borderRadius : 67 , 
                             backgroundColor : '#44898E' ,
@@ -126,7 +139,7 @@ export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName
                             justifyContent : 'center'
                             }}>
                              <Icon name='ActiveCart' /> 
-                        </View>
+                        </LinearGradient>
                     </View> : <View style={{ width : '100%' , height : '100%' , justifyContent : 'center' , alignItems : 'center' }}>
                     <Icon name='Cart' /> 
                 </View> }

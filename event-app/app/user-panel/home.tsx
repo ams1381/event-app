@@ -59,7 +59,7 @@ export default function Home() {
             {/* <BlurView  intensity={100}> */}
                 <LinearGradient  onTouchEnd={() => { 
                     setIsActivePopup(false)
-                    router.push('/user-panel/profile')
+                    router.push('/user-panel/')
                 }} style={{
                     width : '100%', height : '150%' , position : 'absolute' , bottom : 0 , zIndex : 0 }} 
                     colors={['#85c2c678', '#539fa4']} />

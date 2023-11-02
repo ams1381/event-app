@@ -13,7 +13,8 @@ import Colors from "../../constants/Colors";
 import Icon from "../../components/common/Icon";
 import {Image} from "react-native";
 import Swiper from "react-native-swiper";
-import {LinearGradient} from "expo-linear-gradient";
+import DatePicker from '@mohamadkh75/react-native-jalali-datepicker';
+import { LinearGradient } from "expo-linear-gradient";
 import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import {TabBarComponent} from "../../components/common/Tabbar";
 import {axiosInstance} from "../../Utills/axios";
@@ -27,11 +28,10 @@ interface Product {
 }
 
 const index = () => {
-    const router = useRouter();
-    const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-    const [data, setData] = useState([]);
-    const [productData, setProductData] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+  const router = useRouter();
+  const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
+  const [data, setData] = useState([]);
+  const [productData, setProductData] = useState<Product[]>([]);
 
     useEffect(() => {
         setIsLoading(true)

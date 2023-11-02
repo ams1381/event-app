@@ -62,6 +62,8 @@ const iconImages: IconImages = {
   arroLeftWhite:require('./../../assets/images/Arrow-LeftWhite.png'),
   plusIcon:require('./../../assets/images/plus.png'),
   filter:require('./../../assets/images/Filter.png'),
+  LoginPen:require('./../../assets/images/LoginPen.png'),
+  // LoginPen
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {
