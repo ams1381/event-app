@@ -2,12 +2,16 @@ import { View , Text , StyleSheet } from "react-native"
 import Colors from "../../constants/Colors"
 
 type PaginationProp = {
-    CurPage : number
+    CurPage : number ,
+    otpBackground : boolean
 }
 
-export const PaginatioinComponent : React.FC<PaginationProp> = ({ CurPage }) => {
+export const PaginatioinComponent : React.FC<PaginationProp> = ({ CurPage , otpBackground }) => {
     return (
-        <View style={PaginationStyle.PaginationContainer}>
+        <View style={{
+            ...PaginationStyle.PaginationContainer ,
+            backgroundColor : otpBackground ? Colors.primary : 'white'
+            }}>
             <View style={PaginationStyle.PaginationInnerContainer}>
                 {Array.from({ length : 3 }).map((_,index : number) => <View key={index}>
                 <View style={{
@@ -29,7 +33,8 @@ const PaginationStyle = StyleSheet.create({
         bottom : 18,
         // marginBottom : 18,
         alignItems : 'center',
-        justifyContent : 'center'
+        justifyContent : 'center',
+        // zIndex : 2222,
     },
     PaginationInnerContainer : {
         width : 200,

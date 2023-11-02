@@ -101,7 +101,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
         }
     }
   const confirmSmsHandler = async () => {
-    console.log(otpCode)
+
     if(!otpCode.length || otpCode.every(item => item.length == 0)) {
       ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error');
       return
@@ -116,7 +116,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
       router.push('/user-panel/home')
     }
     catch(err) {
-      console.log(err)
+
       setBottomSheetLoading(false)
       if(err?.response?.status == 500) 
         ToastMessage(Toast,'خطا در شبکه','error')
