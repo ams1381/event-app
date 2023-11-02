@@ -3,20 +3,20 @@ import {Button, View, Modal, StyleSheet, Text, ScrollView, TextInput, TouchableO
 import Icon from "../../common/Icon";
 import Colors from "../../../constants/Colors";
 import DatePicker from "@mohamadkh75/react-native-jalali-datepicker";
-import { SelectList } from 'react-native-dropdown-select-list'
+import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
 //
-const App = (p:{modalVisible:any,setModalVisible:any}) => {
+const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
     const [selected, setSelected] = React.useState("");
 
     const data = [
-        {key:'1', value:'سشیشسط', disabled:true},
-        {key:'2', value:'شسشسیشسی'},
-        {key:'3', value:'شسیشسیشسی'},
-        {key:'4', value:'شسیشسیشسی', disabled:true},
-        {key:'5', value:'شسیشسیشسی'},
-        {key:'6', value:'شسی شسی'},
-        {key:'7', value:'شسیشسی'},
+        {key: '1', value: 'سشیشسط', disabled: true},
+        {key: '2', value: 'شسشسیشسی'},
+        {key: '3', value: 'شسیشسیشسی'},
+        {key: '4', value: 'شسیشسیشسی', disabled: true},
+        {key: '5', value: 'شسیشسیشسی'},
+        {key: '6', value: 'شسی شسی'},
+        {key: '7', value: 'شسیشسی'},
     ]
     // const [data,setData] = useState([])
     // useEffect(() => {
@@ -41,25 +41,37 @@ const App = (p:{modalVisible:any,setModalVisible:any}) => {
                             <View onTouchEnd={() => p?.setModalVisible(false)}>
                                 <Icon name={'X'}/>
                             </View>
-                            <Text style={styles.headText}>ایجاد محصول</Text>
+                            <Text style={styles.headText}>فیلتر</Text>
                         </View>
                         <View style={{paddingHorizontal: 16}}>
                             <View style={styles.searchBar}>
-                                <TextInput style={{width: '100%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'نام محصول'} placeholderTextColor={'#7E7E7E'}/>
+                                <TextInput style={{width: '90%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'جستجو'} placeholderTextColor={'#7E7E7E'}/>
+                                <Icon name={'search'}/>
                             </View>
-                            <View>
-                                <Text style={{color:'#0F393D',fontFamily:'bold',fontSize:20,marginTop:10}}>نوع محصول</Text>
+                            <View >
+                                <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>نوع محصول</Text>
                                 <SelectList
-                                    setSelected={(val:any) => setSelected(val)}
+                                    setSelected={(val: any) => setSelected(val)}
                                     data={data}
                                     fontFamily='bold'
                                     onSelect={() => alert(selected)}
                                     label="Categories"
                                     save="value"
-                                    boxStyles={{borderColor: '#eee',borderWidth: 1,direction:'ltr'}}
-                                    arrowicon={<Icon name="arrowDown" />}
+                                    closeicon={<Icon name="X"/>}
+                                    placeholder={'انتخاب کنید'}
+                                    searchPlaceholder={'جستجو کنید'}
+                                    boxStyles={{borderColor: '#eee',flexDirection:'row-reverse', borderWidth: 1, direction: 'ltr'}}
+                                    arrowicon={<Icon name="arrowDown"/>}
                                     // searchicon={<FontAwesome name="search" size={12} color={'black'} />}
                                 />
+                            </View>
+                            <View style={{flexDirection: 'row', gap: 10, marginTop: 10}}>
+                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#CEE9EB', borderRadius: 12}}>
+                                    <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#44898E'}}>اعمال فیلتر</Text>
+                                </View>
+                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#E4E4E4', borderRadius: 12}}>
+                                    <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#B46A63'}}>لغو</Text>
+                                </View>
                             </View>
                             {/*<View style={{*/}
                             {/*    flexDirection: 'row',*/}
@@ -124,8 +136,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#EEE',
         borderBottomWidth: 1,
         backgroundColor: '#FAFAFA',
-        borderTopEndRadius:24,
-        borderTopStartRadius:24,
+        borderTopEndRadius: 24,
+        borderTopStartRadius: 24,
     },
     headText: {
         color: Colors.primary,
@@ -144,4 +156,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default FilterProduct;

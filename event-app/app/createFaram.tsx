@@ -31,38 +31,38 @@ export default function CreateFaram() {
 
     const confirmSmsHandler = () => {
         if (name?.length && area?.length)
-        axiosInstance.post('/api/farm/farms/', {
-            name: name?.trim(),
-            area: area,
-            location: {
-                "latitude": 0,
-                "longitude": 0
-            },
-        }).then(res => {
-            if (res.status === 201) {
+            axiosInstance.post('/api/farm/farms/', {
+                name: name?.trim(),
+                area: area,
+                location: {
+                    "latitude": 0,
+                    "longitude": 0
+                },
+            }).then(res => {
+                if (res.status === 201) {
+                    Toast.show({
+                        type: 'success',
+                        position: 'top',
+                        text1: 'با موفقیت ایجاد شد.',
+                    });
+                    setArea('')
+                    setName('')
+                }
+            }).catch(err => {
+                const ERROR_MESSAGE =
+                    err?.response?.data[Object.keys(err?.response?.data)[0]];
                 Toast.show({
-                    type: 'success',
+                    type: 'error',
                     position: 'top',
-                    text1: 'با موفقیت ایجاد شد.',
+                    text1: ERROR_MESSAGE,
                 });
-                setArea('')
-                setName('')
-            }
-        }).catch(err => {
-            const ERROR_MESSAGE =
-                err?.response?.data[Object.keys(err?.response?.data)[0]];
-            Toast.show({
-                type: 'error',
-                position: 'top',
-                text1: ERROR_MESSAGE,
-            });
-        })
+            })
     }
 
     return (
         <View style={styles.container}>
             <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
-            <Toast ref={(ref) => Toast.setRef(ref)}/>
+                <Toast ref={(ref) => Toast.setRef(ref)}/>
             <ScrollView style={styles.localContainer}>
 
                 <View>
@@ -75,12 +75,17 @@ export default function CreateFaram() {
                 <Text style={{color: '#2E6F73', fontSize: 20, fontFamily: 'bold', marginTop: 14}}>
                     موقعیت مکانی زمین
                 </Text>
-                <MapView initialRegion={{
-                    latitude: 18.978189,
-                    longitude: 73.024911,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }} style={styles.map}/>
+                <View style={{
+                    width: '100%', marginTop: 8, alignItems: 'center',
+                    justifyContent: 'center', overflow: 'hidden', borderRadius: 12
+                }}>
+                    <MapView initialRegion={{
+                        latitude: 18.978189,
+                        longitude: 73.024911,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }} style={styles.map}/>
+                </View>
 
                 <View style={styles.btnSmsContainer}>
                     <TouchableNativeFeedback style={{borderRadius: 16}}>
@@ -101,10 +106,9 @@ const styles = StyleSheet.create({
         paddingVertical: StatusBar.currentHeight,
     },
     map: {
-        width: "100%",
+        width: "110%",
         height: 200,
         borderRadius: 12,
-        marginTop: 8
     },
     localContainer: {paddingHorizontal: 16},
     input: {
