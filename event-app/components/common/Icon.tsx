@@ -66,6 +66,7 @@ const iconImages: IconImages = {
   arrowDown:require('./../../assets/images/Arrow-Down.png'),
   datePicker:require('./../../assets/images/Calendar.png'),
   datePicker2:require('./../../assets/images/Calendar2.png'),
+  datePicker3:require('./../../assets/images/Calendar3.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

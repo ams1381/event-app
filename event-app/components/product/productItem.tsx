@@ -3,7 +3,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import Colors from "../../constants/Colors";
 import {Image} from "expo-image";
 import React from "react";
-import { useRouter } from "expo-router";
+import {useRouter} from "expo-router";
 
 
 export default function ProductItem(p: { item: any }) {
@@ -200,23 +200,19 @@ export default function ProductItem(p: { item: any }) {
                     width: "30%",
                     alignItems: "center",
                     justifyContent: "center",
-                    backgroundColor: p?.item?.category.hex,
+                    backgroundColor: p?.item?.category.hex + '10',
                     borderTopRightRadius: 12,
                     borderBottomRightRadius: 12,
                 }}
             >
-                <View style={{alignItems: "center", gap: 5}}>
+                <View style={{alignItems: "center",paddingVertical:10, gap: 10}}>
                     <Image
-                        // source={require('./../../assets/images/navbarLogo.png')}
-                        // source={{
-                        //     uri:item?.category?.icon
-                        // }}
-                        style={{width: 33.52, height: 33.52}}
+                        style={{width: 34.52, height: 40}}
                         source={{uri: p?.item?.category?.icon}}
                     />
                     <Text
                         style={{
-                            color: p?.item?.category?.text_hex,
+                            color: p?.item?.category.hex,
                             fontFamily: "bold",
                             fontSize: 16,
                         }}
@@ -237,7 +233,7 @@ export const styles = StyleSheet.create({
     },
     localContainer: {
         paddingHorizontal: 16,
-        marginBottom:80
+        marginBottom: 80
     },
     filterHeader: {
         flexDirection: "row",

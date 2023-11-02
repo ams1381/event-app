@@ -5,7 +5,8 @@ import Colors from "../../../constants/Colors";
 import DatePicker from "@mohamadkh75/react-native-jalali-datepicker";
 import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
-import {log} from "util";
+
+import Checkbox from 'expo-checkbox';
 //
 const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
     const [selected, setSelected] = React.useState("");
@@ -25,13 +26,13 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
         label: item?.id,
     }));
 
-    const findTypeOfProduct = (param:any) => {
+    const findTypeOfProduct = (param: any) => {
         const selectItem = datas.find(item => {
-             return item?.title === param
+            return item?.title === param
         })
         console.log(selectItem?.id)
     }
-
+    const [isChecked, setChecked] = useState(false);
     return (
         <View style={styles.container}>
             <Modal
@@ -58,7 +59,7 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
                             <View>
                                 <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>نوع محصول</Text>
                                 <SelectList
-                                    setSelected={(val: any) =>  findTypeOfProduct(val)}
+                                    setSelected={(val: any) => findTypeOfProduct(val)}
                                     data={formattedArray}
                                     fontFamily='bold'
                                     label="Categories"
@@ -67,17 +68,34 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
                                     closeicon={<Icon name="X"/>}
                                     placeholder={'انتخاب کنید'}
                                     searchPlaceholder={'جستجو کنید'}
-                                    boxStyles={{borderColor: '#eee',borderRadius: 16, marginTop: 10, flexDirection: 'row-reverse', borderWidth: 1, direction: 'ltr', paddingVertical: 15}}
+                                    boxStyles={{borderColor: '#eee', borderRadius: 16, marginTop: 10, flexDirection: 'row-reverse', borderWidth: 1, direction: 'ltr', paddingVertical: 15}}
                                     arrowicon={<Icon name="arrowDown"/>}
 
                                 />
                             </View>
-                            <Icon name={'datePicker'} style={styles.datePicker}/>
+                            <Icon name={'datePicker3'} style={styles.datePicker}/>
+                            <View style={{flexDirection: 'row', alignItems: 'baseline',justifyContent:'flex-end'}}>
+                                <Text style={{
+                                    fontFamily: 'regular',
+                                    fontSize: 14,
+                                    marginTop: 15
+                                }}>مطابق با پیشنهاد</Text>
+                                <Checkbox
+                                    style={styles.checkbox}
+                                    value={isChecked}
+                                    onValueChange={setChecked}
+                                    color={isChecked ? '#4630EB' : undefined}
+                                />
+                            </View>
                             <View style={{flexDirection: 'row', gap: 10, marginTop: 10}}>
-                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#CEE9EB', borderRadius: 12}}>
+                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#CEE9EB', borderRadius: 12}} onTouchEnd={() => {
+                                    p.setModalVisible(false)
+                                }}>
                                     <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#44898E'}}>اعمال فیلتر</Text>
                                 </View>
-                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#E4E4E4', borderRadius: 12}}>
+                                <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#E4E4E4', borderRadius: 12}} onTouchEnd={() => {
+                                    p.setModalVisible(false)
+                                }}>
                                     <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#B46A63'}}>لغو</Text>
                                 </View>
                             </View>
@@ -163,11 +181,16 @@ const styles = StyleSheet.create({
         gap: 10,
         marginTop: 10
     },
-    datePicker:{
-        marginTop:10,
-        width:'100%',
-        height:400
-    }
+    datePicker: {
+        marginTop: 20,
+        width: '100%',
+        height: 310,
+    },
+    checkbox: {
+        marginLeft: 8,
+        width: 15,
+        height: 15,
+    },
 });
 
 export default FilterProduct;
