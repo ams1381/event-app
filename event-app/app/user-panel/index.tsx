@@ -584,7 +584,8 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
                         <View style={{ marginBottom : 260 }}>
-                            {/* <Image source={require('')} /> */}
+                            <Icon name="datePicker" />
+                            <Image style={{ width : 300 , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
                         </View>
                         <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
