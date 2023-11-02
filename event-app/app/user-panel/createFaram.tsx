@@ -1,9 +1,9 @@
 import {Text, View, StyleSheet, StatusBar, TextInput, ScrollView, TouchableNativeFeedback, ActivityIndicator} from "react-native";
-import Navbar from "../components/common/Navbar";
+import Navbar from "../../components/common/Navbar";
 import React, {useState} from "react";
 import MapView from 'react-native-maps';
-import Colors from "../constants/Colors";
-import {axiosInstance} from "../Utills/axios";
+import Colors from "../../constants/Colors";
+import {axiosInstance} from "../../Utills/axios";
 import Toast from "react-native-toast-message";
 // import Toast from 'react-native-toast-message';
 
@@ -60,42 +60,9 @@ export default function CreateFaram() {
     }
 
     return (
-        <View style={styles.container}>
-            <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
-                <Toast ref={(ref) => Toast.setRef(ref)}/>
-            <ScrollView style={styles.localContainer}>
-
-                <View>
-                    <TextInput value={name} onChangeText={(e) => setName(e)} style={styles.input} placeholderTextColor={'#7E7E7E'} placeholder={'نام زمین'}/>
-                </View>
-                <View>
-                    <TextInput value={area} keyboardType={'number-pad'} onChangeText={(e) => setArea(e)} style={styles.input} placeholderTextColor={'#7E7E7E'} placeholder={'متراژ'}/>
-                </View>
-
-                <Text style={{color: '#2E6F73', fontSize: 20, fontFamily: 'bold', marginTop: 14}}>
-                    موقعیت مکانی زمین
-                </Text>
-                <View style={{
-                    width: '100%', marginTop: 8, alignItems: 'center',
-                    justifyContent: 'center', overflow: 'hidden', borderRadius: 12
-                }}>
-                    <MapView initialRegion={{
-                        latitude: 18.978189,
-                        longitude: 73.024911,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }} style={styles.map}/>
-                </View>
-
-                <View style={styles.btnSmsContainer}>
-                    <TouchableNativeFeedback style={{borderRadius: 16}}>
-                        <View style={styles.btnSms} onTouchEnd={() => confirmSmsHandler()}>
-                            <Text style={styles.btnSmsText}>ایجاد</Text>
-                        </View>
-                    </TouchableNativeFeedback>
-                </View>
-            </ScrollView>
-        </View>
+       <View>
+           <Text>acasc</Text>
+       </View>
     )
 }
 
@@ -147,3 +114,39 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 })
+
+// <View style={styles.container}>
+//             <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
+//                 <Toast ref={(ref) => Toast.setRef(ref)}/>
+//             <ScrollView style={styles.localContainer}>
+//                 <View>
+//                     <TextInput value={name} onChangeText={(e) => setName(e)} style={styles.input} placeholderTextColor={'#7E7E7E'} placeholder={'نام زمین'}/>
+//                 </View>
+//                 <View>
+//                     <TextInput value={area} keyboardType={'number-pad'} onChangeText={(e) => setArea(e)} style={styles.input} placeholderTextColor={'#7E7E7E'} placeholder={'متراژ'}/>
+//                 </View>
+//
+//                 <Text style={{color: '#2E6F73', fontSize: 20, fontFamily: 'bold', marginTop: 14}}>
+//                     موقعیت مکانی زمین
+//                 </Text>
+//                 <View style={{
+//                     width: '100%', marginTop: 8, alignItems: 'center',
+//                     justifyContent: 'center', overflow: 'hidden', borderRadius: 12
+//                 }}>
+//                     <MapView initialRegion={{
+//                         latitude: 32.4279,
+//                         longitude: 53.6880,
+//                         latitudeDelta: 5,
+//                         longitudeDelta: 5,
+//                     }} style={styles.map}/>
+//                 </View>
+//
+//                 <View style={styles.btnSmsContainer}>
+//                     <TouchableNativeFeedback style={{borderRadius: 16}}>
+//                         <View style={styles.btnSms} onTouchEnd={() => confirmSmsHandler()}>
+//                             <Text style={styles.btnSmsText}>ایجاد</Text>
+//                         </View>
+//                     </TouchableNativeFeedback>
+//                 </View>
+//             </ScrollView>
+//         </View>
