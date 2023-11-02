@@ -64,6 +64,10 @@ const iconImages: IconImages = {
   filter:require('./../../assets/images/Filter.png'),
   LoginPen:require('./../../assets/images/LoginPen.png'),
   arrowDown:require('./../../assets/images/Arrow-Down.png'),
+  SwiperLeftArrow:require('./../../assets/images/SwiperLeftArrow.png'),
+  SwiperRightArraow:require('./../../assets/images/SwiperRightArraow.png'),
+  // SwiperLeftArrow
+  // SwiperRightArraow
 
 };
 

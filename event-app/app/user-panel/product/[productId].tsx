@@ -1,9 +1,10 @@
-import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions  } from "react-native";
+import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions, SafeAreaView  } from "react-native";
 import React, {useEffect, useState} from "react";
 import Navbar from "../../../components/common/Navbar";
 import Icon from "../../../components/common/Icon";
 import Colors from "../../../constants/Colors";
 import {LinearGradient} from "expo-linear-gradient";
+import moment from 'jalali-moment';
 import {axiosInstance} from "../../../Utills/axios";
 import {useRouter} from "expo-router";
 import {useRoute} from "@react-navigation/native";
@@ -25,6 +26,7 @@ const Index = () => {
             try 
             {
                 let { data } = await axiosInstance.get(`api/farm/products/${router.params?.productID}/`);
+                console.warn(data)
                 // console.log(data)
                 setProductData(data);
             }
@@ -35,7 +37,7 @@ const Index = () => {
         RetrieveProduct()
     }, []);
     return (
-        <>
+        <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
             <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
             <View style={ProductStyles.ProductContainer}>
                 <ScrollView style={{  width : '92%' }}>
@@ -66,11 +68,13 @@ const Index = () => {
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>وضعیت :</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{convertGregorianToJalali(convertToRegularTime(productData.created_at))}</Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ ایجاد :</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>
+                                    {productData.product_analysis ? convertGregorianToJalali(productData.product_analysis.estimated_harvest_date) : ''}
+                                    </Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ تخمین برداشت :</Text>
                             </View>
                             <View>
@@ -80,7 +84,10 @@ const Index = () => {
                                 </View>
                             
                         </View>
-                        <View style={ProductStyles.ProductChartContainer}>
+                        <View style={{
+                            ...ProductStyles.ProductChartContainer,
+                            marginBottom : productData.product_analysis ? 0 : 220
+                            }}>
                             <View>
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>آمار</Text>
                             </View>
@@ -89,15 +96,16 @@ const Index = () => {
                             </View>
                         </View>
                         {/* productData.product_analysis && */}
-                      { <View style={{
+                       { productData.product_analysis && <View style={{
                         ...ProductStyles.ProcutRecommandContainer ,
+                        marginBottom : 100
                         }}>
                             <View>
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
                             </View>
                             <View style={{ padding : 16 , borderWidth : 1 ,borderColor : '#EEE' , marginTop : 10 }}>
                                 <Text>
-                                gnmghmghgnmghmgh gnmghmgh gnmghmgh gnmghmgh
+                                { productData.product_analysis?.description }
                                 </Text>
                                 <View>
                                     <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#2E6F73' }}>مشاهده آموزش</Text>
@@ -112,7 +120,7 @@ const Index = () => {
                 </ScrollView>
             </View> 
             
-        </>
+            </SafeAreaView>
     )
    
 }
@@ -129,19 +137,11 @@ export function convertToRegularTime(dateTimeString : string) {
   
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-  export const convertDate = (inputDate : string, dateType : string) => {
-    const [year, month, day] = inputDate.split('-');
-  
-    if (dateType === 'jalali') {
-      const jDate = jalaali.toJalaali(parseInt(year), parseInt(month), parseInt(day));
-      return `${jDate.jy}/${jDate.jm}/${jDate.jd}`;
-    } else if (dateType === 'gregorian') {
-      const gDate = jalaali.toGregorian(parseInt(year), parseInt(month), parseInt(day));
-      return `${gDate.gy}-${String(gDate.gm).padStart(2, '0')}-${String(gDate.gd).padStart(2, '0')}`;
-    }
-  
-    return inputDate; // Return input date if no conversion needed
-  };
+  function convertGregorianToJalali(gregorianDate : any) {
+    // Convert the Gregorian date to a Jalali date using the jalali-moment library.
+    const jalaliDate = moment(gregorianDate, 'YYYY-MM-DD').format('jYYYY/jM/jD');
+    return jalaliDate;
+  }
 export default Index;
 
 const ProductStyles = StyleSheet.create({

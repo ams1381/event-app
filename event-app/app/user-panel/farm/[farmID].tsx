@@ -1,17 +1,19 @@
 import { useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { View , Text, ScrollView, Dimensions, StatusBar, SafeAreaView } from 'react-native'
+import { View , Text, ScrollView, Dimensions, StatusBar, SafeAreaView, TouchableNativeFeedback } from 'react-native'
 import { axiosInstance } from '../../../Utills/axios';
 import { Image } from 'expo-image';
 import Navbar from '../../../components/common/Navbar';
 import Swiper from 'react-native-swiper';
 import MapView from 'react-native-maps';
 import ProductItem from '../../../components/product/productItem';
+import Icon from '../../../components/common/Icon';
 
 const FarmPage = () => {
     const route = useRoute();
     const [ landData , setLandData ] = useState(null);
     const [ profuctsData , setProductsData ] = useState(null);
+    const [ recommandsSwiperIndex , setRecommandsSwiperIndex ] = useState(0)
     const [isActivePopup, setIsActivePopup] = useState(false);
     // console.log(route.params?.farmID?.replace('farm',''))
     useEffect(() => {
@@ -39,8 +41,7 @@ const FarmPage = () => {
         FarmRetrieve();
         GetProducts()
     },[])
-    if(landData)
-        console.warn(landData)
+
     return landData ? <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
         <StatusBar backgroundColor={"#fff"} />
         <Navbar
@@ -90,29 +91,31 @@ const FarmPage = () => {
             <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
                 پیشنهادات سامانه    
             </Text>
-            <Swiper style={{ width : '100%' , marginTop : 10 }} scrollEnabled={true} showsButtons={true}>
-                <View style={{ width : '100%' , height : '100%' , alignItems : 'center' }}>
+            
+            <Swiper onIndexChanged={(newIndex : number) => setRecommandsSwiperIndex(newIndex)} index={recommandsSwiperIndex} prevButton={<Icon name='SwiperLeftArrow' />}
+             nextButton={<TouchableNativeFeedback><Icon name='SwiperRightArraow' /></TouchableNativeFeedback>} autoplay style={{ width : '100%' , marginTop : 10 , alignItems : 'center' }} showsButtons={true}>
+                <View style={{ width : '100%' , height : '100%' ,  backgroundColor : 'green' }}>
                     <View style={{ width : '100%' , height : '100%' , alignItems : 'center' }}>
                         <View style={{ width : '85%' , alignItems : 'center' }}>
-                            <Text style={{ fontFamily : 'regular' }}>
-                            طبق پیشبینی ها از وضعیت اینده بازار و موقعیت مکانی زمین شما بهتر است بهتر است زمین خودرا به کاشت درخت سیب اختصاص دهید
+                            <Text style={{ fontFamily : 'regular' , padding : 10 }}>
+                           aدfgjfgjgfjfg
                             </Text>
                         </View> 
                     </View>
                 </View>
-                <View  style={{ width : '100%'  , backgroundColor : 'blue' }}>
+                <View  style={{ width : '100%' , height : '100%' }}>
                     <View style={{ width : '100%' ,  height : '100%' , alignItems : 'center' }}>
                         <View style={{ width : '85%' , alignItems : 'center' }}>
-                            <Text style={{ fontFamily : 'regular' }}>
+                            <Text style={{ fontFamily : 'regular' , padding : 10 }}>
                             طبق پیشبینی ها از وضعیت اینده بازار و موقعیت مکانی زمین شما بهتر است بهتر است زمین خودرا به کاشت درخت سیب اختصاص دهید
                             </Text>
                         </View> 
                         </View>
                 </View>
-                <View  style={{ width : '100%' ,  height : '100%'  }}>
+                <View  style={{ width : '100%' ,  height : '100%'   }}>
                 <View style={{ width : '100%' ,  height : '100%'  , alignItems : 'center' }}>
-                        <View style={{ width : '85%' , alignItems : 'center'}}>
-                            <Text style={{ fontFamily : 'regular' }}>
+                        <View style={{ width : '85%' , alignItems : 'center' }}>
+                            <Text style={{ fontFamily : 'regular' , padding : 10 }}>
                             طبق پیشبینی ها از وضعیت اینده بازار و موقعیت مکانی زمین شما بهتر است بهتر است زمین خودرا به کاشت درخت سیب اختصاص دهید
                             </Text>
                         </View> 
@@ -132,10 +135,7 @@ const FarmPage = () => {
                     مقعیت مکانی زمین
             </Text>
             <View style={{ width : '100%' , marginTop : 16  , overflow : 'hidden' , borderRadius : 16 , alignItems : 'center' , justifyContent : 'center' }}>
-            <MapView initialRegion={{
-                latitudeDelta : landData?.latitude,
-                longitudeDelta : landData?.longitude
-            }} style={{ width : 330 , height : 210 , borderRadius : 16 }}/>
+            <MapView  style={{ width : 330 , height : 210 , borderRadius : 16 }}/>
                 {/* FAFAFA */}
             </View>
         </View>
