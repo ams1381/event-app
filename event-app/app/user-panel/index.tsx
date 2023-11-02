@@ -94,7 +94,7 @@ const index = () => {
                                         </View>
                                         <View
                                             onTouchEnd={() => {
-                                                router.push(`/user-panel/${item?.id}`);
+                                                router.push(`/user-panel/product/inedx`);
                                             }}
                                         >
                                             <Text style={styles.seeMore}>مشاهده بیشتر</Text>

@@ -1,16 +1,16 @@
 import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView} from "react-native";
 import React, {useEffect, useState} from "react";
-import Navbar from "../../components/common/Navbar";
-import Icon from "../../components/common/Icon";
-import Colors from "../../constants/Colors";
+import Navbar from "../../../components/common/Navbar";
+import Icon from "../../../components/common/Icon";
+import Colors from "../../../constants/Colors";
 import {LinearGradient} from "expo-linear-gradient";
-import {axiosInstance} from "../../Utills/axios";
+import {axiosInstance} from "../../../Utills/axios";
 import {useRouter} from "expo-router";
 import {useRoute} from "@react-navigation/native";
 import {Image} from 'expo-image'
-import ProductItem from "../../components/product/productItem";
+import ProductItem from "../../../components/product/productItem";
 
-const productId = () => {
+const Index = () => {
     const router = useRoute();
     const [data, setData] = useState([]);
     const [isLoading, setIsloading] = useState<boolean>(false)
@@ -53,7 +53,7 @@ const productId = () => {
                         <View style={styles.productsContainer}>
                             {data.map((item) => {
                                 return (
-                                  <ProductItem item={item} />
+                                    <ProductItem item={item} />
                                 );
                             })}
                         </View>
@@ -66,7 +66,7 @@ const productId = () => {
     );
 };
 
-export default productId;
+export default Index;
 
 export const styles = StyleSheet.create({
     container: {
