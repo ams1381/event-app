@@ -21,7 +21,7 @@ const productId = () => {
             .get(`api/farm/products/`)
             .then((res) => {
                 setData(res?.data?.results);
-                console.log(res?.data?.results)
+
                 setIsloading(false)
             });
         //   console.log(router.params?.productId);

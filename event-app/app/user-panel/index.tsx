@@ -32,6 +32,7 @@ const index = () => {
   const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
   const [data, setData] = useState([]);
   const [productData, setProductData] = useState<Product[]>([]);
+const [isLoading,setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         setIsLoading(true)
@@ -94,7 +95,7 @@ const index = () => {
                                         </View>
                                         <View
                                             onTouchEnd={() => {
-                                                router.push(`/user-panel/product/inedx`);
+                                                router.push(`/user-panel/`);
                                             }}
                                         >
                                             <Text style={styles.seeMore}>مشاهده بیشتر</Text>
@@ -269,7 +270,6 @@ const index = () => {
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
                         </View>
                     </ScrollView>
-
                 </SafeAreaView>
             )}
         </>

@@ -36,7 +36,7 @@ const HomePage  = () => {
     }).start();
   };
   const onTouchMove = (e : any, state : any, context : any) => {
-    console.log(e,state,context )
+
     return
     const screenWidth = context.size.width;
     const rotation = (state.x / screenWidth) * 360; // Adjust the factor for the desired rotation effect
