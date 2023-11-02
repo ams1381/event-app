@@ -8,7 +8,6 @@ type TabBarProp = {
 }
 
 export const TabBarComponent : React.FC<TabBarProp>  = ({ setCurrentTab ,TabName }) => {
-    console.log(TabName)
     const router = useRouter();
     return <View style={TabBarStyles.TabBarContainer}>
         <View style={TabBarStyles.TabBarInnerContainer}>
