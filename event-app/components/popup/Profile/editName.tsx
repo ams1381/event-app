@@ -5,7 +5,7 @@ import {
   Animated,
   Keyboard,
   TouchableNativeFeedback,
-  ActivityIndicator,
+  ActivityIndicator, Dimensions,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Colors from "../../../constants/Colors";
@@ -26,7 +26,7 @@ export default function EditName(p: {
 
   const [first_name, setFirstName] = useState<string>();
   const [last_name, setLastName] = useState<string>();
-
+  const screenDimensions = Dimensions.get('screen').height
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function EditName(p: {
         if (res.status === 200) {
           p?.setEditName(false);
           setIsLoading(false);
+
         }
         p?.getUserData();
       })
@@ -78,7 +79,7 @@ export default function EditName(p: {
           {
             translateY: BottomSheetAnimation.interpolate({
               inputRange: [0, 1],
-              outputRange: [1000, 430],
+              outputRange: [1000,  (-screenDimensions / -2.5)],
             }),
           },
         ],

@@ -206,14 +206,13 @@ const BottomSheet: FC<BottomSheetProps> = ({
             <Icon style={styles.phoneIcon} name="phone" />
           </View>
           <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
-            <View style={styles.btn} onTouchEnd={sendSmsHandler}>
-
-                            {
-                                BottomSheetLoading ? <ActivityIndicator color={'white'}/>
-                                    : <Text style={styles.btnText}>ورود</Text>
-                            }
-                        </View>
-                    </TouchableNativeFeedback>
+            <View style={styles.btn} onTouchEnd={() => router.push('/user-panel/profile')}>
+                    {
+                      BottomSheetLoading ? <ActivityIndicator color={'white'}/>
+                      : <Text style={styles.btnText}>ورود</Text>
+                    }
+                  </View>
+              </TouchableNativeFeedback>
                 </View>
             )}
         </View>
