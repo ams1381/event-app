@@ -70,6 +70,7 @@ const iconImages: IconImages = {
   // SwiperRightArraow
 
   datePicker:require('./../../assets/images/Calendar.png'),
+  datePicker2:require('./../../assets/images/Calendar2.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

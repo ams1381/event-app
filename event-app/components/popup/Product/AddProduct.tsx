@@ -93,7 +93,6 @@ const App = (p:{modalVisible:any,setModalVisible:any}) => {
                     </ScrollView>
                 </View>
             </Modal>
-
         </View>
     );
 }
