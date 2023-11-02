@@ -3,7 +3,7 @@ import Icon from "./Icon";
 import {any} from "prop-types";
 
 export default function Navbar(p: { isActivePopup: any, setIsActivePopup: any }) {
-    console.log(p.isActivePopup)
+    console.log(p.isActivePopup , 'active')
     return (
         <View style={styles.container}>
             <Icon name={'search'}/>

@@ -72,11 +72,9 @@ const BottomSheet: FC<BottomSheetProps> = ({
             newOtpCode[index] = value;
             setOtpCode(newOtpCode);
             focusInput(index);
-        }
+        } 
     };
     const sendSmsHandler = async () => {
-      setLoginStatus(1);
-      return
       if(!phoneNumber) {
         ToastMessage(Toast,'لطفا شماره را وارد کنید ','error');
         return;
@@ -93,6 +91,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           
         }
         catch(err) {
+          console.log(err?.response)
           setBottomSheetLoading(false)
           if(err?.response?.status == 500) 
             ToastMessage(Toast,'خطا در شبکه','error')
@@ -149,16 +148,20 @@ const BottomSheet: FC<BottomSheetProps> = ({
       >
         {title}
       </Text>
-      <Text
+      <View
         style={{
-          color: subTitleColor ? subTitleColor : Colors?.textColor,
-          fontFamily: "regular",
-          fontSize: 14,
+          // color: subTitleColor ? subTitleColor : Colors?.textColor,
+          // fontFamily: "regular",
+
           marginTop: 8,
         }}>
-        { isSmsPage ? <Text> لطفا کد ارسال شده به شماره <View style={{ justifyContent : 'center' , backgroundColor : 'red' }}><Text>{phoneNumber}</Text></View> را وارد کنید </Text> :
-        <Text> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
-      </Text>
+        { isSmsPage ? <Text style={{ color : Colors.whiteColor , fontFamily : 'regular' , fontSize : 14 }}> لطفا کد ارسال شده به شماره 
+        <View style={{ justifyContent : 'center'  , flexDirection : 'row', gap : 4 }} onTouchEnd={() => setLoginStatus(0)}>
+          <Text style={{ fontFamily : 'bold' , color : 'white' }}>{phoneNumber}</Text>
+          <Icon name="LoginPen" style={{ width : 15 , height : 15 }} />
+          </View> را وارد کنید </Text> :
+        <Text style={{ fontFamily : 'regular' , color : titleColor }}> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
+      </View>
     
       {isSmsPage ? (
         <View style={{ width: "100%", overflow: "hidden" }}>
