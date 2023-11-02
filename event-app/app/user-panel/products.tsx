@@ -1,21 +1,20 @@
 import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView} from "react-native";
-import React, {useEffect, useState} from "react";
-// import Navbar from "../../../components/common/Navbar";
+import React, {useEffect, useState, useRef} from "react";
 import Navbar from "../../components/common/Navbar";
-// import Icon from "../../../components/common/Icon";
 import Icon from "../../components/common/Icon";
-// import Colors from "../../../constants/Colors";
 import Colors from "../../constants/Colors";
 import {LinearGradient} from "expo-linear-gradient";
-// import {axiosInstance} from "../../../Utills/axios";
-import { axiosInstance } from "../../Utills/axios";
+import {axiosInstance} from "../../Utills/axios";
 import {useRouter} from "expo-router";
 import {useRoute} from "@react-navigation/native";
 import {Image} from 'expo-image'
-// import ProductItem from "../../../components/product/productItem";
 import ProductItem from "../../components/product/productItem";
+import 'react-native-gesture-handler'
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet'
+import AddProduct from "../../components/popup/Product/AddProduct";
 
 const Index = () => {
+    const bottomSheetModalRef = useRef(null)
     const router = useRoute();
     const [data, setData] = useState([]);
     const [isLoading, setIsloading] = useState<boolean>(false)
@@ -26,13 +25,19 @@ const Index = () => {
             .get(`api/farm/products/`)
             .then((res) => {
                 setData(res?.data?.results);
-                console.log(res?.data?.results)
+
                 setIsloading(false)
             });
         //   console.log(router.params?.productId);
     }, []);
 
     const [isActivePopup, setIsActivePopup] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const openAddProductPopup = () => {
+        console.log('helq')
+    }
+
     return (
         <>
             {isLoading ? (
@@ -40,31 +45,34 @@ const Index = () => {
                     <ActivityIndicator color={Colors.primary} size={50}/>
                 </View>
             ) : (
-                <ScrollView style={styles.container}>
-                    <Navbar
-                        isActivePopup={isActivePopup}
-                        setIsActivePopup={setIsActivePopup}
-                    />
-                    <View style={styles.localContainer}>
-                        <View style={styles.filterHeader}>
-                            <View style={styles.filterBtn}>
-                                <Icon name="plusIcon"/>
-                                <Text style={styles.filterBtnText}>ایجاد محصول</Text>
+                    <ScrollView style={styles.container}>
+                        <Navbar
+                            isActivePopup={isActivePopup}
+                            setIsActivePopup={setIsActivePopup}
+                        />
+                        <AddProduct modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                        <View style={styles.localContainer}>
+                            <View style={styles.filterHeader}>
+                                <View style={styles.filterBtn} onTouchEnd={() => {
+                                    setModalVisible(true)
+                                }}>
+                                    <Icon name="plusIcon"/>
+                                    <Text style={styles.filterBtnText}>ایجاد محصول</Text>
+                                </View>
+                                <View style={styles.filterIcon}>
+                                    <Icon name="filter"/>
+                                </View>
                             </View>
-                            <View style={styles.filterIcon}>
-                                <Icon name="filter"/>
+                            <View style={styles.productsContainer}>
+                                {data.map((item) => {
+                                    return (
+                                        <ProductItem item={item}/>
+                                    );
+                                })}
                             </View>
                         </View>
-                        <View style={styles.productsContainer}>
-                            {data.map((item) => {
-                                return (
-                                    <ProductItem  item={item} />
-                                );
-                            })}
-                        </View>
-                    </View>
-                </ScrollView>
-            )} 
+                    </ScrollView>
+            )}
 
         </>
 
@@ -81,9 +89,10 @@ export const styles = StyleSheet.create({
     },
     localContainer: {
         paddingHorizontal: 16,
-        marginBottom:80
+        marginBottom: 80
     },
     filterHeader: {
+
         flexDirection: "row",
         alignItems: "center",
         gap: 10,

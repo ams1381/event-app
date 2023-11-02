@@ -16,7 +16,10 @@ const UserPanelLayout = () => {
                 setCurrentTab('Home');
             case 'profile':
                 setCurrentTab('User');
+            case 'products':
+                setCurrentTab('Apple');
         }
+
     },[])
     return <>
     <Stack screenOptions={{

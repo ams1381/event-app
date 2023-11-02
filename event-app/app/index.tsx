@@ -35,7 +35,18 @@ const HomePage  = () => {
       useNativeDriver: false,
     }).start();
   };
+  const onTouchMove = (e : any, state : any, context : any) => {
 
+    return
+    const screenWidth = context.size.width;
+    const rotation = (state.x / screenWidth) * 360; // Adjust the factor for the desired rotation effect
+
+    Animated.timing(boxRotation, {
+      toValue: rotation,
+      duration: 0, // Instantly update the rotation
+      useNativeDriver: false,
+    }).start();
+  };
   // Start the animation when the component mounts
   useEffect(() => {
     slideInAnimation();
@@ -44,11 +55,11 @@ const HomePage  = () => {
   return (
     <>
       <View style={{ width : '100%' , height : '100%' }}>
-      
-          <Swiper 
+
+          <Swiper
           style={{ height : initialSwierActiveState ? 'auto' : '100%'}}
           automaticallyAdjustContentInsets={true}
-          
+
           index={initialSwierActiveState ? 0 : 1}
           // index={0}
           // keyboardShouldPersistTaps='always'
@@ -57,36 +68,36 @@ const HomePage  = () => {
           horizontal={false}
           scrollEnabled={false}
           showsPagination={false}>
-            
+
               <Loading />
               <View style={{ width : '100%' , height : '100%'  }}>
-                
-                <Swiper scrollEnabled={SliderSwipable} index={currentIndex}  bounces={true} loop={false} 
+
+                <Swiper scrollEnabled={SliderSwipable} index={currentIndex}  bounces={true} loop={false}
                   onIndexChanged={(index) => {
                     setCurrentIndex(index);
                     // currentIndex = index;
                   }}
                   keyboardShouldPersistTaps='handled'
                   // renderPagination={(index, total) => {
-                  // return 
+                  // return
                   // }}
                   showsPagination={false}
                   >
-                    
+
                       <Welcome  />
                       <Welcome2 visitedPage={currentIndex === 1} />
-                      <Login visitedPage={currentIndex === 2} setSliderSwipable={setSliderSwipable} 
+                      <Login visitedPage={currentIndex === 2} setSliderSwipable={setSliderSwipable}
                       setCurrentIndex={setCurrentIndex} />
                 </Swiper>
-    
+
               </View>
-            
+
           </Swiper>
-          
+
     </View>
     { !initialSwierActiveState && <PaginatioinComponent CurPage={currentIndex} otpBackground={SliderSwipable == false} />}
     </>
-    
+
   );
 };
 export default HomePage;

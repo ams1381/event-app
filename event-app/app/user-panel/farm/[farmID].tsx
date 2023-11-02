@@ -5,36 +5,51 @@ import { axiosInstance } from '../../../Utills/axios';
 import { Image } from 'expo-image';
 import Navbar from '../../../components/common/Navbar';
 import Swiper from 'react-native-swiper';
+import MapView from 'react-native-maps';
+import ProductItem from '../../../components/product/productItem';
 
 const FarmPage = () => {
     const route = useRoute();
     const [ landData , setLandData ] = useState(null);
+    const [ profuctsData , setProductsData ] = useState(null);
     const [isActivePopup, setIsActivePopup] = useState(false);
     // console.log(route.params?.farmID?.replace('farm',''))
     useEffect(() => {
         const FarmRetrieve = async () => {
             try 
             {
-                  let { data } = await axiosInstance.get(`ap/farm/farms/${route.params?.farmID?.replace('farm','')}/`);
-           setLandData(data) 
+                // let { data } = await axiosInstance.get(``)
+                let { data } = await axiosInstance.get(`api/farm/farms/${route.params?.farmID?.replace('farm','')}/`);
+                setLandData(data) 
             }
             catch(err) {
-                console.log(err)
+                console.log(err,`ap/farm/farms/${route.params?.farmID?.replace('farm','')}/`)
+            }
+        }
+        const GetProducts = async () => {
+            try 
+            {
+                let { data } = await axiosInstance.get(`api/farm/farms/${route.params?.farmID?.replace('farm','')}/products/`);
+                setProductsData(data) 
+            }
+            catch(err) {
+
             }
         }
         FarmRetrieve();
+        GetProducts()
     },[])
     if(landData)
         console.warn(landData)
-    return <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
+    return landData ? <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
         <StatusBar backgroundColor={"#fff"} />
         <Navbar
          setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
        <View style={{ width : '100%' , height : '100%'  , alignItems : 'center' }}>
-        <View style={{ width : '90%' , alignItems : 'center' }}>
+        <View style={{ width : '95 %' , alignItems : 'center' }}>
 
         
-        <ScrollView style={{ width : '95%'  , maxHeight :620 }}>
+        <ScrollView style={{ width : '95%' }}>
         <View style={{ width : '100%'  , gap : 16, paddingTop : 16 }}>
             <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>
                 وضعیت زمین
@@ -55,11 +70,11 @@ const FarmPage = () => {
             </Text>
             <View style={{ gap : 8 , marginVertical : 8 }}>
                 <View style={{ flexDirection : 'row' ,  justifyContent : 'flex-end' }}>
-                    <Text style={{ fontFamily : 'bold' , fontSize : 16 ,color : '#0F393D' }}>fdhfdh</Text>
+                    <Text style={{ fontFamily : 'bold' , fontSize : 16 ,color : '#0F393D' }}>{landData.name}</Text>
                     <Text style={{ fontFamily : 'bold' , color : '#666' , fontSize : 16 }}>نام زمین:</Text>
                 </View>
                 <View style={{ flexDirection : 'row' , justifyContent : 'flex-end' }}>
-                    <Text style={{ fontFamily : 'bold' , fontSize : 16 ,color : '#0F393D' }}>fdhfdh</Text>
+                    <Text style={{ fontFamily : 'bold' , fontSize : 16 ,color : '#0F393D' }}>{landData.area} هکتار</Text>
                     <Text style={{ fontFamily : 'bold' , color : '#666' , fontSize : 16 }}>متراژ:</Text>
                 </View>
             </View>
@@ -111,15 +126,40 @@ const FarmPage = () => {
             backgroundColor : 'white' ,
             borderRadius : 16 , 
             marginTop : 16,
+            marginBottom :  !(profuctsData || profuctsData?.results.length != 0) ? 210 : 0,
             padding : 16}}>
                 <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
                     مقعیت مکانی زمین
             </Text>
+            <View style={{ width : '100%' , marginTop : 16  , overflow : 'hidden' , borderRadius : 16 , alignItems : 'center' , justifyContent : 'center' }}>
+            <MapView initialRegion={{
+                latitudeDelta : landData?.latitude,
+                longitudeDelta : landData?.longitude
+            }} style={{ width : 330 , height : 210 , borderRadius : 16 }}/>
+                {/* FAFAFA */}
+            </View>
         </View>
+       { profuctsData && <View style={{ 
+            alignItems : 'flex-end' , 
+            width : '100%' , 
+            backgroundColor : 'white' ,
+            borderRadius : 16 , 
+            marginTop : 16,
+            marginBottom :200,
+            padding : 16}}>
+                <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
+                    تاریخچه محصولات 
+                </Text>
+            <View>
+                {
+                    profuctsData?.results.map(ProductITem => <ProductItem item={ProductITem} />)
+                }
+            </View>
+        </View>}
         </ScrollView>
         </View>
     </View> 
-    </SafeAreaView>
+    </SafeAreaView> : <Text>Loading</Text>
     
  
 }
