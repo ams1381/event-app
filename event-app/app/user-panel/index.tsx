@@ -47,7 +47,7 @@ const index = () => {
   }, []);
 
   return (
-    // <SafeAreaView style={{...styles.container}}>
+
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={"#fff"} />
       <Navbar
@@ -65,7 +65,7 @@ const index = () => {
         <View style={{ alignItems: "center", borderRadius: 24 }}>
           <Swiper showsPagination={false} containerStyle={{gap:10}} style={{ height: 315}}>
             {data.map((item: any) => (
-              <View style={styles.landSlider}>
+              <View style={styles.landSlider} onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
                 <View style={styles.landSliderHeader}>
                   <View style={styles.landSliderHeaderLeft}>
                     <Text style={styles.landSliderHeaderLeftSubTitle}>
@@ -269,6 +269,7 @@ const index = () => {
                 borderWidth: 1,
                 borderColor: '#EEEEEE',
                 borderRadius: 16,
+                marginBottom : 150
                 // elevation: 4
               }}
               selected='1399/1/18'
@@ -298,7 +299,7 @@ const index = () => {
               }}
               eachYearStyle={{
                 width: 110,
-                height: 82,
+                height: 60,
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: Colors.primary,
@@ -314,7 +315,7 @@ const index = () => {
               }}
               eachMonthStyle={{
                 width: `${88 / 3}%`,
-                height: `${88 / 4}%`,
+                height: `${88 / 3}%`,
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#4bcffa',

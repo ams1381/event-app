@@ -34,14 +34,17 @@ const Index = () => {
         }
         RetrieveProduct()
     }, []);
-    if(productData)
-        console.warn(productData)
     return (
         <>
             <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
             <View style={ProductStyles.ProductContainer}>
+                <ScrollView style={{  width : '92%' }}>
                 {
-                    productData ? <>
+                    productData ? 
+                        <View style={{ gap : 10 ,
+                         alignItems : 'center' , 
+                         width : '100%' , 
+                         }}>
                             <View style={ProductStyles.ProductInfoContainer}>
                             <View>
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>اطلاعات کلی</Text>
@@ -55,7 +58,11 @@ const Index = () => {
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نوع محصول:</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>
+                                    {productData.status == 'nh' ? <Text>برداشت نشده</Text> :
+                                     productData.status == 'ws' ? <Text>آماده برای فروش</Text> : productData.status == 's' ? <Text>فروخته شده</Text> :
+                                     <Text>در حالت تولید</Text>} 
+                                    </Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>وضعیت :</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
@@ -73,62 +80,36 @@ const Index = () => {
                                 </View>
                             
                         </View>
-                        <View style={ProductStyles.ProductInnerContainer}>
+                        <View style={ProductStyles.ProductChartContainer}>
                             <View>
-                                <Text>آمار</Text>
+                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>آمار</Text>
                             </View>
                             <View>
-                            <LineChart
-                                    data={{
-                                    labels: ["January", "February", "March", "April", "May", "June"],
-                                    datasets: [
-                                        {
-                                        data: [
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100
-                                        ]
-                                        }
-                                    ]
-                                }}
-                                width={Dimensions.get("window").width} // from react-native
-                                height={220}
-                                yAxisLabel="$"
-                                yAxisSuffix="k"
-                                yAxisInterval={1} // optional, defaults to 1
-                                chartConfig={{
-                                // backgroundColor: "#e26a00",
-                                backgroundColor: 'white',
-                                // backgroundGradientFrom: "#fb8c00",
-                                // backgroundGradientTo: "#ffa726",
-                                decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                style: {
-                                    borderRadius: 16
-                                },
-                                propsForDots: {
-                                    r: "6",
-                                    strokeWidth: "2",
-                                    stroke: "#ffa726"
-                                }
-                                }}
-                                bezier
-                                style={{
-                                marginVertical: 8,
-                                borderRadius: 16
-                                }}
-                            />
+                            <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} />
                             </View>
                         </View>
-                    </>  : <Text>
+                        {/* productData.product_analysis && */}
+                      { <View style={{
+                        ...ProductStyles.ProcutRecommandContainer ,
+                        }}>
+                            <View>
+                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
+                            </View>
+                            <View style={{ padding : 16 , borderWidth : 1 ,borderColor : '#EEE' , marginTop : 10 }}>
+                                <Text>
+                                gnmghmghgnmghmgh gnmghmgh gnmghmgh gnmghmgh
+                                </Text>
+                                <View>
+                                    <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#2E6F73' }}>مشاهده آموزش</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    </View> 
+                      : <Text>
                         Loading
                     </Text>
                 }
-                
+                </ScrollView>
             </View> 
             
         </>
@@ -170,10 +151,12 @@ const ProductStyles = StyleSheet.create({
         alignItems : 'center'
     },
     ProductInnerContainer : {
-        width : '95%',
+        width : '100%',
+        backgroundColor : 'white',
+        borderRadius : 16,
     },
     ProductInfoContainer : {
-        width : '95%',
+        width : '100%',
         // height : 398,
         borderRadius : 16,
         borderWidth : 1,
@@ -189,9 +172,16 @@ const ProductStyles = StyleSheet.create({
 
     },
     ProductChartContainer : {
-
+        width : '100%',
+        padding : 16,
+        borderRadius : 16,
+        backgroundColor : 'white'
     },
     ProcutRecommandContainer : {
-
+        width : '100%',
+        padding : 16,
+        borderRadius : 16,
+        backgroundColor : 'white',
+        marginBottom : 120
     }
 })
