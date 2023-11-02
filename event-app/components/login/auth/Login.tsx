@@ -75,13 +75,13 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
           
             <Icon name="backLogo" style={styles.bigLogo} />
             <Icon name="originLogo" style={styles.originLogo} />
-            <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
+            <Text style={styles.title}>سوپر اپلیکیشن بذرینو</Text>
           </View>
           <View style={{  width : '100%' , height : '100%' , alignItems : 'center' ,
           justifyContent : 'center' , position : 'absolute' , backgroundColor : 'white' }}>
             <Icon name="otpBigLogo" style={OTPStyles.bigLogo} />
             <Icon name="otpLogo" style={OTPStyles.originLogo} />
-            <Text style={OTPStyles.title}>سوپر اپلیکیشن سبا</Text>
+            <Text style={OTPStyles.title}>سوپر اپلیکیشن بذرینو</Text>
           </View>
       </Swiper>
 
@@ -97,7 +97,7 @@ const Login : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex , setSlid
           setPhoneNumber={setPhoneNumber}
           setLoginStatus={setLoginStatus}
           title=" ورود / ثبت نام"
-          subTitle="لطفا برای استفاده از اپلیکیشن سبا ورود کنید"
+          subTitle="لطفا برای استفاده از اپلیکیشن بذرینو ورود کنید"
         />
         </View>
         <View style={{ width : '100%' , height : '100%' , borderTopLeftRadius : 32 , borderTopRightRadius : 32 }}>

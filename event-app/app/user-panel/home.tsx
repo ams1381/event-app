@@ -82,7 +82,7 @@ export default function Home() {
                 <Text style={{textAlign: 'center', color: '#fff', fontSize: 16, fontFamily: 'regular'}}>برای مشاهده اموزش های مربوط به این اپلیکیشن میتوانید از دکمه کنار صفحه یا دکمه زیر استفاده کنید</Text>
                 <View style={styles.btnContainer}>
                     <TouchableNativeFeedback style={{borderRadius: 10}}>
-                        <View style={styles.btn} onTouchEnd={() => router.push('/user-panel/')}>
+                        <View style={styles.btn} onTouchEnd={() => setIsActivePopup(true)}>
                             <Text style={styles.btnText}>مشاهده</Text>
                         </View>
                     </TouchableNativeFeedback>

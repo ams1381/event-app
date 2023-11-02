@@ -188,6 +188,7 @@ const TabBarStyles = StyleSheet.create({
         paddingHorizontal : 32,
         justifyContent : 'center',
         alignItems : 'center',
+        // zIndex : -5
     },
     TabBarInnerContainer : {
         flexDirection : 'row',

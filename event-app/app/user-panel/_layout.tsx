@@ -8,6 +8,7 @@ const UserPanelLayout = () => {
     const router = useRoute();
 
     const [ CurrentTab , setCurrentTab ] = useState('Home')
+    console.log(router?.params?.screen)
     useEffect(() => {
         switch(router?.params?.screen)
         {

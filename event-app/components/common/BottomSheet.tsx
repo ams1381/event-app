@@ -87,6 +87,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           setCurrentIndex(3);
           setBottomSheetLoading(false);
           setLoginStatus(1);
+          setSliderSwipable(false)
           ToastMessage(Toast,'با موفقیت ارسال شد','success')
           
         }
@@ -160,7 +161,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           <Text style={{ fontFamily : 'bold' , color : 'white' }}>{phoneNumber}</Text>
           <Icon name="LoginPen" style={{ width : 15 , height : 15 }} />
           </View> را وارد کنید </Text> :
-        <Text style={{ fontFamily : 'regular' , color : titleColor }}> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
+        <Text style={{ fontFamily : 'regular' , color : titleColor }}> لطفا برای استفاده از اپلیکیشن بذرینو ورود کنید </Text>}
       </View>
     
       {isSmsPage ? (
