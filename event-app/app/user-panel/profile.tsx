@@ -181,7 +181,7 @@ export default profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EEE",
+    backgroundColor: "#fafafa",
     alignItems: "center",
     paddingVertical: StatusBar.currentHeight,
   },

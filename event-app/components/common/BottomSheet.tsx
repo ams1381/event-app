@@ -75,9 +75,12 @@ const BottomSheet: FC<BottomSheetProps> = ({
         }
     };
     const sendSmsHandler = async () => {
-      router.push('/user-panel/home')
+      setLoginStatus(1);
       return
-
+      if(!phoneNumber) {
+        ToastMessage(Toast,'لطفا شماره را وارد کنید ','error');
+        return;
+      }
         setBottomSheetLoading(true)
         try {
           await axiosInstance.post('api/core/auth/send-sms/',{
@@ -87,6 +90,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           setBottomSheetLoading(false);
           setLoginStatus(1);
           ToastMessage(Toast,'با موفقیت ارسال شد','success')
+          
         }
         catch(err) {
           setBottomSheetLoading(false)
@@ -135,6 +139,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
         paddingVertical: 74,
         alignItems: "center",
       }}>
+        
       <Text
         style={{
           color: titleColor ? titleColor : Colors?.primary,
@@ -151,8 +156,10 @@ const BottomSheet: FC<BottomSheetProps> = ({
           fontSize: 14,
           marginTop: 8,
         }}>
-        لطفا برای استفاده از اپلیکیشن سبا ورود کنید
+        { isSmsPage ? <Text> لطفا کد ارسال شده به شماره <View style={{ justifyContent : 'center' , backgroundColor : 'red' }}><Text>{phoneNumber}</Text></View> را وارد کنید </Text> :
+        <Text> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
       </Text>
+    
       {isSmsPage ? (
         <View style={{ width: "100%", overflow: "hidden" }}>
           <View style={styles.smsBox}>

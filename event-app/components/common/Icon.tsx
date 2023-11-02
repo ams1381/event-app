@@ -56,6 +56,12 @@ const iconImages: IconImages = {
   ActiveApple:require('./../../assets/images/ActiveApple.png'),
   Home:require('./../../assets/images/Home.png'),
   // HomeActive
+  tree:require('./../../assets/images/tree.png'),
+  leaf:require('./../../assets/images/leaf.png'),
+  treeBlue:require('./../../assets/images/treeBlue.png'),
+  arroLeftWhite:require('./../../assets/images/Arrow-LeftWhite.png'),
+  plusIcon:require('./../../assets/images/plus.png'),
+  filter:require('./../../assets/images/Filter.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {
