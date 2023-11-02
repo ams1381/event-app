@@ -10,7 +10,7 @@ const Loading = () => {
       <Icon name="baseLogo" />
       {/* <Icon name="bigLogo" style={styles.bigLogo} />
       <Icon name="originLogo" /> */}
-      <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
+      <Text style={styles.title}>سوپر اپلیکیشن بذرینو</Text>
       {/* <Icon name="loading" style={styles.loading} /> */}
       <ActivityIndicator style={{marginTop:12}} size={'large'} color="white" />
       <Icon name="shape" style={styles.shape} />

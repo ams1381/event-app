@@ -87,6 +87,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           setCurrentIndex(3);
           setBottomSheetLoading(false);
           setLoginStatus(1);
+          setSliderSwipable(false)
           ToastMessage(Toast,'با موفقیت ارسال شد','success')
           
         }
@@ -100,7 +101,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
         }
     }
   const confirmSmsHandler = async () => {
-    console.log(otpCode)
+
     if(!otpCode.length || otpCode.every(item => item.length == 0)) {
       ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error');
       return
@@ -115,7 +116,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
       router.push('/user-panel/home')
     }
     catch(err) {
-      console.log(err)
+
       setBottomSheetLoading(false)
       if(err?.response?.status == 500) 
         ToastMessage(Toast,'خطا در شبکه','error')
@@ -160,7 +161,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           <Text style={{ fontFamily : 'bold' , color : 'white' }}>{phoneNumber}</Text>
           <Icon name="LoginPen" style={{ width : 15 , height : 15 }} />
           </View> را وارد کنید </Text> :
-        <Text style={{ fontFamily : 'regular' , color : titleColor }}> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
+        <Text style={{ fontFamily : 'regular' , color : titleColor }}> لطفا برای استفاده از اپلیکیشن بذرینو ورود کنید </Text>}
       </View>
     
       {isSmsPage ? (
@@ -206,13 +207,12 @@ const BottomSheet: FC<BottomSheetProps> = ({
           </View>
           <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
             <View style={styles.btn} onTouchEnd={() => router.push('/user-panel/profile')}>
-
-                            {
-                                BottomSheetLoading ? <ActivityIndicator color={'white'}/>
-                                    : <Text style={styles.btnText}>ورود</Text>
-                            }
-                        </View>
-                    </TouchableNativeFeedback>
+                    {
+                      BottomSheetLoading ? <ActivityIndicator color={'white'}/>
+                      : <Text style={styles.btnText}>ورود</Text>
+                    }
+                  </View>
+              </TouchableNativeFeedback>
                 </View>
             )}
         </View>

@@ -3,11 +3,13 @@ import {LinearGradient} from "expo-linear-gradient";
 import Colors from "../../constants/Colors";
 import {Image} from "expo-image";
 import React from "react";
+import { useRouter } from "expo-router";
 
 
 export default function ProductItem(p: { item: any }) {
+    const router = useRouter();
     return (
-        <View style={styles.productItem}>
+        <View style={styles.productItem} onTouchEnd={() => router.push(`/user-panel/product/${p.item.id}`)}>
             <View style={styles.productItemDetails}>
                 <View style={styles.productItemDetailsLeft}>
                     {p?.item?.status === "s" && (
@@ -323,6 +325,6 @@ export const styles = StyleSheet.create({
     nameOfItem: {
         color: "#0F393D",
         fontFamily: "Black",
-        fontSize: 20,
+        fontSize: 17,
     },
 });

@@ -216,5 +216,23 @@ const TabBarStyles = StyleSheet.create({
             'space-around',
         gap:
             16,
+    TabBarContainer : {
+        height : 84,
+        width : '100%' ,
+        position : 'fixed',
+        bottom : 0,
+        backgroundColor : 'white',
+        paddingVertical : 16,
+        paddingHorizontal : 32,
+        justifyContent : 'center',
+        alignItems : 'center',
+        // zIndex : -5
+    },
+    TabBarInnerContainer : {
+        flexDirection : 'row',
+        width : '100%',
+        height : '100%',
+        justifyContent : 'space-around',
+        gap : 16,
     }
 })

@@ -31,8 +31,8 @@ const Welcome = () => {
   return (
     <SafeAreaView style={styles?.container}>
         <Icon name="welComeGif" style={styles.gif} />
-              <Text style={styles.title}>به سوپر اپلیکیشن سبا {"\n"} خوش اومدید</Text>
-              <Text style={styles.subTitle}>سوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتندسوپر اپلیکیشن سبا برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتند</Text>
+              <Text style={styles.title}>به سوپر اپلیکیشن بذرینو {"\n"} خوش اومدید</Text>
+              <Text style={styles.subTitle}>سوپر اپلیکیشن بذرینو برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتندسوپر اپلیکیشن بذرینو برای حمایت از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از اناها حماتی کتند</Text>
         <Animated.View style={{
             ...styles.BottomImageContainer,
             transform : [{

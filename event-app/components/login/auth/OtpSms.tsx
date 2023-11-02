@@ -14,7 +14,7 @@ const OtpSms : React.FC<WelcomeType> = ({ visitedPage , setCurrentIndex }) => {
     <View style={OTPStyles.container}>
         <Icon name="otpBigLogo" style={OTPStyles.bigLogo} />
         <Icon name="otpLogo" style={OTPStyles.originLogo} />
-        <Text style={OTPStyles.title}>سوپر اپلیکیشن سبا</Text>
+        <Text style={OTPStyles.title}>سوپر اپلیکیشن بذرینو</Text>
         {/* <BottomSheet isSmsPage={true} setCurrentIndex={setCurrentIndex}
          title="تایید شماره"  subTitle="لطفا کد ارسال شده به شماره"
          subTitleColor={'#E4E4E4'} color={Colors.primary} titleColor={Colors.whiteColor}/> */}
