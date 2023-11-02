@@ -5,26 +5,33 @@ import Colors from "../../../constants/Colors";
 import DatePicker from "@mohamadkh75/react-native-jalali-datepicker";
 import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
+import {log} from "util";
 //
 const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
     const [selected, setSelected] = React.useState("");
 
-    const data = [
-        {key: '1', value: 'سشیشسط', disabled: true},
-        {key: '2', value: 'شسشسیشسی'},
-        {key: '3', value: 'شسیشسیشسی'},
-        {key: '4', value: 'شسیشسیشسی', disabled: true},
-        {key: '5', value: 'شسیشسیشسی'},
-        {key: '6', value: 'شسی شسی'},
-        {key: '7', value: 'شسیشسی'},
-    ]
-    // const [data,setData] = useState([])
-    // useEffect(() => {
-    //     axiosInstance.get('/api/farm/category/').then(res => {
-    //         setData(res?.data?.results)
-    //         console.log(res?.data?.results)
-    //     })
-    // }, [data]);
+    const [datas, setDatas] = useState([])
+    useEffect(() => {
+        axiosInstance.get('/api/farm/category/').then(res => {
+            setDatas(res?.data?.results)
+            console.log(res?.data?.results)
+            console.log(res.data.results[0].title)
+            console.log(res.data.results[0].id)
+        })
+    }, []);
+
+    const formattedArray = datas.map((item) => ({
+        value: item?.title,
+        label: item?.id,
+    }));
+
+    const findTypeOfProduct = (param:any) => {
+        const selectItem = datas.find(item => {
+             return item?.title === param
+        })
+        console.log(selectItem?.id)
+    }
+
     return (
         <View style={styles.container}>
             <Modal
@@ -48,23 +55,24 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
                                 <TextInput style={{width: '90%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'جستجو'} placeholderTextColor={'#7E7E7E'}/>
                                 <Icon name={'search'}/>
                             </View>
-                            <View >
+                            <View>
                                 <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>نوع محصول</Text>
                                 <SelectList
-                                    setSelected={(val: any) => setSelected(val)}
-                                    data={data}
+                                    setSelected={(val: any) =>  findTypeOfProduct(val)}
+                                    data={formattedArray}
                                     fontFamily='bold'
-                                    onSelect={() => alert(selected)}
                                     label="Categories"
+                                    notFoundText={'یافت نشد'}
                                     save="value"
                                     closeicon={<Icon name="X"/>}
                                     placeholder={'انتخاب کنید'}
                                     searchPlaceholder={'جستجو کنید'}
-                                    boxStyles={{borderColor: '#eee',flexDirection:'row-reverse', borderWidth: 1, direction: 'ltr'}}
+                                    boxStyles={{borderColor: '#eee',borderRadius: 16, marginTop: 10, flexDirection: 'row-reverse', borderWidth: 1, direction: 'ltr', paddingVertical: 15}}
                                     arrowicon={<Icon name="arrowDown"/>}
-                                    // searchicon={<FontAwesome name="search" size={12} color={'black'} />}
+
                                 />
                             </View>
+                            <Icon name={'datePicker'} style={styles.datePicker}/>
                             <View style={{flexDirection: 'row', gap: 10, marginTop: 10}}>
                                 <View style={{flex: 1, paddingVertical: 10, backgroundColor: '#CEE9EB', borderRadius: 12}}>
                                     <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#44898E'}}>اعمال فیلتر</Text>
@@ -73,6 +81,7 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
                                     <Text style={{textAlign: 'center', fontFamily: 'bold', fontSize: 14, color: '#B46A63'}}>لغو</Text>
                                 </View>
                             </View>
+
                             {/*<View style={{*/}
                             {/*    flexDirection: 'row',*/}
                             {/*    gap: 10,*/}
@@ -154,6 +163,11 @@ const styles = StyleSheet.create({
         gap: 10,
         marginTop: 10
     },
+    datePicker:{
+        marginTop:10,
+        width:'100%',
+        height:400
+    }
 });
 
 export default FilterProduct;
