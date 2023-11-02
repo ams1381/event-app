@@ -3,15 +3,17 @@ import Icon from "./Icon";
 import {any} from "prop-types";
 
 export default function Navbar(p: { isActivePopup: any, setIsActivePopup: any }) {
+    console.log(p.isActivePopup)
     return (
         <View style={styles.container}>
             <Icon name={'search'}/>
             <Icon name={'navbarLogo'}/>
-            <View onTouchEnd={() => {
-                p.setIsActivePopup(!p.isActivePopup)
-            }}>
-                <Icon name={'info'}/>
+                <View  onTouchEnd={() => {
+                    p.setIsActivePopup(!p.isActivePopup)
+                }}>
+                    <Icon  name={'info'}/>
             </View>
+            
         </View>
     )
 }
@@ -27,6 +29,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginBottom: 13,
         borderBottomWidth: 1,
-        borderBottomColor: '#EEE'
+        borderBottomColor: '#EEE',
     },
 })

@@ -9,7 +9,7 @@ export const PaginatioinComponent : React.FC<PaginationProp> = ({ CurPage }) => 
     return (
         <View style={PaginationStyle.PaginationContainer}>
             <View style={PaginationStyle.PaginationInnerContainer}>
-                {Array.from({ length : 4 }).map((_,index : number) => <View key={index}>
+                {Array.from({ length : 3 }).map((_,index : number) => <View key={index}>
                 <View style={{
                     ...PaginationStyle.PaginatioinItem ,
                     backgroundColor : index <= CurPage ? Colors.activePageColor : Colors.diactivePageColor 

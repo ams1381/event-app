@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet, ScrollView, Image, TouchableNativeFeedback, Animated, Dimensions} from "react-native";
+import {Text, View, StyleSheet, ScrollView, Image, TouchableNativeFeedback, Animated, Dimensions , StatusBar} from "react-native";
 import Colors from "../../constants/Colors";
 import React, {useEffect, useState} from "react";
 import Icon from "./Icon";
@@ -13,10 +13,7 @@ export default function InfoBottomSheet(p: {
     const windowDimensions = Dimensions.get('window');
     const screenDimensions = Dimensions.get('screen').height;
 
-    const [dimensions, setDimensions] = useState({
-        window: windowDimensions,
-        screen: screenDimensions,
-    });
+ 
     useEffect(() => {
         if (p.isActivePopup) {
             Animated.timing(BottomSheetAnimation, {
@@ -36,16 +33,30 @@ export default function InfoBottomSheet(p: {
 
     return (
         <Animated.View style={{
-            ...styles.Y,
+            // ...styles.Y,
+            width : '100%',
+            justifyContent : 'center',
+            alignItems : 'center',
+            position : 'absolute' ,
+            backgroundColor : 'white',
+            borderTopLeftRadius : 24,
+            borderTopRightRadius : 24,
+            padding : 5,
+            marginTop : 50,
+            zIndex : 666,
             transform: [{
                 translateY: BottomSheetAnimation.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [1000, p.toUp]
+                    outputRange: [1000, (-screenDimensions / 2)]
                 })
             }]
         }}>
-            <View style={styles.container}>
-                <ScrollView style={styles.itemContainer}>
+            {/* <View style={styles.container}> */}
+                <ScrollView style={{
+                        ...styles.itemContainer ,
+                
+                        height : (screenDimensions * 0.86)
+                    }}>
                     <View style={styles.head}>
                         <View onTouchEnd={() => p.setIsActivePopup(false)}>
                             <Icon name={'X'}/>
@@ -66,7 +77,7 @@ export default function InfoBottomSheet(p: {
                         </TouchableNativeFeedback>
                     </View>
                 </ScrollView>
-            </View>
+            {/* </View> */}
         </Animated.View>
     )
 }
@@ -74,7 +85,8 @@ export default function InfoBottomSheet(p: {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        backgroundColor: Colors.whiteColor,
+        // backgroundColor: Colors.whiteColor,
+        backgroundColor : 'red',
         position: 'absolute',
         bottom: 0,
         zIndex: 1,
@@ -86,16 +98,17 @@ const styles = StyleSheet.create({
     Y: {
         width: '100%',
         height: '100%',
-        zIndex: 2,
+        zIndex: 666,
         position: 'absolute',
-        top: 350,
+        top : -555,
+        // top: 350,
     },
     itemContainer: {
-        width: '100%',
-        height: '100%',
+        width: '93%',
         borderTopEndRadius: 24,
         borderTopStartRadius: 24,
-        gap: 10
+        gap: 10,
+        overflow : 'scroll'
     },
     title: {
         color: Colors.primary,
@@ -119,6 +132,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 16,
         marginTop: 8,
+
     },
     btn: {
         backgroundColor: Colors.primary,
@@ -135,7 +149,9 @@ const styles = StyleSheet.create({
     },
     head: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems : 'center',
+        paddingTop : 16
     },
     headText: {
         color: Colors.primary,

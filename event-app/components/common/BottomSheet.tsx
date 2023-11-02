@@ -12,45 +12,54 @@ import {TextInput} from "react-native-gesture-handler";
 import Icon from "./Icon";
 import axios from 'axios'
 import OTPInputView from "@twotalltotems/react-native-otp-input";
-import {axiosInstance} from "../../Utills/axios";
-import {useRouter} from "expo-router";
+import { axiosInstance } from "../../Utills/axios";
+import Toast from 'react-native-toast-message';
+import { useRouter } from "expo-router";
 
 type BottomSheetProps = {
-    color?: any;
-    titleColor?: any;
-    subTitleColor?: any;
-    title: string;
-    setLoginStatus: any;
-    subTitle: any;
-    setCurrentIndex: any,
-    setPhoneNumber: any,
-    phoneNumber: number | null,
-    isSmsPage: boolean;
+  color?: any;
+  titleColor?: any;
+  subTitleColor?: any;
+  title: string;
+  setLoginStatus : any;
+  subTitle: any;
+  setCurrentIndex : any,
+  setPhoneNumber : any ,
+  phoneNumber : any,
+  setSliderSwipable: any ,
+  isSmsPage: boolean;
 }
-
+const ToastMessage = (Toast : any , message : string , messageStatus : string) => {
+  Toast.show({
+    type: messageStatus, 
+    position: 'top',
+    text1: message,
+  });
+} 
 const BottomSheet: FC<BottomSheetProps> = ({
-                                               color,
-                                               titleColor,
-                                               subTitleColor,
-                                               title,
-                                               subTitle,
-                                               setPhoneNumber,
-                                               phoneNumber,
-                                               isSmsPage,
-                                               setCurrentIndex,
-                                               setLoginStatus,
-                                           }) => {
+  color,
+  titleColor,
+  subTitleColor,
+  title,
+  subTitle,
+  setPhoneNumber,
+  phoneNumber,
+  isSmsPage,
+  setCurrentIndex,
+  setSliderSwipable,
+  setLoginStatus,
+}) => {
 
-
-    const [BottomSheetLoading, setBottomSheetLoading] = useState(false);
-    const [otpCode, setOtpCode] = useState(['', '', '', '']);
-    const inputRefs = [
-        useRef<TextInput>(null),
-        useRef<TextInput>(null),
-        useRef<TextInput>(null),
-        useRef<TextInput>(null),
-    ];
-    const router = useRouter()
+  
+  const [ BottomSheetLoading , setBottomSheetLoading ] = useState(false);
+  const [otpCode, setOtpCode] = useState(['', '', '', '']);
+  const router = useRouter();
+  const inputRefs = [
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+    useRef<TextInput>(null),
+  ];
 
     const focusInput = (index: number) => {
         if (index < inputRefs.length - 1) {
@@ -66,118 +75,134 @@ const BottomSheet: FC<BottomSheetProps> = ({
         }
     };
     const sendSmsHandler = async () => {
-        setLoginStatus(1);
-        // setBottomSheetLoading(true)
-        // try {
-        //   await axiosInstance.post('api/core/auth/send-sms/',{
-        //     phone_number : phoneNumber
-        //   })
-        //   setCurrentIndex(3);
-        //   setBottomSheetLoading(false);
-        //   setLoginStatus(1);
-        // }
-        // catch(err) {
-        //   setBottomSheetLoading(false)
-        // }
+      setLoginStatus(1);
+      return
+      if(!phoneNumber) {
+        ToastMessage(Toast,'لطفا شماره را وارد کنید ','error');
+        return;
+      }
+        setBottomSheetLoading(true)
+        try {
+          await axiosInstance.post('api/core/auth/send-sms/',{
+            phone_number : phoneNumber
+          })
+          setCurrentIndex(3);
+          setBottomSheetLoading(false);
+          setLoginStatus(1);
+          ToastMessage(Toast,'با موفقیت ارسال شد','success')
+          
+        }
+        catch(err) {
+          setBottomSheetLoading(false)
+          if(err?.response?.status == 500) 
+            ToastMessage(Toast,'خطا در شبکه','error')
+        else 
+          ToastMessage(Toast,'لطفا شماره را درست وارد کنید ','error')
+        }
     }
-    const confirmSmsHandler = async () => {
-        axiosInstance.post('api/core/auth/login/', {
-            phone_number: phoneNumber,
-
-        })
+  const confirmSmsHandler = async () => {
+    console.log(otpCode)
+    if(!otpCode.length || otpCode.every(item => item.length == 0)) {
+      ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error');
+      return
     }
-    return (
-        <View
-            style={{
-                // position: "absolute",
-                backgroundColor: color ? color : Colors.whiteColor,
-                width: "100%",
-                borderTopEndRadius: 33,
-                borderTopStartRadius: 33,
-                height: "100%",
-                // bottom: 0,
-                paddingHorizontal: 32,
-                paddingVertical: 74,
-                alignItems: "center",
-            }}
-        >
-            <Text
-                style={{
-                    color: titleColor ? titleColor : Colors?.primary,
-                    fontSize: 24,
-                    fontFamily: "bold",
-                }}
-            >
-                {title}
-            </Text>
-            <Text
-                style={{
-                    color: subTitleColor ? subTitleColor : Colors?.textColor,
-                    fontFamily: "regular",
-                    fontSize: 14,
-                    marginTop: 8,
-                }}
-            >
-                لطفا برای استفاده از اپلیکیشن سبا ورود کنید
-            </Text>
-            {isSmsPage ? (
-                <View style={{width: "100%", overflow: "hidden"}}>
-                    <View style={styles.smsBox}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 16}}>
-                            {inputRefs.map((ref, index) => (
-                                <View style={styles.OtpInputContainer} key={index}>
-                                    <TextInput
-                                        maxLength={1}
-                                        style={styles.OtpInputItem}
-                                        ref={ref}
-                                        keyboardType="number-pad"
-                                        onChangeText={(value) => handleInput(value, index)}
-                                    />
-                                    <View style={styles.OtpItemBottomLine}/>
-                                </View>
-                            ))}
-                            {/* Display the OTP code for testing */}
-                            {/* <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1}  style={styles.OtpInputItem} />
+    try {
+      setBottomSheetLoading(true)
+      await axiosInstance.post('api/core/auth/login/',{
+        phone_number : phoneNumber,
+        code : otpCode.join('')
+      })
+      setBottomSheetLoading(false)
+      router.push('/user-panel/home')
+    }
+    catch(err) {
+      console.log(err)
+      setBottomSheetLoading(false)
+      if(err?.response?.status == 500) 
+        ToastMessage(Toast,'خطا در شبکه','error')
+      else 
+        ToastMessage(Toast,'لطفا کد ارسال شده را درست وارد کنید','error')
+    }
+     
+  }
+  return (
+    <View
+      style={{
+        // position: "absolute",
+        backgroundColor: color ? color : Colors.whiteColor,
+        width: "100%",
+        borderTopEndRadius: 33,
+        borderTopStartRadius: 33,
+        height: "100%",
+        // bottom: 0,
+        paddingHorizontal: 32,
+        paddingVertical: 74,
+        alignItems: "center",
+      }}>
+        
+      <Text
+        style={{
+          color: titleColor ? titleColor : Colors?.primary,
+          fontSize: 24,
+          fontFamily: "bold",
+        }}
+      >
+        {title}
+      </Text>
+      <Text
+        style={{
+          color: subTitleColor ? subTitleColor : Colors?.textColor,
+          fontFamily: "regular",
+          fontSize: 14,
+          marginTop: 8,
+        }}>
+        { isSmsPage ? <Text> لطفا کد ارسال شده به شماره <View style={{ justifyContent : 'center' , backgroundColor : 'red' }}><Text>{phoneNumber}</Text></View> را وارد کنید </Text> :
+        <Text> لطفا برای استفاده از اپلیکیشن سبا ورود کنید </Text>}
+      </Text>
+    
+      {isSmsPage ? (
+        <View style={{ width: "100%", overflow: "hidden" }}>
+          <View style={styles.smsBox}>
+            <View style={{ flexDirection : 'row' , justifyContent : 'center' , gap : 16 }}>
+            {inputRefs.map((ref, index) => (
+              <View style={styles.OtpInputContainer} key={index}>
+                <TextInput
+                  maxLength={1}
+                  style={styles.OtpInputItem}
+                  ref={ref}
+                  keyboardType="number-pad"
+                  onChangeText={(value) => handleInput(value, index)}
+                />
                 <View style={styles.OtpItemBottomLine} />
               </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
+            ))}
+            </View>
+          </View>
+          <View style={styles.btnSmsContainer}>
+            <TouchableNativeFeedback style={{ borderRadius: 16 }}>
+              <View style={styles.btnSms} onTouchEnd={() => confirmSmsHandler()}>
+              {
+                BottomSheetLoading ?  <ActivityIndicator color={'#44898E'} /> : <Text style={styles.btnSmsText}>ثبت</Text>
+                }
               </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View>
-              <View style={styles.OtpInputContainer}>
-                <TextInput maxLength={1} style={styles.OtpInputItem} />
-                <View style={styles.OtpItemBottomLine} />
-              </View> */}
-                        </View>
-                    </View>
-                    <View style={styles.btnSmsContainer}>
-                        <TouchableNativeFeedback style={{borderRadius: 16}}>
-                            <View style={styles.btnSms} onTouchEnd={() => router.push('/user-panel/')}>
-                                <Text style={styles.btnSmsText}>تایید</Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                    </View>
-                </View>
-            ) : (
-                <View style={{width: "100%"}}>
-                    <View style={styles.input}>
-                        <TextInput
-                            keyboardType="number-pad"
-                            value={phoneNumber ? phoneNumber : ''}
-                            onChangeText={(e: any) => setPhoneNumber(e)}
-                            style={{fontFamily: "bold", width: "88%", textAlign: "right"}}
-                            placeholder="شماره تلفن"
-                            placeholderTextColor={"#7E7E7E"}
-                        />
-                        <Icon style={styles.phoneIcon} name="phone"/>
-                    </View>
-                    <TouchableNativeFeedback style={{borderRadius: 16, marginTop: 8}}>
-                        <View style={styles.btn} onTouchEnd={sendSmsHandler}>
+            </TouchableNativeFeedback>
+          </View>
+        </View>
+      ) : (
+        <View style={{ width: "100%" }}>
+          <View style={styles.input}>
+            <TextInput
+              keyboardType="number-pad"
+              value={phoneNumber ? phoneNumber : ''}
+              onChangeText={(e : any) => setPhoneNumber(e)}
+              style={{ fontFamily: "bold", width: "88%", textAlign: "right" , direction : 'ltr' }}
+              placeholder="شماره تلفن"
+              placeholderTextColor={"#7E7E7E"}
+            />
+            <Icon style={styles.phoneIcon} name="phone" />
+          </View>
+          <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
+            <View style={styles.btn} onTouchEnd={sendSmsHandler}>
 
                             {
                                 BottomSheetLoading ? <ActivityIndicator color={'white'}/>
@@ -194,86 +219,89 @@ const BottomSheet: FC<BottomSheetProps> = ({
 export default BottomSheet;
 
 export const styles = StyleSheet.create({
-    input: {
-        color: "#7E7E7E",
-        fontFamily: "bold",
-        width: "100%",
-        marginTop: 17,
-        fontSize: 14,
-        padding: 16,
-        borderRadius: 16,
-        borderColor: "#E4E4E4",
-        borderWidth: 1,
-        backgroundColor: "#FAFAFA",
-        textAlign: "right",
-        position: "relative",
-    },
-    OtpInputContainer: {
-        justifyContent: 'flex-end',
-        position: 'relative',
-        height: 30
-    },
-    OtpInputItem: {
-        width: '100%',
-        textAlign: 'center',
-        color: 'white',
-        height: '90%',
-        borderRadius: 4
-    },
-    OtpItemBottomLine: {
-        width: 38,
-        height: 5,
-        borderRadius: 4,
-        backgroundColor: 'white'
-    },
-    btnSmsContainer: {
-        overflow: "hidden",
-        alignItems: "center",
-        backgroundColor: "red",
-        justifyContent: "center",
-        borderRadius: 16,
-        marginTop: 8,
-    },
-    phoneIcon: {
-        position: "absolute",
-        top: "60%",
-        right: 16,
-    },
-    btn: {
-        width: "100%",
-        backgroundColor: Colors.primary,
-        marginTop: 8,
-        height: 47,
-        borderRadius: 16,
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-    },
-    btnText: {
-        color: Colors.whiteColor,
-        fontFamily: "regular",
-        textAlign: "center",
-    },
-    btnSms: {
-        width: "100%",
-        backgroundColor: Colors.whiteColor,
-        // marginTop: 8,
-        borderRadius: 16,
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-    },
-    btnSmsText: {
-        color: Colors.primary,
-        fontFamily: "regular",
-        textAlign: "center",
-    },
-    smsBox: {
-        marginVertical: 16,
-        height: 100,
-        justifyContent: 'center',
-        paddingHorizontal: 85,
-        paddingVertical: 0,
-        borderRadius: 13,
-        borderColor: Colors.whiteColor,
-        borderWidth: 1,
-    },
+  input: {
+    color: "#7E7E7E",
+    fontFamily: "bold",
+    width: "100%",
+    marginTop: 17,
+    fontSize: 14,
+    padding: 16,
+    borderRadius: 16,
+    borderColor: "#E4E4E4",
+    borderWidth: 1,
+    backgroundColor: "#FAFAFA",
+    textAlign: "right",
+    position: "relative",
+    direction : 'ltr'
+  },
+  OtpInputContainer : {
+    justifyContent : 'flex-end' , 
+    position : 'relative' , 
+    height : 30
+  },
+  OtpInputItem : {
+    width : '100%' , 
+    textAlign : 'center' , 
+    color : 'white' , 
+    height : '90%'  , 
+    borderRadius : 4 ,
+    fontFamily : 'bold'
+  },
+  OtpItemBottomLine : {
+    width : 38  , 
+    height : 5 , 
+    borderRadius : 4 , 
+    backgroundColor : 'white'
+  },
+  btnSmsContainer: {
+    overflow: "hidden",
+    alignItems: "center",
+    backgroundColor: "red",
+    justifyContent: "center",
+    borderRadius: 16,
+    marginTop: 8,
+    height : 47, 
+  },
+  phoneIcon: {
+    position: "absolute",
+    top: "60%",
+    right: 16,
+  },
+  btn: {
+    width: "100%",
+    backgroundColor: Colors.primary,
+    marginTop: 8,
+    height : 47,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  btnText: {
+    color: Colors.whiteColor,
+    fontFamily: "regular",
+    textAlign: "center",
+  },
+  btnSms: {
+    width: "100%",
+    backgroundColor: Colors.whiteColor,
+    // marginTop: 8,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  btnSmsText: {
+    color: Colors.primary,
+    fontFamily: "regular",
+    textAlign: "center",
+  },
+  smsBox: {
+    marginVertical: 16,
+    height: 100,
+    justifyContent : 'center',
+    paddingHorizontal: 85,
+    paddingVertical: 0,
+    borderRadius: 13,
+    borderColor: Colors.whiteColor,
+    borderWidth: 1,
+  },
 });

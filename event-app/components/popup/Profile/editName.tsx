@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Animated,
   Keyboard,
+  TouchableNativeFeedback,
   ActivityIndicator,
 } from "react-native";
 import { useEffect, useState } from "react";
@@ -85,14 +86,21 @@ export default function EditName(p: {
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <View
-            onTouchEnd={() => {
-              p?.setEditName(false);
-              setLastName("");
-            }}
-          >
-            <Icon name={"X"} />
-          </View>
+        <View onTouchEnd={() => p?.setEditName(false)} style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View >
+                      <Icon name={"X"} />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
           <Text style={styles.headTitle}>نام</Text>
         </View>
         <View style={styles.body}>

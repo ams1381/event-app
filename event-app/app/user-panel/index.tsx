@@ -4,6 +4,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  Dimensions,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -13,6 +14,8 @@ import Icon from "../../components/common/Icon";
 import { Image } from "react-native";
 import Swiper from "react-native-swiper";
 import { LinearGradient } from "expo-linear-gradient";
+import InfoBottomSheet from "../../components/common/InfoBottomSheet";
+import { TabBarComponent } from "../../components/common/Tabbar";
 import { axiosInstance } from "../../Utills/axios";
 import { useRouter } from "expo-router";
 
@@ -41,13 +44,14 @@ const index = () => {
   }, [productData]);
 
   return (
+    // <SafeAreaView style={{...styles.container}}>
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={"#fff"} />
       <Navbar
         isActivePopup={isActivePopup}
         setIsActivePopup={setIsActivePopup}
       />
-      <ScrollView style={{ paddingHorizontal: 16, width: "100%" }}>
+      <ScrollView style={{  width: "100%" , height : '100%'  }}>
         <View style={styles.header}>
           <View style={styles.headerMore}>
             <Icon name="arrowLeft" />
@@ -55,7 +59,6 @@ const index = () => {
           </View>
           <Text style={styles.headerTitle}>زمین ها</Text>
         </View>
-
         <View style={{ alignItems: "center", borderRadius: 24 }}>
           <Swiper showsPagination={false} containerStyle={{gap:10}} style={{ height: 315}}>
             {data.map((item: any) => (
@@ -91,7 +94,6 @@ const index = () => {
             ))}
           </Swiper>
         </View>
-
         <View style={styles.header}>
           <View style={styles.headerMore}>
             <Text></Text>
@@ -254,11 +256,14 @@ const index = () => {
           </View>
           <Text style={styles.headerTitle}>تقویم</Text>
         </View>
-      </ScrollView>
+        <View>
+            <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
+        </View>
+      </ScrollView>    
+      
     </SafeAreaView>
   );
 };
-
 export default index;
 
 const styles = StyleSheet.create({
@@ -266,8 +271,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fafafa",
     alignItems: "center",
-    paddingVertical: StatusBar.currentHeight,
+    paddingTop: StatusBar.currentHeight,
     width: "100%",
+    paddingHorizontal : 16
   },
   header: {
     flexDirection: "row",

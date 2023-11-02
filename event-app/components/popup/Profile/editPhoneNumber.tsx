@@ -23,7 +23,7 @@ export default function EditPhoneNumber(p: {
   const BottomSheetAnimation = useState(new Animated.Value(0))[0];
   const [userName, setUserName] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [ EmailChangeError , setEmailChangeError ] = useState(false);
   useEffect(() => {
     setUserName(p.phoneNumberValue);
   }, [p?.phoneNumberValue]);
@@ -79,13 +79,21 @@ export default function EditPhoneNumber(p: {
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <View
-            onTouchEnd={() => {
-              p?.setPhoneNumber(false);
-            }}
-          >
-            <Icon name={"X"} />
-          </View>
+        <View onTouchEnd={() => p?.setPhoneNumber(false)} style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View >
+                      <Icon name={"X"} />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
           <Text style={styles.headTitle}>شماره تلفن</Text>
         </View>
         <View style={styles.body}>

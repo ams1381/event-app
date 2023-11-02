@@ -5,6 +5,7 @@ import {
   Text,
   View,
   StatusBar,
+  TouchableNativeFeedback,
   Image,
   // TouchableOpacity,
 } from "react-native";
@@ -19,6 +20,7 @@ import EditEmail from "../../components/popup/Profile/editEmail";
 import Shadow from "../../components/popup/shdow";
 import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import { axiosInstance } from "../../Utills/axios";
+import { TabBarComponent } from "../../components/common/Tabbar";
 
 const profile = () => {
   const [editName, setEditName] = useState<boolean>(false);
@@ -46,97 +48,131 @@ const profile = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <EditName last_name={last_name} nameValue={nameValue} getUserData={getUserData} userId={userId} editName={editName} setEditName={setEditName} />
-      <EditPhoneNumber
-      getUserData={getUserData}
-      phoneNumberValue={phoneNumberValue}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
-      />
-      <EditEmail emailValue={emailValue} getUserData={getUserData} email={email} setEmail={setEmail} />
-      <Navbar
-        isActivePopup={isActivePopup}
-        setIsActivePopup={setIsActivePopup}
-      />
-      <Shadow isActive={editName} setIsActive={setEditName} />
-      <Shadow isActive={phoneNumber} setIsActive={setPhoneNumber} />
-      <Shadow isActive={email} setIsActive={setEmail} />
-      {/*<View style={styles.profileImageContainer}>*/}
-      {/*    <Image*/}
-      {/*        style={[styles?.profileImage, styles.shadowProp]}*/}
-      {/*        source={require("./../../assets/images/me.jpeg")}*/}
-      {/*    />*/}
-      {/*</View>*/}
-      <View style={styles.inputFieldContainer}>
-        <View style={styles.inputField}>
-          <View onTouchEnd={() => setEditName(true)}>
-            <Icon name="edit" />
+    <>
+      <SafeAreaView style={styles.container}>
+        <EditName last_name={last_name} nameValue={nameValue} getUserData={getUserData} userId={userId} editName={editName} setEditName={setEditName} />
+        <EditPhoneNumber
+        getUserData={getUserData}
+        phoneNumberValue={phoneNumberValue}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+        />
+        <EditEmail emailValue={emailValue} getUserData={getUserData} email={email} setEmail={setEmail} />
+        <Navbar
+          isActivePopup={isActivePopup}
+          setIsActivePopup={setIsActivePopup}
+        />
+        <Shadow isActive={editName} setIsActive={setEditName} />
+        <Shadow isActive={phoneNumber} setIsActive={setPhoneNumber} />
+        <Shadow isActive={email} setIsActive={setEmail} />
+        <View style={styles.inputFieldContainer}>
+          <View style={styles.inputField}>
+          <View style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View onTouchEnd={() => setEditName(true)}>
+                      <Icon name="edit" />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+            <TextInput
+              value={nameValue}
+              editable={false}
+              placeholderTextColor={Colors.textColorDark}
+              style={styles.input}
+              placeholder="نام"
+            />
+            <View style={styles.inputTitle}>
+              <Text style={styles.inputTitleText}>نام : </Text>
+              <Icon name="user" />
+            </View>
           </View>
-          <TextInput
-            value={nameValue}
-            editable={false}
-            placeholderTextColor={Colors.textColorDark}
-            style={styles.input}
-            placeholder="نام"
-          />
-          <View style={styles.inputTitle}>
-            <Text style={styles.inputTitleText}>نام : </Text>
-            <Icon name="user" />
+          <View style={styles.inputField}>
+            <View style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View onTouchEnd={() => setPhoneNumber(true)}>
+                      <Icon name="edit" />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+         
+            <TextInput
+              value={phoneNumberValue}
+              editable={false}
+              placeholderTextColor={Colors.textColorDark}
+              style={{
+                textAlign: "left",
+                flex: 1,
+                color: Colors.textColorDark,
+                fontFamily: "regular",
+                fontSize: 20,
+              }}
+              placeholder="شماره تلفن"
+            />
+            <View style={styles.inputTitle}>
+              <Text style={styles.inputTitleText}>شماره تلفن : </Text>
+              <Icon name="user" />
+            </View>
+          </View>
+          <View style={styles.inputField}>
+          <View style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View onTouchEnd={() => setEmail(true)}>
+                      <Icon name="edit" />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+            {/* <View onTouchEnd={() => setEmail(true)}>
+              <Icon name="edit" />
+            </View> */}
+            <TextInput
+              value={emailValue}
+              editable={false}
+              placeholderTextColor={Colors.textColorDark}
+              style={{
+                textAlign: "left",
+                flex: 1,
+                color: Colors.textColorDark,
+                fontFamily: "regular",
+                fontSize: 20,
+              }}
+              placeholder="آدرس ایمیل"
+            />
+            <View style={styles.inputTitle}>
+              <Text style={styles.inputTitleText}>ایمیل : </Text>
+              <Icon name="user" />
+            </View>
           </View>
         </View>
-        <View style={styles.inputField}>
-          <View onTouchEnd={() => setPhoneNumber(true)}>
-            <Icon name="edit" />
-          </View>
-          <TextInput
-            value={phoneNumberValue}
-            editable={false}
-            placeholderTextColor={Colors.textColorDark}
-            style={{
-              textAlign: "left",
-              flex: 1,
-              color: Colors.textColorDark,
-              fontFamily: "regular",
-              fontSize: 20,
-            }}
-            placeholder="شماره تلفن"
-          />
-          <View style={styles.inputTitle}>
-            <Text style={styles.inputTitleText}>شماره تلفن : </Text>
-            <Icon name="user" />
-          </View>
-        </View>
-        <View style={styles.inputField}>
-          <View onTouchEnd={() => setEmail(true)}>
-            <Icon name="edit" />
-          </View>
-          <TextInput
-            value={emailValue}
-            editable={false}
-            placeholderTextColor={Colors.textColorDark}
-            style={{
-              textAlign: "left",
-              flex: 1,
-              color: Colors.textColorDark,
-              fontFamily: "regular",
-              fontSize: 20,
-            }}
-            placeholder="آدرس ایمیل"
-          />
-          <View style={styles.inputTitle}>
-            <Text style={styles.inputTitleText}>ایمیل : </Text>
-            <Icon name="user" />
-          </View>
-        </View>
-      </View>
-      <InfoBottomSheet
-        toUp={268}
-        isActivePopup={isActivePopup}
-        setIsActivePopup={setIsActivePopup}
-        bottomSheetOpen={isActivePopup}
-      />
-    </SafeAreaView>
+        
+        {/* <TabBarComponent TabName="User" /> */}
+      </SafeAreaView>
+      
+    </>
+    
   );
 };
 
@@ -180,6 +216,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    overflow : 'hidden',
     gap: 4,
   },
   input: {

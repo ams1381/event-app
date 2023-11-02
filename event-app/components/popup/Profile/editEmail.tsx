@@ -3,6 +3,7 @@ import {
   View,
   StyleSheet,
   Animated,
+  TouchableNativeFeedback,
   Keyboard,
   ActivityIndicator,
 } from "react-native";
@@ -75,13 +76,28 @@ export default function EditEmail(p: {
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <View
+        <View onTouchEnd={() => p?.setEmail(false)} style={{ borderRadius : 5 , overflow : "hidden" }}>
+              <TouchableNativeFeedback>
+                <View style={{ width : 30 , 
+                  height : 30  , 
+                  borderRadius : 5 , 
+                  overflow : 'hidden' , 
+                  justifyContent : 'center' , 
+                  alignItems : 'center' 
+                  }}>
+                  <View >
+                      <Icon name={"X"} />
+                    </View>
+                </View>
+              </TouchableNativeFeedback>
+            </View>
+          {/* <View
             onTouchEnd={() => {
               p?.setEmail(false);
             }}
           >
             <Icon name={"X"} />
-          </View>
+          </View> */}
           <Text style={styles.headTitle}>ایمیل</Text>
         </View>
         <View style={styles.body}>
