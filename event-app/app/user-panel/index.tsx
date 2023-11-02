@@ -63,7 +63,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                     <ScrollView style={{width: "100%", height: '100%', paddingHorizontal: 16}}>
                         <ImageExpo source={'./../../assets/images/logo.svg'}/>
                         <View style={styles.header}>
-                            <View style={styles.headerMore} onTouchEnd={() => router.push('/createFaram')}>
+                            <View style={styles.headerMore} onTouchEnd={() => router.push('/user-panel/createFaram')}>
                                 <Icon name="arrowLeft"/>
                                 <Text style={styles.headerTitle}>ایجاد زمین</Text>
                             </View>
