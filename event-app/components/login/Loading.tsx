@@ -12,7 +12,7 @@ const Loading = () => {
       <Icon name="originLogo" /> */}
       <Text style={styles.title}>سوپر اپلیکیشن سبا</Text>
       {/* <Icon name="loading" style={styles.loading} /> */}
-      <ActivityIndicator size={'large'} color="white" />
+      <ActivityIndicator style={{marginTop:12}} size={'large'} color="white" />
       <Icon name="shape" style={styles.shape} />
       <Icon name="shapeLine" style={styles.shapeLine} />
     </SafeAreaView>

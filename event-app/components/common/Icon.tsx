@@ -44,6 +44,12 @@ const iconImages: IconImages = {
   navbarLogo:require('./../../assets/images/navbarLogo.png'),
   search:require('./../../assets/images/Search.png'),
   arrowLeft:require('./../../assets/images/Arrow-Left.png'),
+  tree:require('./../../assets/images/tree.png'),
+  leaf:require('./../../assets/images/leaf.png'),
+  treeBlue:require('./../../assets/images/treeBlue.png'),
+  arroLeftWhite:require('./../../assets/images/Arrow-LeftWhite.png'),
+  plusIcon:require('./../../assets/images/plus.png'),
+  filter:require('./../../assets/images/Filter.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {
