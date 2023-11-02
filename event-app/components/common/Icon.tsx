@@ -44,6 +44,18 @@ const iconImages: IconImages = {
   navbarLogo:require('./../../assets/images/navbarLogo.png'),
   search:require('./../../assets/images/Search.png'),
   RightArrow:require('./../../assets/images/RightArrow.png'),
+  arrowLeft:require('./../../assets/images/Arrow-Left.png'),
+  Cart:require('./../../assets/images/Cart.png'),
+  PlayBack:require('./../../assets/images/PlayBack.png'),
+  UserIcon:require('./../../assets/images/UserIcon.png'),
+  Apple:require('./../../assets/images/Apple.png'),
+  HomeActive:require('./../../assets/images/HomeActive.png'),
+  ActiveCart:require('./../../assets/images/ActiveCart.png'),
+  ActivePlayBack:require('./../../assets/images/ActivePlayBack.png'),
+  ActiveUser:require('./../../assets/images/ActiveUser.png'),
+  ActiveApple:require('./../../assets/images/ActiveApple.png'),
+  Home:require('./../../assets/images/Home.png'),
+  // HomeActive
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {
