@@ -12,6 +12,7 @@ import ProductItem from "../../components/product/productItem";
 import 'react-native-gesture-handler'
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet'
 import AddProduct from "../../components/popup/Product/AddProduct";
+import FilterProduct from "../../components/popup/Product/FilterProduct";
 
 const Index = () => {
     const bottomSheetModalRef = useRef(null)
@@ -33,7 +34,7 @@ const Index = () => {
 
     const [isActivePopup, setIsActivePopup] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [filterPopup, setFilterPopup] = useState(false);
     const openAddProductPopup = () => {
         console.log('helq')
     }
@@ -51,6 +52,7 @@ const Index = () => {
                             setIsActivePopup={setIsActivePopup}
                         />
                         <AddProduct modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                        <FilterProduct modalVisible={filterPopup} setModalVisible={setFilterPopup}/>
                         <View style={styles.localContainer}>
                             <View style={styles.filterHeader}>
                                 <View style={styles.filterBtn} onTouchEnd={() => {
@@ -59,7 +61,9 @@ const Index = () => {
                                     <Icon name="plusIcon"/>
                                     <Text style={styles.filterBtnText}>ایجاد محصول</Text>
                                 </View>
-                                <View style={styles.filterIcon}>
+                                <View style={styles.filterIcon} onTouchEnd={() => {
+                                    setFilterPopup(true)
+                                }}>
                                     <Icon name="filter"/>
                                 </View>
                             </View>
