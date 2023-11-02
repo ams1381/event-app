@@ -18,6 +18,8 @@ const UserPanelLayout = () => {
                 setCurrentTab('User');
             case 'products':
                 setCurrentTab('Apple');
+            case 'video-help' :
+                setCurrentTab('VideoHelp')
         }
 
     },[])

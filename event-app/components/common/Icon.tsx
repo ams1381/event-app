@@ -68,9 +68,9 @@ const iconImages: IconImages = {
   SwiperRightArraow:require('./../../assets/images/SwiperRightArraow.png'),
   // SwiperLeftArrow
   // SwiperRightArraow
-
-  datePicker:require('./../../assets/images/Calendar.png'),
-  datePicker2:require('./../../assets/images/Calendar2.png'),
+  Play : require('../../assets/images/Play.png')
+  // datePicker:require('./../../assets/images/Calendar.png'),
+  // datePicker2:require('./../../assets/images/Calendar2.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

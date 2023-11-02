@@ -108,10 +108,11 @@ const BottomSheet: FC<BottomSheetProps> = ({
     }
     try {
       setBottomSheetLoading(true)
-      await axiosInstance.post('api/core/auth/login/',{
+       let { data } = await axiosInstance.post('api/core/auth/login/',{
         phone_number : phoneNumber,
         code : otpCode.join('')
       })
+      axiosInstance.defaults.headers['Authorization'] = 'JWT ' + data.access;
       setBottomSheetLoading(false)
       router.push('/user-panel/home')
     }
@@ -206,7 +207,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
             <Icon style={styles.phoneIcon} name="phone" />
           </View>
           <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
-            <View style={styles.btn} onTouchEnd={() => router.push('/user-panel/profile')}>
+            <View style={styles.btn} onTouchEnd={() => sendSmsHandler()}>
                     {
                       BottomSheetLoading ? <ActivityIndicator color={'white'}/>
                       : <Text style={styles.btnText}>ورود</Text>

@@ -50,7 +50,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
 
 
 
-  //   <SafeAreaView style={styles.container}>
+
   //     <StatusBar backgroundColor={"#fff"} />
   //     <Navbar
   //       isActivePopup={isActivePopup}
@@ -576,6 +576,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                 </LinearGradient>
                             </View>
                         </View>
+                        {/* <Icon name="datePicker"/> */}
                         <View style={styles.header}>
                             <View style={styles.headerMore}>
                                 <Icon name="arrowLeft"/>
@@ -583,9 +584,9 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             </View>
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
-                        <View style={{ marginBottom : 260 }}>
+                        <View style={{ marginTop : 5 }}>
                             <Icon name="datePicker" />
-                            <Image style={{ width : 300 , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
+                            <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
                         </View>
                         <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>

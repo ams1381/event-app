@@ -18,7 +18,6 @@ const Loading = () => {
     </SafeAreaView>
   );
 };
-
 export default Loading;
 
 const styles = StyleSheet.create({
