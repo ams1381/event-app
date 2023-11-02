@@ -57,13 +57,13 @@ const index = () => {
         </View>
 
         <View style={{ alignItems: "center", borderRadius: 24 }}>
-          <Swiper showsPagination={false} style={{ height: 315 }}>
+          <Swiper showsPagination={false} containerStyle={{gap:10}} style={{ height: 315}}>
             {data.map((item: any) => (
               <View style={styles.landSlider}>
                 <View style={styles.landSliderHeader}>
                   <View style={styles.landSliderHeaderLeft}>
                     <Text style={styles.landSliderHeaderLeftSubTitle}>
-                      {item?.area} هکتار
+                      1000 هکتار
                     </Text>
                     <Text style={styles.landSliderHeaderLeftTitle}>
                       مساحت :
@@ -292,6 +292,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     paddingHorizontal: 16,
     paddingVertical: 16,
+    marginHorizontal:10
   },
   landSliderHeader: {
     flexDirection: "row",
