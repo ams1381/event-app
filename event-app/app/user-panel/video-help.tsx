@@ -14,7 +14,7 @@ const VideoHelp = () => {
 
 
 // <WebViewOpener webURL={WebViewuRL} /> : <SafeAreaView style={{ paddingTop : StatusBar.currentHeight }}>
-    return WebViewOpen ? <WebView source={{ uri: 'https://www.aparat.com/v/0RmSc' }} style={{ flex: 1 }} /> :
+    return WebViewOpen ? <WebView source={{ uri: WebViewuRL }} style={{ flex: 1 }} /> :
     <SafeAreaView style={{ paddingTop : StatusBar.currentHeight }}>
         <StatusBar backgroundColor={"#fff"}/>
                     <Navbar
@@ -35,7 +35,7 @@ const VideoHelp = () => {
                                              gap : 10
                                              }} onTouchEnd={() => {
                                                 setWebViewOpen(true);
-                                                setWebViewUrl('https://www.aparat.com/v/8Ka7m')
+                                                setWebViewUrl('https://www.aparat.com/video/video/embed/videohash/8Ka7m/vt/frame')
                                                 // webURL={'https://www.aparat.com/v/0RmSc'}
                                              }}>
                                             {/* <TouchableNativeFeedback> */}
@@ -57,7 +57,7 @@ const VideoHelp = () => {
                                              gap : 10
                                              }} onTouchEnd={() => {
                                                 setWebViewOpen(true);
-                                                setWebViewUrl('https://www.aparat.com/v/P3ZFe')
+                                                setWebViewUrl('https://www.aparat.com/video/video/embed/videohash/P3ZFe/vt/frame')
                                              }}>
                                             {/* <TouchableNativeFeedback> */}
                                                 <Text style={{ fontFamily : 'bold'  }}>انواع آفات و روش مقابله با آن</Text>
@@ -78,7 +78,7 @@ const VideoHelp = () => {
                                              gap : 10
                                              }} onTouchEnd={() => {
                                                 setWebViewOpen(true);
-                                                setWebViewUrl('https://www.aparat.com/v/d3uKe')
+                                                setWebViewUrl('https://www.aparat.com/video/video/embed/videohash/d3uKe/vt/frame')
                                              }}>
                                             {/* <TouchableNativeFeedback> */}
                                                 <Text style={{ flex : 1 , flexWrap : 'wrap' , fontFamily : 'bold'  }}>چگونه با کمترین مصرف آب , محصولاتمان را به عمل بیاوریم</Text>
