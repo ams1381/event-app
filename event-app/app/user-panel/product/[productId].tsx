@@ -26,8 +26,6 @@ const Index = () => {
             try 
             {
                 let { data } = await axiosInstance.get(`api/farm/products/${router.params?.productID}/`);
-                console.warn(data)
-                // console.log(data)
                 setProductData(data);
             }
             catch(err) {

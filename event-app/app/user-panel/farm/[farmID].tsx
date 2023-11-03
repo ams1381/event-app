@@ -5,9 +5,10 @@ import { axiosInstance } from '../../../Utills/axios';
 import { Image } from 'expo-image';
 import Navbar from '../../../components/common/Navbar';
 import Swiper from 'react-native-swiper';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import ProductItem from '../../../components/product/productItem';
 import Icon from '../../../components/common/Icon';
+
 
 const FarmPage = () => {
     const route = useRoute();
@@ -134,9 +135,8 @@ const FarmPage = () => {
                 <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
                     مقعیت مکانی زمین
             </Text>
-            <View style={{ width : '100%' , marginTop : 16  , overflow : 'hidden' , borderRadius : 16 , alignItems : 'center' , justifyContent : 'center' }}>
-            <MapView  style={{ width : 330 , height : 210 , borderRadius : 16 }}/>
-                {/* FAFAFA */}
+            <View style={{ flex : 1 , width : '100%' , marginTop : 16  , overflow : 'hidden' , borderRadius : 16 , alignItems : 'center' , justifyContent : 'center' }}>
+            <Image style={{ width : '100%' , height : 200}} resizeMode="contain" source={require('../../../assets/images/Map.png')} />
             </View>
         </View>
        { profuctsData && <View style={{ 

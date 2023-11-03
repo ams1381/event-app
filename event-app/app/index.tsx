@@ -6,8 +6,12 @@ import Swiper from 'react-native-swiper'
 import Welcome2 from "../components/login/Welcone2";
 import Login from "../components/login/auth/Login";
 import OtpSms from "../components/login/auth/OtpSms";
+import { I18nManager } from 'react-native';
 import { PaginatioinComponent } from "../components/common/pagination";
 import Toast from "react-native-toast-message";
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
+I18nManager.isRTL = false
 
 const HomePage  = () => {
   const [homePageState, setHomePageState] = useState("InitialLoading");
@@ -68,7 +72,6 @@ const HomePage  = () => {
           horizontal={false}
           scrollEnabled={false}
           showsPagination={false}>
-
               <Loading />
               <View style={{ width : '100%' , height : '100%'  }}>
 
@@ -81,8 +84,8 @@ const HomePage  = () => {
                   // renderPagination={(index, total) => {
                   // return
                   // }}
-                  showsPagination={false}
-                  >
+                  style={{ direction : "ltr" }}
+                  showsPagination={false}>
 
                       <Welcome  />
                       <Welcome2 visitedPage={currentIndex === 1} />

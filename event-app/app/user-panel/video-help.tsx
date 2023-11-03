@@ -12,7 +12,7 @@ const VideoHelp = () => {
     const [ WebViewOpen , setWebViewOpen ] = useState(false);
     const [ WebViewuRL , setWebViewUrl ] = useState('');
 
-    console.log(WebViewuRL , WebViewOpen )
+
 // <WebViewOpener webURL={WebViewuRL} /> : <SafeAreaView style={{ paddingTop : StatusBar.currentHeight }}>
     return WebViewOpen ? <WebView source={{ uri: 'https://www.aparat.com/v/0RmSc' }} style={{ flex: 1 }} /> :
     <SafeAreaView style={{ paddingTop : StatusBar.currentHeight }}>

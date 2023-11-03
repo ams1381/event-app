@@ -260,7 +260,6 @@ export const styles = StyleSheet.create({
   btnSmsContainer: {
     overflow: "hidden",
     alignItems: "center",
-    backgroundColor: "red",
     justifyContent: "center",
     borderRadius: 16,
     marginTop: 8,
@@ -297,6 +296,9 @@ export const styles = StyleSheet.create({
     color: Colors.primary,
     fontFamily: "regular",
     textAlign: "center",
+    width : '100%',
+    borderRadius : 16 ,
+    height :'100%',
   },
   smsBox: {
     marginVertical: 16,

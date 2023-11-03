@@ -56,7 +56,7 @@ export default function EditPhoneNumber(p: {
             setError(true)
             const ERROR_MESSAGE =
                 err?.response?.data[Object.keys(err?.response?.data)[0]];
-            if (err?.response?.status === 50) setErrorText('خطا سمت شبکه')
+            if (err?.response?.status === 500) setErrorText('خطا سمت شبکه')
             else setErrorText(ERROR_MESSAGE)
             setIsLoading(false);
         })

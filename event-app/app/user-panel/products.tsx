@@ -20,24 +20,25 @@ const Index = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsloading] = useState<boolean>(false)
 
-    useEffect(() => {
+    const getProduct = () => {
         setIsloading(true)
         axiosInstance
             .get(`api/farm/products/`)
             .then((res) => {
                 setData(res?.data?.results);
-
                 setIsloading(false)
             });
-        //   console.log(router.params?.productId);
+    }
+
+
+    useEffect(() => {
+        getProduct()
     }, []);
 
     const [isActivePopup, setIsActivePopup] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [filterPopup, setFilterPopup] = useState(false);
-    const openAddProductPopup = () => {
-        console.log('helq')
-    }
+
 
     return (
         <>
@@ -46,36 +47,36 @@ const Index = () => {
                     <ActivityIndicator color={Colors.primary} size={50}/>
                 </View>
             ) : (
-                    <ScrollView style={styles.container}>
-                        <Navbar
-                            isActivePopup={isActivePopup}
-                            setIsActivePopup={setIsActivePopup}
-                        />
-                        <AddProduct modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-                        <FilterProduct modalVisible={filterPopup} setModalVisible={setFilterPopup}/>
-                        <View style={styles.localContainer}>
-                            <View style={styles.filterHeader}>
-                                <View style={styles.filterBtn} onTouchEnd={() => {
-                                    setModalVisible(true)
-                                }}>
-                                    <Icon name="plusIcon"/>
-                                    <Text style={styles.filterBtnText}>ایجاد محصول</Text>
-                                </View>
-                                <View style={styles.filterIcon} onTouchEnd={() => {
-                                    setFilterPopup(true)
-                                }}>
-                                    <Icon name="filter"/>
-                                </View>
+                <ScrollView style={styles.container}>
+                    <Navbar
+                        isActivePopup={isActivePopup}
+                        setIsActivePopup={setIsActivePopup}
+                    />
+                    <AddProduct getProduct={getProduct} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+                    <FilterProduct modalVisible={filterPopup} setModalVisible={setFilterPopup}/>
+                    <View style={styles.localContainer}>
+                        <View style={styles.filterHeader}>
+                            <View style={styles.filterBtn} onTouchEnd={() => {
+                                setModalVisible(true)
+                            }}>
+                                <Icon name="plusIcon"/>
+                                <Text style={styles.filterBtnText}>ایجاد محصول</Text>
                             </View>
-                            <View style={styles.productsContainer}>
-                                {data.map((item) => {
-                                    return (
-                                        <ProductItem item={item}/>
-                                    );
-                                })}
+                            <View style={styles.filterIcon} onTouchEnd={() => {
+                                setFilterPopup(true)
+                            }}>
+                                <Icon name="filter"/>
                             </View>
                         </View>
-                    </ScrollView>
+                        <View style={styles.productsContainer}>
+                            {data.map((item) => {
+                                return (
+                                    <ProductItem item={item}/>
+                                );
+                            })}
+                        </View>
+                    </View>
+                </ScrollView>
             )}
 
         </>
