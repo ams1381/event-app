@@ -205,9 +205,9 @@ export default function ProductItem(p: { item: any }) {
                     borderBottomRightRadius: 12,
                 }}
             >
-                <View style={{alignItems: "center",paddingVertical:10, gap: 10}}>
+                <View style={{alignItems: "center",paddingVertical:15, gap: 10}}>
                     <Image
-                        style={{width: 34.52, height: 40}}
+                        style={{width: 36.52, height: 41,resizeMode:'contain'}}
                         source={{uri: p?.item?.category?.icon}}
                     />
                     <Text
@@ -322,5 +322,6 @@ export const styles = StyleSheet.create({
         color: "#0F393D",
         fontFamily: "Black",
         fontSize: 17,
+        maxWidth:80
     },
 });
