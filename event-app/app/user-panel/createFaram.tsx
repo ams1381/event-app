@@ -68,7 +68,7 @@ export default function CreateFaram() {
             <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
             <Toast ref={(ref) => Toast.setRef(ref)}/>
             <ScrollView style={styles.localContainer}>
-                <View>
+                <View style={{marginTop:13}}>
                     <TextInput value={name} onChangeText={(e) => setName(e)} style={styles.input} placeholderTextColor={'#7E7E7E'} placeholder={'نام زمین'}/>
                 </View>
                 <View>
@@ -82,14 +82,9 @@ export default function CreateFaram() {
                     width: '100%', marginTop: 8, alignItems: 'center',
                     justifyContent: 'center', overflow: 'hidden', borderRadius: 12
                 }}>
-                    <MapView
-                        provider={PROVIDER_GOOGLE}
-                        initialRegion={{
-                        latitude: 32.4279,
-                        longitude: 53.6880,
-                        latitudeDelta: 5,
-                        longitudeDelta: 5,
-                    }} style={styles.map}/>
+                    <View style={{flex: 1, width: '100%', marginTop: 16, overflow: 'hidden', borderRadius: 16, alignItems: 'center', justifyContent: 'center'}}>
+                        <Image style={{width: '100%', height: 200}} resizeMode="contain" source={require('../../assets/images/Map.png')}/>
+                    </View>
                 </View>
 
                 <View style={styles.btnSmsContainer}>

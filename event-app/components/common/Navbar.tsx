@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingVertical: 12,
         paddingHorizontal: 16,
-        marginBottom: 13,
         borderBottomWidth: 1,
         borderBottomColor: '#EEE',
     },

@@ -148,7 +148,7 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         <Icon name='lightShop' style={TabBarStyles.iconStyle}/>
                     </LinearGradient>
                 </View> : <View style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='Cart'/>
+                    <Icon name='darkShop' style={TabBarStyles.iconStyleNotActive}   />
                 </View>}
 
             </View>
@@ -175,13 +175,13 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Icon name='ActivePlayBack'/>
+                        <Icon name='lightHelp' style={TabBarStyles.iconStyle}/>
                     </View>
                 </View> : <View onTouchEnd={() => {
                     router.push('/user-panel/video-help')
                     setCurrentTab('VideoHelp')
                 }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='PlayBack'/>
+                    <Icon name='darkHelp' style={TabBarStyles.iconStyleNotActive}/>
                 </View>}
 
             </View>

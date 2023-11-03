@@ -76,7 +76,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                         </View>
                         <View style={{alignItems: "center", borderRadius: 24}}>
                             <Swiper showsPagination={false} containerStyle={{gap: 10}} style={{height: 315}}>
-                                {data.map((item: any) => (
+                                {data.map((item: any,index:any) => (
                                     <View style={styles.landSlider} onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
                                         <View style={styles.landSliderHeader}>
                                             <View style={styles.landSliderHeaderLeft}>

@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
         marginBottom: 80
     },
     filterHeader: {
-
+        marginTop: 13,
         flexDirection: "row",
         alignItems: "center",
         gap: 10,

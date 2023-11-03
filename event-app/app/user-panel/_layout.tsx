@@ -26,8 +26,6 @@ const UserPanelLayout = () => {
             case 'video-help' :
                 setCurrentTab('VideoHelp')
                 break;
-            
-
 
         }
 
