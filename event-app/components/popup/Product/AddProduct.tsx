@@ -72,7 +72,7 @@ const FilterProduct = (p: {
             category: selectProduct,
             product_analysis:
                 {
-                    "annual_capacity": 92233,
+                    "annual_capacity": annual_capacity,
                     "estimated_harvest_date": "2019-08-24"
                 },
             farm: selectFarm
