@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
 
     },
     btnContainer: {
-        marginBottom: 50,
+        marginBottom: 125,
         width: '100%',
         height: 100,
         overflow: "hidden",
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 16,
         marginTop: 8,
-
     },
     btn: {
         backgroundColor: Colors.primary,

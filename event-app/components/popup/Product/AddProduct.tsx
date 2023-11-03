@@ -175,9 +175,11 @@ const FilterProduct = (p: {
                                 </View>
                                 <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>تاریخ تخمین</Text>
                                 <Icon name={'datePicker3'} style={styles.datePicker}/>
-                                <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>تخمین وزن برداشت</Text>
+                                <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>تخمین وزن برداشت
+                                <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 15, marginTop: 10}}> (تن)</Text>
+                                </Text>
                                 <View style={styles.searchBar}>
-                                    <TextInput keyboardType={'number-pad'} value={annual_capacity} onChangeText={(e) => setAnnual_capacity(e)} style={{width: '100%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'تخمین وزن برداشت'} placeholderTextColor={'#7E7E7E'}/>
+                                    <TextInput keyboardType={'number-pad'} value={annual_capacity} onChangeText={(e) => setAnnual_capacity(e)} style={{width: '100%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'وزن به تن'} placeholderTextColor={'#7E7E7E'}/>
                                     {/*<Icon name={'search'}/>*/}
                                 </View>
                                 <View style={{flexDirection: 'row', marginBottom: 10, gap: 10, marginTop: 10}}>

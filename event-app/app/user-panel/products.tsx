@@ -39,7 +39,6 @@ const Index = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [filterPopup, setFilterPopup] = useState(false);
 
-
     return (
         <>
             {isLoading ? (

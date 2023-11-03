@@ -17,7 +17,7 @@ axiosInstance.interceptors.response.use(function (response) {
 },async (error) => {
     return Promise.reject(error);
 })
-axiosInstance.defaults.headers['Authorization'] = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzg0MDU1LCJpYXQiOjE2OTg4NDgwNTUsImp0aSI6IjFhNzE3MjUzZDQzNzQ5YjJhYWM5ODgwOTE5ZTExZjQxIiwidXNlcl9pZCI6IjdjMDNhYzNlLTkwM2MtNDdjYy04ZTczLTQxNTYxNDVlOWQ3ZiJ9.SlfPZ_2cXF0Q4Lh-8hdYSaAFTernZwTC6i2rQhlXMgU'
+axiosInstance.defaults.headers['Authorization'] = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwNTE3MjU1LCJpYXQiOjE2OTg5ODEyNTUsImp0aSI6IjE3MDU1ODlhYmU5MDQ4NGViMmI0Njk2MzI3NjMyZDM0IiwidXNlcl9pZCI6IjlkNzhkODVjLTQ5OTYtNDg1YS05ZjkwLWFkNzM4MjRlMzI5NiJ9.zMFfVZTke5SwhGb2tOdz4RwmCS3BpuI-KP1kYgBWVEk'
 
 
 

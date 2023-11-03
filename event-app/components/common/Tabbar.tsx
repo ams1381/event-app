@@ -38,13 +38,13 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Icon name='ActiveUser'/>
+                        <Icon name='lightUser' style={TabBarStyles.iconStyle}/>
                     </LinearGradient>
                 </View> : <View onTouchEnd={() => {
                     router.push('/user-panel/profile')
                     setCurrentTab('User')
                 }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='user'/>
+                    <Icon name='darkUser' style={TabBarStyles.iconStyleNotActive}/>
                 </View>}
             </View>
             <View style={{width: '25%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
@@ -73,13 +73,13 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Icon name='ActiveApple'/>
+                        <Icon name='lightProducts' style={TabBarStyles.iconStyle}/>
                     </LinearGradient>
                 </View> : <View onTouchEnd={() => {
                     router.push('/user-panel/products')
                     setCurrentTab('Apple')
                 }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='Apple'/>
+                    <Icon name='darkProducts' style={TabBarStyles.iconStyleNotActive} />
                 </View>}
             </View>
             {/* Active TabBar Item */}
@@ -109,13 +109,13 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Icon name='HomeActive'/>
+                        <Icon name='lightIndex' style={TabBarStyles.iconStyle}/>
                     </LinearGradient>
                 </View> : <View onTouchEnd={() => {
                     router.push('/user-panel/')
                     setCurrentTab('Home')
                 }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='Home'/>
+                    <Icon name='darkIndex' style={TabBarStyles.iconStyleNotActive}/>
                 </View>}
 
             </View>
@@ -145,7 +145,7 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <Icon name='ActiveCart'/>
+                        <Icon name='lightShop' style={TabBarStyles.iconStyle}/>
                     </LinearGradient>
                 </View> : <View style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
                     <Icon name='Cart'/>
@@ -204,6 +204,14 @@ const TabBarStyles = StyleSheet.create({
             'center',
         alignItems:
             'center',
+        borderWidth:1,
+        borderColor:'#eee'
+    },
+    iconStyle:{
+        width:40
+    },
+    iconStyleNotActive:{
+        width:30,
     }
     ,
     TabBarInnerContainer: {

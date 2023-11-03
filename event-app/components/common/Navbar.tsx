@@ -7,7 +7,7 @@ export default function Navbar(p: { isActivePopup: any, setIsActivePopup: any })
     return (
         <View style={styles.container}>
             <Icon name={'search'}/>
-            <Icon name={'navbarLogo'}/>
+            <Icon name={'logo4k'} style={styles.logo}/>
                 <View  onTouchEnd={() => {
                     p.setIsActivePopup(!p.isActivePopup)
                 }}>
@@ -30,5 +30,9 @@ const styles = StyleSheet.create({
         marginBottom: 13,
         borderBottomWidth: 1,
         borderBottomColor: '#EEE',
+    },
+    logo:{
+        width:50,
+        height:50
     },
 })

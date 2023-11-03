@@ -14,7 +14,7 @@ import Icon from "../../components/common/Icon";
 import {Image} from "react-native";
 import Swiper from "react-native-swiper";
 import DatePicker from '@mohamadkh75/react-native-jalali-datepicker';
-import { LinearGradient } from "expo-linear-gradient";
+import {LinearGradient} from "expo-linear-gradient";
 import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import {TabBarComponent} from "../../components/common/Tabbar";
 import {axiosInstance} from "../../Utills/axios";
@@ -28,11 +28,11 @@ interface Product {
 }
 
 const index = () => {
-  const router = useRouter();
-  const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-  const [data, setData] = useState([]);
-  const [productData, setProductData] = useState<Product[]>([]);
-const [isLoading,setIsLoading] = useState<boolean>(false)
+    const router = useRouter();
+    const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
+    const [data, setData] = useState([]);
+    const [productData, setProductData] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         setIsLoading(true)
@@ -71,7 +71,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                         </View>
                         <View style={{alignItems: "center", borderRadius: 24}}>
                             <Swiper showsPagination={false} containerStyle={{gap: 10}} style={{height: 315}}>
-                                {data.map((item: any) => (
+                                {data.map((item: any, index: any) => (
                                     <View style={styles.landSlider}>
                                         <View style={styles.landSliderHeader}>
                                             <View style={styles.landSliderHeaderLeft}>
@@ -91,7 +91,12 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                                 marginVertical: 16,
                                             }}
                                         >
-                                            <Image source={require("./../../assets/images/chart.png")}/>
+                                            {index === 0 && <Icon name={'slideItem3'} style={styles.imageStyle}/>}
+                                            {index === 1 && <Icon name={'slideItem2'} style={styles.imageStyle}/>}
+                                            {index === 2 && <Icon name={'slideItem1'} style={styles.imageStyle}/>}
+                                            {index === 3 && <Icon name={'slideItem0'} style={styles.imageStyle}/>}
+
+                                            {/*<Image source={require("./../../assets/images/chart.png")}/>*/}
                                         </View>
                                         <View
                                             onTouchEnd={() => {
@@ -133,30 +138,30 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                         </Text>
                                     </View>
 
-                                    <LinearGradient
-                                        colors={["#B3B37A", "rgba(179, 179, 122, 0.60)"]}
-                                        start={{x: 0, y: 0}}
-                                        end={{x: 1, y: 1}}
-                                        locations={[0.2367, 0.8321]}
-                                        style={styles.inProductionBtn}
+                                    <LinearGradient onTouchEnd={() => router.push('/user-panel/products')}
+                                                    colors={["#B3B37A", "rgba(179, 179, 122, 0.60)"]}
+                                                    start={{x: 0, y: 0}}
+                                                    end={{x: 1, y: 1}}
+                                                    locations={[0.2367, 0.8321]}
+                                                    style={styles.inProductionBtn}
                                     >
                                         <Text style={styles.inProductionBtnText}>مشاهده</Text>
                                     </LinearGradient>
                                 </LinearGradient>
-                                <LinearGradient
-                                    colors={["#44898E", "rgba(68, 137, 142, 0.64)"]}
-                                    start={{x: 0, y: 0}}
-                                    end={{x: 1, y: 1}}
-                                    locations={[0.0745, 0.9445]}
-                                    style={{
-                                        flex: 1,
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        borderRadius: 12,
-                                        paddingHorizontal: 10,
-                                        paddingVertical: 10,
-                                        justifyContent: "center",
-                                    }}
+                                <LinearGradient onTouchEnd={() => router.push('/user-panel/products')}
+                                                colors={["#44898E", "rgba(68, 137, 142, 0.64)"]}
+                                                start={{x: 0, y: 0}}
+                                                end={{x: 1, y: 1}}
+                                                locations={[0.0745, 0.9445]}
+                                                style={{
+                                                    flex: 1,
+                                                    flexDirection: "row",
+                                                    alignItems: "center",
+                                                    borderRadius: 12,
+                                                    paddingHorizontal: 10,
+                                                    paddingVertical: 10,
+                                                    justifyContent: "center",
+                                                }}
                                 >
                                     <Icon name="arroLeftWhite"/>
                                     <Text
@@ -190,6 +195,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                         </Text>
                                     </View>
                                     <LinearGradient
+                                        onTouchEnd={() => router.push('/user-panel/products')}
                                         colors={["#5FA2A6", "rgba(95, 162, 166, 0.62)"]}
                                         start={{x: 0, y: 0}}
                                         end={{x: 1, y: 1}}
@@ -242,6 +248,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                         </Text>
                                     </View>
                                     <LinearGradient
+                                        onTouchEnd={() => router.push('/user-panel/products')}
                                         colors={["#2857A4", "rgba(40, 87, 164, 0.70)"]}
                                         start={{x: 0, y: 0}}
                                         end={{x: 1, y: 1}}
@@ -266,7 +273,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             </View>
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
-                        <View >
+                        <View>
                             <DatePicker
                                 style={{
                                     width: '95%',
@@ -282,15 +289,15 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                 dateSeparator='/'
                                 minDate='1398/1/18'
                                 maxDate='1400/1/18'
-                                headerContainerStyle={{ height: '15%' }}
+                                headerContainerStyle={{height: '15%'}}
                                 yearMonthBoxStyle={{
                                     width: '30%',
                                     height: '75%',
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                 }}
-                                yearMonthTextStyle={{ fontSize: 22, color: Colors.primary , fontFamily : 'bold' }}
-                                iconContainerStyle={{ width: `${100 / 7}%` }}
+                                yearMonthTextStyle={{fontSize: 22, color: Colors.primary, fontFamily: 'bold'}}
+                                iconContainerStyle={{width: `${100 / 7}%`}}
                                 backIconStyle={{
                                     width: 20,
                                     height: 20,
@@ -329,8 +336,8 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                     borderRadius: 10,
                                     elevation: 3
                                 }}
-                                eachMonthTextStyle={{ fontSize: 16, color: 'white' }}
-                                weekdaysContainerStyle={{ height: '10%' }}
+                                eachMonthTextStyle={{fontSize: 16, color: 'white'}}
+                                weekdaysContainerStyle={{height: '10%'}}
                                 weekdayStyle={{
                                     flex: 1,
                                     justifyContent: 'center',
@@ -339,7 +346,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                 weekdayTextStyle={{
                                     fontSize: 16,
                                     color: '#3C3C4399',
-                                    fontFamily : 'bold',
+                                    fontFamily: 'bold',
                                     marginBottom: 5
                                 }}
                                 borderColor='#4bcffa'
@@ -357,7 +364,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
 
                                 }}
                                 selectedDayColor='#4bcffa'
-                                dayTextStyle={{ fontSize: 18 , fontFamily : 'bold' }}
+                                dayTextStyle={{fontSize: 18, fontFamily: 'bold'}}
                                 selectedDayTextColor='white'
                                 dayTextColor='black'
                                 disabledTextColor='#B46A63'/>
@@ -375,6 +382,10 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
 export default index;
 
 const styles = StyleSheet.create({
+    imageStyle: {
+        width: '100%',
+        height: 150
+    },
     container: {
         flex: 1,
         backgroundColor: "#fafafa",
@@ -388,7 +399,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        marginVertical: 8,
+        marginVertical: 12,
     },
     headerTitle: {
         color: Colors.primary,
@@ -418,7 +429,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     landSliderHeaderLeft: {
-        backgroundColor: Colors.primaryOpacity,
+        backgroundColor: '#CEE9EB',
         paddingHorizontal: 16,
         paddingVertical: 2,
         borderRadius: 12,

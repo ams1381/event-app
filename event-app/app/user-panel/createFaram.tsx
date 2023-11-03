@@ -1,7 +1,7 @@
 import {Text, View, StyleSheet, StatusBar, TextInput, ScrollView, TouchableNativeFeedback, ActivityIndicator} from "react-native";
 import Navbar from "../../components/common/Navbar";
 import React, {useState} from "react";
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Colors from "../../constants/Colors";
 import {axiosInstance} from "../../Utills/axios";
 import Toast from "react-native-toast-message";
@@ -79,7 +79,9 @@ export default function CreateFaram() {
                     width: '100%', marginTop: 8, alignItems: 'center',
                     justifyContent: 'center', overflow: 'hidden', borderRadius: 12
                 }}>
-                    <MapView initialRegion={{
+                    <MapView
+                        provider={PROVIDER_GOOGLE}
+                        initialRegion={{
                         latitude: 32.4279,
                         longitude: 53.6880,
                         latitudeDelta: 5,
