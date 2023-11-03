@@ -1,9 +1,10 @@
-import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions  } from "react-native";
+import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions, SafeAreaView  } from "react-native";
 import React, {useEffect, useState} from "react";
 import Navbar from "../../../components/common/Navbar";
 import Icon from "../../../components/common/Icon";
 import Colors from "../../../constants/Colors";
 import {LinearGradient} from "expo-linear-gradient";
+import moment from 'jalali-moment';
 import {axiosInstance} from "../../../Utills/axios";
 import {useRouter} from "expo-router";
 import {useRoute} from "@react-navigation/native";
@@ -25,7 +26,6 @@ const Index = () => {
             try 
             {
                 let { data } = await axiosInstance.get(`api/farm/products/${router.params?.productID}/`);
-                // console.log(data)
                 setProductData(data);
             }
             catch(err) {
@@ -34,14 +34,17 @@ const Index = () => {
         }
         RetrieveProduct()
     }, []);
-    if(productData)
-        console.warn(productData)
     return (
-        <>
+        <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
             <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
             <View style={ProductStyles.ProductContainer}>
+                <ScrollView style={{  width : '92%' }}>
                 {
-                    productData ? <>
+                    productData ? 
+                        <View style={{ gap : 10 ,
+                         alignItems : 'center' , 
+                         width : '100%' , 
+                         }}>
                             <View style={ProductStyles.ProductInfoContainer}>
                             <View>
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>اطلاعات کلی</Text>
@@ -55,15 +58,21 @@ const Index = () => {
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نوع محصول:</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>
+                                    {productData.status == 'nh' ? <Text>برداشت نشده</Text> :
+                                     productData.status == 'ws' ? <Text>آماده برای فروش</Text> : productData.status == 's' ? <Text>فروخته شده</Text> :
+                                     <Text>در حالت تولید</Text>} 
+                                    </Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>وضعیت :</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{convertGregorianToJalali(convertToRegularTime(productData.created_at))}</Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ ایجاد :</Text>
                             </View>
                             <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>موز</Text>
+                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>
+                                    {productData.product_analysis ? convertGregorianToJalali(productData.product_analysis.estimated_harvest_date) : ''}
+                                    </Text>
                                 <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ تخمین برداشت :</Text>
                             </View>
                             <View>
@@ -73,65 +82,43 @@ const Index = () => {
                                 </View>
                             
                         </View>
-                        <View style={ProductStyles.ProductInnerContainer}>
+                        <View style={{
+                            ...ProductStyles.ProductChartContainer,
+                            marginBottom : productData.product_analysis ? 0 : 220
+                            }}>
                             <View>
-                                <Text>آمار</Text>
+                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>آمار</Text>
                             </View>
                             <View>
-                            <LineChart
-                                    data={{
-                                    labels: ["January", "February", "March", "April", "May", "June"],
-                                    datasets: [
-                                        {
-                                        data: [
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100,
-                                            Math.random() * 100
-                                        ]
-                                        }
-                                    ]
-                                }}
-                                width={Dimensions.get("window").width} // from react-native
-                                height={220}
-                                yAxisLabel="$"
-                                yAxisSuffix="k"
-                                yAxisInterval={1} // optional, defaults to 1
-                                chartConfig={{
-                                // backgroundColor: "#e26a00",
-                                backgroundColor: 'white',
-                                // backgroundGradientFrom: "#fb8c00",
-                                // backgroundGradientTo: "#ffa726",
-                                decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                                style: {
-                                    borderRadius: 16
-                                },
-                                propsForDots: {
-                                    r: "6",
-                                    strokeWidth: "2",
-                                    stroke: "#ffa726"
-                                }
-                                }}
-                                bezier
-                                style={{
-                                marginVertical: 8,
-                                borderRadius: 16
-                                }}
-                            />
+                            <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} />
                             </View>
                         </View>
-                    </>  : <Text>
+                        {/* productData.product_analysis && */}
+                       { productData.product_analysis && <View style={{
+                        ...ProductStyles.ProcutRecommandContainer ,
+                        marginBottom : 100
+                        }}>
+                            <View>
+                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
+                            </View>
+                            <View style={{ padding : 16 , borderWidth : 1 ,borderColor : '#EEE' , marginTop : 10 }}>
+                                <Text>
+                                { productData.product_analysis?.description }
+                                </Text>
+                                <View>
+                                    <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#2E6F73' }}>مشاهده آموزش</Text>
+                                </View>
+                            </View>
+                        </View>}
+                    </View> 
+                      : <Text>
                         Loading
                     </Text>
                 }
-                
+                </ScrollView>
             </View> 
             
-        </>
+            </SafeAreaView>
     )
    
 }
@@ -148,19 +135,11 @@ export function convertToRegularTime(dateTimeString : string) {
   
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-  export const convertDate = (inputDate : string, dateType : string) => {
-    const [year, month, day] = inputDate.split('-');
-  
-    if (dateType === 'jalali') {
-      const jDate = jalaali.toJalaali(parseInt(year), parseInt(month), parseInt(day));
-      return `${jDate.jy}/${jDate.jm}/${jDate.jd}`;
-    } else if (dateType === 'gregorian') {
-      const gDate = jalaali.toGregorian(parseInt(year), parseInt(month), parseInt(day));
-      return `${gDate.gy}-${String(gDate.gm).padStart(2, '0')}-${String(gDate.gd).padStart(2, '0')}`;
-    }
-  
-    return inputDate; // Return input date if no conversion needed
-  };
+  function convertGregorianToJalali(gregorianDate : any) {
+    // Convert the Gregorian date to a Jalali date using the jalali-moment library.
+    const jalaliDate = moment(gregorianDate, 'YYYY-MM-DD').format('jYYYY/jM/jD');
+    return jalaliDate;
+  }
 export default Index;
 
 const ProductStyles = StyleSheet.create({
@@ -170,10 +149,12 @@ const ProductStyles = StyleSheet.create({
         alignItems : 'center'
     },
     ProductInnerContainer : {
-        width : '95%',
+        width : '100%',
+        backgroundColor : 'white',
+        borderRadius : 16,
     },
     ProductInfoContainer : {
-        width : '95%',
+        width : '100%',
         // height : 398,
         borderRadius : 16,
         borderWidth : 1,
@@ -189,9 +170,16 @@ const ProductStyles = StyleSheet.create({
 
     },
     ProductChartContainer : {
-
+        width : '100%',
+        padding : 16,
+        borderRadius : 16,
+        backgroundColor : 'white'
     },
     ProcutRecommandContainer : {
-
+        width : '100%',
+        padding : 16,
+        borderRadius : 16,
+        backgroundColor : 'white',
+        marginBottom : 120
     }
 })

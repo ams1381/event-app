@@ -221,6 +221,12 @@ export default function ProductItem(p: { item: any }) {
                     </Text>
                 </View>
             </View>
+            <View style={{ width : `${p.item.progress_bar}%` , 
+            position : 'absolute' , 
+            left : 0 , bottom : 0 , 
+            height : 4 , 
+            borderBottomLeftRadius : 16,
+            backgroundColor : '#7EBABF' }} />
         </View>
     )
 }
@@ -272,6 +278,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 12,
         flexDirection: "row",
+        position : 'relative'
     },
     productItemImage: {
         width: "30%",

@@ -153,7 +153,7 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
 
             </View>
             <View style={{width: '25%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                {TabName == 'PlayBack' ? <View style={{
+                {TabName == 'VideoHelp' ? <View style={{
                     width: 96,
                     height: 96,
                     backgroundColor: 'white',
@@ -177,7 +177,10 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                     }}>
                         <Icon name='ActivePlayBack'/>
                     </View>
-                </View> : <View style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                </View> : <View onTouchEnd={() => {
+                    router.push('/user-panel/video-help')
+                    setCurrentTab('VideoHelp')
+                }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
                     <Icon name='PlayBack'/>
                 </View>}
 

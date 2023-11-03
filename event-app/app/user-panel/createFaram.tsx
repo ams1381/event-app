@@ -1,10 +1,12 @@
 import {Text, View, StyleSheet, StatusBar, TextInput, ScrollView, TouchableNativeFeedback, ActivityIndicator} from "react-native";
 import Navbar from "../../components/common/Navbar";
 import React, {useState} from "react";
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Colors from "../../constants/Colors";
 import {axiosInstance} from "../../Utills/axios";
 import Toast from "react-native-toast-message";
+import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 // import Toast from 'react-native-toast-message';
 
 
@@ -25,7 +27,7 @@ export default function CreateFaram() {
     const [isActivePopup, setIsActivePopup] = useState(false)
     const [mapLat, setMapLat] = useState(6.841776681);
     const [mapLong, setMapLong] = useState(79.869319);
-
+    const router = useRouter();
     const [name, setName] = useState<string>()
     const [area, setArea] = useState<string>()
     const [location, setLocation] = useState<Location>()
@@ -48,6 +50,7 @@ export default function CreateFaram() {
                     });
                     setArea('')
                     setName('')
+                    router.push('/user-panel/');
                 }
             }).catch(err => {
                 const ERROR_MESSAGE =

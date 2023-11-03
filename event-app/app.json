@@ -4,7 +4,7 @@
     "slug": "event-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/AppIcon.jpg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

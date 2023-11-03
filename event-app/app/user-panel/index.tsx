@@ -20,6 +20,7 @@ import {TabBarComponent} from "../../components/common/Tabbar";
 import {axiosInstance} from "../../Utills/axios";
 import {useRouter} from "expo-router";
 import {Image as ImageExpo} from 'expo-image'
+import { useRoute } from "@react-navigation/native";
 
 interface Product {
     being_prepared: boolean;
@@ -28,11 +29,12 @@ interface Product {
 }
 
 const index = () => {
-    const router = useRouter();
-    const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-    const [data, setData] = useState([]);
-    const [productData, setProductData] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+  const route = useRoute();
+  const router = useRouter();
+  const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
+  const [data, setData] = useState([]);
+  const [productData, setProductData] = useState<Product[]>([]);
+const [isLoading,setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         setIsLoading(true)
@@ -40,17 +42,20 @@ const index = () => {
             setIsLoading(false)
             setData(res?.data?.results);
         });
-    }, []);
+    }, [route]);
 
     useEffect(() => {
         axiosInstance.get("api/farm/products-list/").then((res) => {
             setProductData(res?.data?.results[0]);
         });
-    }, []);
+    }, [route]);
 
-    return (
-        // <SafeAreaView style={{...styles.container}}>
-        <>
+
+
+
+
+
+    return ( <>
             {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                 <ActivityIndicator color={Colors.primary} size={50}/>
             </View>) : (
@@ -71,8 +76,8 @@ const index = () => {
                         </View>
                         <View style={{alignItems: "center", borderRadius: 24}}>
                             <Swiper showsPagination={false} containerStyle={{gap: 10}} style={{height: 315}}>
-                                {data.map((item: any, index: any) => (
-                                    <View style={styles.landSlider}>
+                                {data.map((item: any) => (
+                                    <View style={styles.landSlider} onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
                                         <View style={styles.landSliderHeader}>
                                             <View style={styles.landSliderHeaderLeft}>
                                                 <Text style={styles.landSliderHeaderLeftSubTitle}>
@@ -273,101 +278,8 @@ const index = () => {
                             </View>
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
-                        <View>
-                            <DatePicker
-                                style={{
-                                    width: '95%',
-                                    height: '80%',
-                                    alignSelf: 'center',
-                                    // backgroundColor: '#1e272e',
-                                    borderWidth: 1,
-                                    borderColor: '#EEEEEE',
-                                    borderRadius: 16,
-                                    // elevation: 4
-                                }}
-                                selected='1399/1/18'
-                                dateSeparator='/'
-                                minDate='1398/1/18'
-                                maxDate='1400/1/18'
-                                headerContainerStyle={{height: '15%'}}
-                                yearMonthBoxStyle={{
-                                    width: '30%',
-                                    height: '75%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                                yearMonthTextStyle={{fontSize: 22, color: Colors.primary, fontFamily: 'bold'}}
-                                iconContainerStyle={{width: `${100 / 7}%`}}
-                                backIconStyle={{
-                                    width: 20,
-                                    height: 20,
-                                    resizeMode: 'center',
-                                    tintColor: '#808e9b'
-                                }}
-                                nextIconStyle={{
-                                    width: 20,
-                                    height: 20,
-                                    resizeMode: 'center',
-                                    tintColor: '#4bcffa'
-                                }}
-                                eachYearStyle={{
-                                    width: 110,
-                                    height: 82,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    backgroundColor: Colors.primary,
-                                    marginTop: '1.5%',
-                                    marginBottom: 5,
-                                    marginHorizontal: '1.5%',
-                                    borderRadius: 10,
-                                    elevation: 3
-                                }}
-                                eachYearTextStyle={{
-                                    fontSize: 16,
-                                    color: 'white'
-                                }}
-                                eachMonthStyle={{
-                                    width: `${88 / 3}%`,
-                                    height: `${88 / 4}%`,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    backgroundColor: '#4bcffa',
-                                    marginBottom: '3%',
-                                    borderRadius: 10,
-                                    elevation: 3
-                                }}
-                                eachMonthTextStyle={{fontSize: 16, color: 'white'}}
-                                weekdaysContainerStyle={{height: '10%'}}
-                                weekdayStyle={{
-                                    flex: 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
-                                weekdayTextStyle={{
-                                    fontSize: 16,
-                                    color: '#3C3C4399',
-                                    fontFamily: 'bold',
-                                    marginBottom: 5
-                                }}
-                                borderColor='#4bcffa'
-                                dayStyle={{
-                                    width: `${100 / 7}%`,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    aspectRatio: 1 / 1,
-                                }}
-                                selectedDayStyle={{
-                                    width: '70%',
-                                    aspectRatio: 1 / 1,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-
-                                }}
-                                selectedDayColor='#4bcffa'
-                                dayTextStyle={{fontSize: 18, fontFamily: 'bold'}}
-                                selectedDayTextColor='white'
-                                dayTextColor='black'
-                                disabledTextColor='#B46A63'/>
+                        <View style={{ marginTop : 5 }}>
+                            <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
                         </View>
                         <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>

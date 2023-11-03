@@ -59,7 +59,7 @@ const FilterProduct = (p: {
             return item?.name === param
         })
         setSelectFarm(selectItem?.id)
-        console.log(selectItem)
+
     }
 
 

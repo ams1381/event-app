@@ -15,9 +15,6 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
     useEffect(() => {
         axiosInstance.get('/api/farm/category/').then(res => {
             setDatas(res?.data?.results)
-            console.log(res?.data?.results)
-            console.log(res.data.results[0].title)
-            console.log(res.data.results[0].id)
         })
     }, []);
 

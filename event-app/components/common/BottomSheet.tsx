@@ -108,10 +108,11 @@ const BottomSheet: FC<BottomSheetProps> = ({
     }
     try {
       setBottomSheetLoading(true)
-      await axiosInstance.post('api/core/auth/login/',{
+       let { data } = await axiosInstance.post('api/core/auth/login/',{
         phone_number : phoneNumber,
         code : otpCode.join('')
       })
+      axiosInstance.defaults.headers['Authorization'] = 'JWT ' + data.access;
       setBottomSheetLoading(false)
       router.push('/user-panel/home')
     }
@@ -206,7 +207,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
             <Icon style={styles.phoneIcon} name="phone" />
           </View>
           <TouchableNativeFeedback  style={{ borderRadius: 16 , marginTop : 8}}>
-            <View style={styles.btn} onTouchEnd={() => router.push('/user-panel/home')}>
+            <View style={styles.btn} onTouchEnd={() => sendSmsHandler()}>
                     {
                       BottomSheetLoading ? <ActivityIndicator color={'white'}/>
                       : <Text style={styles.btnText}>ورود</Text>
@@ -259,7 +260,6 @@ export const styles = StyleSheet.create({
   btnSmsContainer: {
     overflow: "hidden",
     alignItems: "center",
-    backgroundColor: "red",
     justifyContent: "center",
     borderRadius: 16,
     marginTop: 8,
@@ -296,6 +296,9 @@ export const styles = StyleSheet.create({
     color: Colors.primary,
     fontFamily: "regular",
     textAlign: "center",
+    width : '100%',
+    borderRadius : 16 ,
+    height :'100%',
   },
   smsBox: {
     marginVertical: 16,
