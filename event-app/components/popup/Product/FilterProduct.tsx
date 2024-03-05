@@ -46,7 +46,9 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
                             <View onTouchEnd={() => p?.setModalVisible(false)}>
                                 <Icon name={'X'}/>
                             </View>
-                            <Text style={styles.headText}>فیلتر</Text>
+                            <Text style={styles.headText}>
+                            فیلتر
+                            </Text>
                         </View>
                         <View style={{paddingHorizontal: 16}}>
                             <View style={styles.searchBar}>

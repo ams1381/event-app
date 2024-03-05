@@ -17,7 +17,7 @@ axiosInstance.interceptors.response.use(function (response) {
 },async (error) => {
     return Promise.reject(error);
 })
-axiosInstance.defaults.headers['Authorization'] = 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMzg0MDU1LCJpYXQiOjE2OTg4NDgwNTUsImp0aSI6IjFhNzE3MjUzZDQzNzQ5YjJhYWM5ODgwOTE5ZTExZjQxIiwidXNlcl9pZCI6IjdjMDNhYzNlLTkwM2MtNDdjYy04ZTczLTQxNTYxNDVlOWQ3ZiJ9.SlfPZ_2cXF0Q4Lh-8hdYSaAFTernZwTC6i2rQhlXMgU'
+axiosInstance.defaults.headers['Authorization'] = ''
 
 
 

@@ -9,6 +9,7 @@ import OtpSms from "../components/login/auth/OtpSms";
 import { I18nManager } from 'react-native';
 import { PaginatioinComponent } from "../components/common/pagination";
 import Toast from "react-native-toast-message";
+import HelpBottomSheet from "../components/common/HelpBottomSheet";
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 I18nManager.isRTL = false
@@ -23,6 +24,7 @@ const HomePage  = () => {
   const [ currentIndex , setCurrentIndex ] = useState(0)
   const [ padingEnableState , setPagingEnableState ] = useState(true)
   const [ initialSwierActiveState , setInitialSwiperActiveState ] = useState(true);
+  const [isActivePopup,setIsActivePopup] = useState(false)
   useEffect(() => {
     // Use a setTimeout to change the state after 400ms
     setTimeout(() => {
@@ -59,7 +61,6 @@ const HomePage  = () => {
   return (
     <>
       <View style={{ width : '100%' , height : '100%' }}>
-
           <Swiper
           style={{ height : initialSwierActiveState ? 'auto' : '100%'}}
           automaticallyAdjustContentInsets={true}
@@ -92,11 +93,9 @@ const HomePage  = () => {
                       <Login visitedPage={currentIndex === 2} setSliderSwipable={setSliderSwipable}
                       setCurrentIndex={setCurrentIndex} />
                 </Swiper>
-
+                <HelpBottomSheet  active={isActivePopup} setActive={setIsActivePopup}/>
               </View>
-
           </Swiper>
-
     </View>
     { !initialSwierActiveState && <PaginatioinComponent CurPage={currentIndex} otpBackground={SliderSwipable == false} />}
     </>

@@ -147,7 +147,10 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                     }}>
                         <Icon name='ActiveCart'/>
                     </LinearGradient>
-                </View> : <View style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                </View> : <View onTouchEnd={() => {
+                    router.push('/user-panel/store')
+                    setCurrentTab('Cart')
+                }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
                     <Icon name='Cart'/>
                 </View>}
 

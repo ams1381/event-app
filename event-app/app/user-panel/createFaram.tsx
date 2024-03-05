@@ -7,6 +7,7 @@ import {axiosInstance} from "../../Utills/axios";
 import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
+import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 // import Toast from 'react-native-toast-message';
 
 type Location = {
@@ -92,6 +93,7 @@ export default function CreateFaram() {
                     </TouchableNativeFeedback>
                 </View>
             </ScrollView>
+            <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
         </View>
     )
 }

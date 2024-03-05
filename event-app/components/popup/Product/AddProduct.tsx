@@ -2,11 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {Button, View, Modal, StyleSheet, Text, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import Icon from "../../common/Icon";
 import Colors from "../../../constants/Colors";
-import DatePicker from "@mohamadkh75/react-native-jalali-datepicker";
 import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
 
-import Checkbox from 'expo-checkbox';
 import Toast from "react-native-toast-message";
 //
 const FilterProduct = (p: {
@@ -150,6 +148,7 @@ const FilterProduct = (p: {
                                         save="value"
                                         closeicon={<Icon name="X"/>}
                                         placeholder={'انتخاب کنید'}
+                                        rowTextStyle={{backgroundColor:'red'}}
                                         searchPlaceholder={'جستجو کنید'}
                                         boxStyles={{borderColor: '#eee', borderRadius: 16, marginTop: 10, flexDirection: 'row-reverse', borderWidth: 1, direction: 'ltr', paddingVertical: 15}}
                                         arrowicon={<Icon name="arrowDown"/>}

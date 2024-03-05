@@ -20,9 +20,8 @@ import EditEmail from "../../components/popup/Profile/editEmail";
 import Shadow from "../../components/popup/shdow";
 import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import {axiosInstance} from "../../Utills/axios";
-import {TabBarComponent} from "../../components/common/Tabbar";
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import Toast from "react-native-toast-message";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 
 const profile = () => {
     const [editName, setEditName] = useState<boolean>(false);
@@ -35,6 +34,23 @@ const profile = () => {
     const [last_name, setLastName] = useState<string>()
     const [userId, setUserId] = useState<string>();
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [showLanguageDropDownOpen,setShowLanguageDropDownOpen] = useState<boolean>(false)
+    const [activeLang,setActiveLang] = useState('FA')
+
+    const opacity = useSharedValue(1);
+    const scale = useSharedValue(1);
+  
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        opacity: opacity.value,
+        transform: [{ scale: scale.value }],
+      };
+    });
+  
+    useEffect(() => {
+      opacity.value = withTiming(0, { duration: 1000 });
+      scale.value = withTiming(1.5, { duration: 1000 });
+    }, []);
 
     const getUserData = () => {
         setIsLoading(true)
@@ -179,10 +195,64 @@ const profile = () => {
                                 <Icon name="user"/>
                             </View>
                         </View>
-                        {/* <TabBarComponent TabName="User" /> */}
-
+                        <View onTouchEnd={() => setShowLanguageDropDownOpen(prev => !prev)} style={styles.inputField}>
+                            <View style={{borderRadius: 5, overflow: "hidden",display:'flex',alignItems:'center',gap:10,flexDirection:'row'}}>
+                                <TouchableNativeFeedback>
+                                    <View style={{
+                                        width: 30,
+                                        height: 30,
+                                        borderRadius: 5,
+                                        overflow: 'hidden',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <View>
+                                            <Icon name="arrowDown"/>
+                                        </View>
+                                    </View>
+                                </TouchableNativeFeedback>
+                            <Text style={{
+                                    textAlign: "left",
+                                    color: Colors.textColorDark,
+                                    fontFamily: "regular",
+                                    fontSize: 20,
+                            }}>{activeLang}</Text>
+                            </View>
+                            <View style={styles.inputTitle}>
+                                <Text style={styles.inputTitleText}>زبان :</Text>
+                                <Icon  style={{width:24,height:24}} name="language"/>
+                            </View>
+                        </View>
+                          {showLanguageDropDownOpen ? ( <View style={{
+                                   width: "30%",
+                                   backgroundColor: Colors.whiteColor,
+                                   paddingHorizontal: 16,
+                                   paddingVertical: 16,
+                                   borderRadius: 16,
+                                   flexDirection: "row",
+                                   justifyContent: "space-between",
+                                   alignItems: "center",
+                                   overflow: 'hidden',
+                                   gap: 4,
+                                   direction:'ltr',
+                            }}> 
+                               <View style={{direction:'rtl',display:'flex',justifyContent:'flex-end',flexDirection:'column',gap:10}}>
+                                <View onTouchEnd={() => {
+                                    setActiveLang('FA')
+                                    setShowLanguageDropDownOpen(false)
+                                }} style={{width:100,direction:'rtl',color: Colors.textColorDark,}}>
+                                    <Text style={{fontFamily:'bold'}}>FA</Text>
+                                </View>
+                                <View onTouchEnd={() => {
+                                    setActiveLang('EN')
+                                    setShowLanguageDropDownOpen(false)
+                                }} style={{width:100,direction:'rtl',color: Colors.textColorDark,}}>
+                                    <Text style={{fontFamily:'bold',}}>EN</Text>
+                                </View>
+                               </View>
+                            </View>) : ''}
                     </View>
-
+                    <HelpBottomSheet  active={isActivePopup} setActive={setIsActivePopup}/>
                 </SafeAreaView>
             ) }
 
@@ -199,6 +269,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingVertical: StatusBar.currentHeight,
     },
+    box: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'blue',
+      },
     profileImageContainer: {
         width: 180,
         height: 180,

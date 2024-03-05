@@ -55,7 +55,6 @@ const iconImages: IconImages = {
   ActiveUser:require('./../../assets/images/ActiveUser.png'),
   ActiveApple:require('./../../assets/images/ActiveApple.png'),
   Home:require('./../../assets/images/Home.png'),
-  // HomeActive
   tree:require('./../../assets/images/tree.png'),
   leaf:require('./../../assets/images/leaf.png'),
   treeBlue:require('./../../assets/images/treeBlue.png'),
@@ -66,14 +65,14 @@ const iconImages: IconImages = {
   arrowDown:require('./../../assets/images/Arrow-Down.png'),
   SwiperLeftArrow:require('./../../assets/images/SwiperLeftArrow.png'),
   SwiperRightArraow:require('./../../assets/images/SwiperRightArraow.png'),
-  // SwiperLeftArrow
-  // SwiperRightArraow
   Play : require('../../assets/images/Play.png'),
-  // datePicker:require('./../../assets/images/Calendar.png'),
-  // datePicker2:require('./../../assets/images/Calendar2.png'),
   datePicker:require('./../../assets/images/Calendar.png'),
   datePicker2:require('./../../assets/images/Calendar2.png'),
   datePicker3:require('./../../assets/images/Calendar3.png'),
+  language:require('./../../assets/images/language.png'),
+  filterOrg:require('./../../assets/images/FilterORG.png'),
+  workerPerson:require('./../../assets/images/Worker.png'),
+  workerPerson2:require('./../../assets/images/worker2222.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

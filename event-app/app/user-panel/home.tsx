@@ -6,6 +6,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import Navbar from "../../components/common/Navbar";
 import { useRouter } from "expo-router";
+import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 
 
 export default function Home() {
@@ -97,9 +98,7 @@ export default function Home() {
                 <Icon name={'info'}/>
             </View> */}
             <Icon name={'homeShape'} style={styles.shape}/>
-            <View>
-                <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
-            </View>
+            <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
             
         </SafeAreaView>
        </>

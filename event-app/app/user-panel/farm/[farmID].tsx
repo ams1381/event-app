@@ -8,10 +8,13 @@ import Swiper from 'react-native-swiper';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import ProductItem from '../../../components/product/productItem';
 import Icon from '../../../components/common/Icon';
+import { useRouter } from 'expo-router';
+import HelpBottomSheet from '../../../components/common/HelpBottomSheet';
 
 
 const FarmPage = () => {
     const route = useRoute();
+    const router = useRouter()
     const [ landData , setLandData ] = useState(null);
     const [ profuctsData , setProductsData ] = useState(null);
     const [ recommandsSwiperIndex , setRecommandsSwiperIndex ] = useState(0)
@@ -43,16 +46,19 @@ const FarmPage = () => {
         GetProducts()
     },[])
 
-    return landData ? <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
+    // StatusBar.currentHeight
+    return landData ? <SafeAreaView style={{marginBottom:60}}>
         <StatusBar backgroundColor={"#fff"} />
-        <Navbar
+        <View style={{marginTop:30}}>
+        <Navbar 
          setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
-       <View style={{ width : '100%' , height : '100%'  , alignItems : 'center' }}>
-        <View style={{ width : '95 %' , alignItems : 'center' }}>
+        </View>
+       <View style={{ width : '100%' , height : '100' ,marginBottom:60 , alignItems : 'center' }}>
+        <View style={{ width : '100%' , alignItems : 'center' }}>
 
-        
-        <ScrollView style={{ width : '95%' }}>
-        <View style={{ width : '100%'  , gap : 16, paddingTop : 16 }}>
+
+        <ScrollView style={{ width : '100%',backgroundColor:'#fafafa', marginTop:-15,padding:16 }}>
+        <View style={{ width : '100%'  , gap : 16,}}>
             <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>
                 وضعیت زمین
             </Text>
@@ -147,7 +153,7 @@ const FarmPage = () => {
             marginTop : 16,
             marginBottom :200,
             padding : 16}}>
-                <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
+                <Text style={{ fontSize : 20 , marginBottom : 15 , fontFamily : 'bold' , color : '#2E6F73' }}>
                     تاریخچه محصولات 
                 </Text>
             <View>
@@ -158,6 +164,7 @@ const FarmPage = () => {
         </View>}
         </ScrollView>
         </View>
+        <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
     </View> 
     </SafeAreaView> : <Text>Loading</Text>
     

@@ -41,8 +41,8 @@ export default function InfoBottomSheet(p: {
             backgroundColor : 'white',
             borderTopLeftRadius : 24,
             borderTopRightRadius : 24,
-            padding : 5,
             marginTop : 50,
+            paddingBottom:200,
             zIndex : 666,
             transform: [{
                 translateY: BottomSheetAnimation.interpolate({
@@ -54,8 +54,7 @@ export default function InfoBottomSheet(p: {
             {/* <View style={styles.container}> */}
                 <ScrollView style={{
                         ...styles.itemContainer ,
-                
-                        height : (screenDimensions * 0.86)
+                        height : (screenDimensions * 0.86),
                     }}>
                     <View style={styles.head}>
                         <View onTouchEnd={() => p.setIsActivePopup(false)}>
@@ -76,6 +75,9 @@ export default function InfoBottomSheet(p: {
                             </View>
                         </TouchableNativeFeedback>
                     </View>
+                    {/* <View style={{position:'fixed',top:0,left:0,right:0,bottom:0,backgroundColor:'red',zIndex:99,width:'100%',height:'100%'}}>
+                        <Text>sadasd</Text>
+                    </View> */}
                 </ScrollView>
             {/* </View> */}
         </Animated.View>
@@ -85,15 +87,13 @@ export default function InfoBottomSheet(p: {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        // backgroundColor: Colors.whiteColor,
-        backgroundColor : 'red',
         position: 'absolute',
         bottom: 0,
         zIndex: 1,
         borderTopEndRadius: 24,
         borderTopStartRadius: 24,
-        paddingVertical: 24,
-        paddingHorizontal: 24
+        paddingVertical: 214,
+        paddingHorizontal: 214
     },
     Y: {
         width: '100%',
@@ -124,14 +124,13 @@ const styles = StyleSheet.create({
 
     },
     btnContainer: {
-        marginBottom: 50,
+        marginBottom:150,
+        marginTop:10,
         width: '100%',
-        height: 100,
         overflow: "hidden",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 16,
-        marginTop: 8,
 
     },
     btn: {
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
         // marginBottom: 50,
         borderRadius: 10,
         paddingVertical: 16,
-        width: '100%'
+        width: '100%',
     },
     btnText: {
         textAlign: 'center',

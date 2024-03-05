@@ -21,6 +21,11 @@ import {axiosInstance} from "../../Utills/axios";
 import {useRouter} from "expo-router";
 import {Image as ImageExpo} from 'expo-image'
 import { useRoute } from "@react-navigation/native";
+import EmptyBox from "../../components/main/EmptyBox";
+import HelpBottomSheet from "../../components/common/HelpBottomSheet";
+import MainChart from "../../components/common/MainChart";
+import EmptyBoxProduct from "../../components/common/EmptyProduct";
+import DatePicker2 from "../../components/common/DatePicker";
 
 interface Product {
     being_prepared: boolean;
@@ -50,11 +55,6 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
         });
     }, [route]);
 
-
-    
-
-
-
     return ( <>
             {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                 <ActivityIndicator color={Colors.primary} size={50}/>
@@ -76,12 +76,12 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                         </View>
                         <View style={{alignItems: "center", borderRadius: 24}}>
                             <Swiper showsPagination={false} containerStyle={{gap: 10}} style={{height: 315}}>
-                                {data.map((item: any) => (
+                                {data.length ? data.map((item: any) => (
                                     <View style={styles.landSlider} onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
                                         <View style={styles.landSliderHeader}>
                                             <View style={styles.landSliderHeaderLeft}>
                                                 <Text style={styles.landSliderHeaderLeftSubTitle}>
-                                                    1000 هکتار
+                                                    {item?.area} هکتار
                                                 </Text>
                                                 <Text style={styles.landSliderHeaderLeftTitle}>
                                                     مساحت :
@@ -97,6 +97,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                             }}
                                         >
                                             <Image source={require("./../../assets/images/chart.png")}/>
+                                            {/* <MainChart /> */}
                                         </View>
                                         <View
                                             onTouchEnd={() => {
@@ -106,7 +107,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                             <Text style={styles.seeMore}>مشاهده بیشتر</Text>
                                         </View>
                                     </View>
-                                ))}
+                                )) : <EmptyBox />}
                             </Swiper>
                         </View>
                         <View style={styles.header}>
@@ -115,7 +116,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             </View>
                             <Text style={styles.headerTitle}>محصولات</Text>
                         </View>
-                        <View style={styles.productContainer}>
+                     {productData.length ? ( <View style={styles.productContainer}>
                             <View style={{width: "43%", gap: 8}}>
                                 <LinearGradient
                                     colors={["#E5E5CD", "rgba(229, 229, 205, 0.42)"]}
@@ -230,7 +231,7 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                             fontSize: 16,
                                         }}
                                     >
-                                        فروخته شده
+                                         سلف‌خری
                                     </Text>
                                     <View style={{flexDirection: "row", alignItems: "baseline"}}>
                                         <Text style={{color: "#0043B4A6", fontFamily: "bold"}}>
@@ -263,7 +264,8 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                                     </LinearGradient>
                                 </LinearGradient>
                             </View>
-                        </View>
+                        </View>) : <View style={{height:350}}>
+                        <EmptyBoxProduct /></View>}
                         {/* <Icon name="datePicker"/> */}
                         <View style={styles.header}>
                             <View style={styles.headerMore}>
@@ -275,11 +277,15 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                         <View style={{ marginTop : 5 }}>
                             <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
                         </View>
-                        <View>
+                        {/* <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
-                        </View>
+                        </View> */}
+
+          
                     </ScrollView>
-                </SafeAreaView>
+                    <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+
+                </SafeAreaView> 
             )}
         </>
 
