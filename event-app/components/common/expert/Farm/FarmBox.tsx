@@ -108,7 +108,6 @@ const FarmBox = (p: { setActive: any, ref: any, active: any, data: any}) => {
           }) : <View></View>}
         </View>
         {p?.data?.products_percent?.length ? p?.data?.products_percent?.map((item: any, index: number) => {
-          console.log(item?.weight)
           return <View style={{
             display: 'flex',
             flexDirection: 'row',

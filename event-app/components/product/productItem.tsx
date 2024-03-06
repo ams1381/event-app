@@ -7,8 +7,7 @@ import {useRouter} from "expo-router";
 
 
 export default function ProductItem(p: { item: any }) {
-    console.log(p?.item?.id);
-    
+  console.log(p.item)
     const router = useRouter();
     return (
         <View style={styles.productItem} onTouchEnd={() => router.push(`/user-panel/product/${p.item.id}`)}>
@@ -223,7 +222,7 @@ export default function ProductItem(p: { item: any }) {
                     </Text>
                 </View>
             </View>
-            <View style={{ width : `${p.item.progress_bar}%` , 
+            <View style={{ width : `${p.item?.progress_bar}%` ,
             position : 'absolute' , 
             left : 0 , bottom : 0 , 
             height : 4 , 

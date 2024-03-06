@@ -80,6 +80,7 @@ const iconImages: IconImages = {
   arrowIconDown:require('./../../assets/images/ArrowBottomExpert.png'),
   redTrash:require('./../../assets/images/redTrash.png'),
   editOrg:require('./../../assets/images/edit-333333.png'),
+  emptyFarms:require('./../../assets/images/emptyFams.png')
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View} from "react-native";
+import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Navbar from "../../../components/common/Navbar";
 import React, {useEffect, useRef, useState} from "react";
 import HelpBottomSheet from "../../../components/common/HelpBottomSheet";
@@ -16,7 +16,6 @@ const FarmerId = () => {
   const [farmOpen, setFarmOpen] = useState(false);
   const ref = useRef<any>(null)
   const [farmerData, setFarmer] = useState<any>([])
-  const [addFarmerOpen, setAddFarmerOpen] = useState(false)
   const [addFarmPopup, setAddFarmPopup] = useState(false)
 
   const getData = () => {
@@ -31,19 +30,19 @@ const FarmerId = () => {
     getData()
   }, []);
 
-
   return (
     <View style={{width: '100%', height: '100%', flex: 1}}>
       <SafeAreaView style={{width: '100%', paddingTop: StatusBar.currentHeight, height: '100%', flex: 1}}>
         <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
         <ScrollView style={{paddingHorizontal: 16,}}>
           <View style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}}>
-            <View style={{width: '15%'}}>
+            {farmerData?.length ? <View style={{width: '15%'}}>
               <View style={styles.filterIcon}>
                 <Icon name="filter"/>
               </View>
-            </View>
-            <View style={{width: '85%'}}>
+            </View> : ''}
+
+            {farmerData?.length ? <View style={{width: '85%'}}>
               <View style={{
                 backgroundColor: '#fff',
                 marginTop: 14,
@@ -60,16 +59,36 @@ const FarmerId = () => {
                   <Icon name={'search'}/>
                 </View>
               </View>
-            </View>
+            </View> : ''}
+
           </View>
           <View style={{marginBottom: 20}}>
             {farmerData?.length ? farmerData.map((item: any, index: number) => {
               return <FarmBox key={index} data={item} setActive={setFarmOpen} ref={ref} active={farmOpen}/>
-            }) : <View></View>}
+            }) : <View style={{
+              width: '100%',
+              height: '100%',
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Icon name={'emptyFarms'} style={{width: 250, height: 250, marginTop: 90}}/>
+              <Text style={{color: Colors.primary, fontSize: 32, fontFamily: 'bold'}}>زمینی وجود ندارد !</Text>
+              <TouchableOpacity onPress={() => setAddFarmPopup(true)} style={{
+                width: 134,
+                backgroundColor: Colors.primary,
+                marginTop: 10,
+                borderRadius: 12,
+                height: 40,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}><Text style={{color: '#fff', fontSize: 16, fontFamily: 'bold'}}>ایجاد</Text></TouchableOpacity>
+            </View>}
           </View>
         </ScrollView>
-        <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
-        <View onTouchEnd={() => setAddFarmPopup(true)} style={{
+        {farmerData?.length ? <View onTouchEnd={() => setAddFarmPopup(true)} style={{
           position: 'absolute',
           bottom: 30,
           left: 20,
@@ -82,9 +101,11 @@ const FarmerId = () => {
           justifyContent: 'center'
         }}>
           <Text style={{color: '#fff', fontSize: 40}}>+</Text>
-        </View>
+        </View> : ''}
       </SafeAreaView>
       <AddFarm refreshFarmerData={getData()} active={addFarmPopup} setActive={setAddFarmPopup}/>
+      <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+
     </View>
   )
 }

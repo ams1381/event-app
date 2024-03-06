@@ -19,7 +19,6 @@ const Index = () => {
     axiosInstance
       .get(`api/farm/products/`)
       .then((res) => {
-        console.log(res?.data?.results)
         setData(res?.data?.results);
         setIsloading(false)
       });

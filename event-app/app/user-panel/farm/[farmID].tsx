@@ -142,7 +142,7 @@ const FarmPage = () => {
             marginBottom :  !(profuctsData || profuctsData?.results.length != 0) ? 210 : 0,
             padding : 16}}>
                 <Text style={{ fontSize : 20  , fontFamily : 'bold' , color : '#2E6F73' }}>
-                    مقعیت مکانی زمین
+                    موقغیت مکانی زمین
             </Text>
             <View style={{ flex : 1 , width : '100%' , marginTop : 16  , overflow : 'hidden' , borderRadius : 16 , alignItems : 'center' , justifyContent : 'center' }}>
             <Image style={{ width : '100%' , height : 200}} resizeMode="contain" source={require('../../../assets/images/Map.png')} />

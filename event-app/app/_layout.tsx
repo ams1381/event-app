@@ -38,7 +38,6 @@ export default function RootLayout() {
       router.push('/expert-panel/');
       axiosInstance.defaults.headers['Authorization'] = 'JWT ' + userToken;
     }
-
   });
   useEffect(() => {
     if (error) throw error;

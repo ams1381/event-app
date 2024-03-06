@@ -9,13 +9,13 @@ import {axiosInstance} from "../../Utills/axios";
 import {useRouter} from "expo-router";
 
 const ExpertPanel = () => {
-  const [addFarmerOpen,setAddFarmerOpen] = useState(false)
+  const [addFarmerOpen, setAddFarmerOpen] = useState(false)
   const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-  const [farmers,setFarmers] = useState([])
+  const [farmers, setFarmers] = useState([])
   const router = useRouter()
 
-  const getFarmers =  () => {
-     axiosInstance.get('api/expert/users/').then((res) =>{
+  const getFarmers = () => {
+    axiosInstance.get('api/expert/users/').then((res) => {
       setFarmers(res?.data?.results)
     }).catch((err) => {
       console.log(err)
@@ -27,9 +27,10 @@ const ExpertPanel = () => {
   }, []);
 
   return (
-    <View style={{width:'100%',height:'100%',flex:1}}>
-      <SafeAreaView style={{width: '100%', height: '100%', flex: 1,position:'relative'}}>
-        <ScrollView style={{width: '100%', height: '100%', flex: 1,position:'relative'}}>
+    <View style={{width: '100%', height: '100%', flex: 1}}>
+
+      <ScrollView style={{width: '100%', height: '100%', flex: 1, position: 'relative'}}>
+        <SafeAreaView style={{width: '100%', height: '100%', flex: 1, position: 'relative'}}>
           <SafeAreaView style={styles.container}>
             <Navbar isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
             <View style={{paddingHorizontal: 16, width: '100%'}}>
@@ -114,7 +115,8 @@ const ExpertPanel = () => {
                       marginTop: 90,
                       flexDirection: 'column'
                     }}>
-                      <Text style={{color: '#9A9A5A', textAlign: 'center', fontFamily: "regular"}}>مـحصولات سلفخری شده درحال
+                      <Text style={{color: '#9A9A5A', textAlign: 'center', fontFamily: "regular"}}>مـحصولات سلفخری شده
+                        درحال
                         کـــاشت</Text>
                       <Text style={{color: '#82823E', fontSize: 36, fontFamily: 'bold'}}>۲۲۳ تن</Text>
                     </View>
@@ -128,28 +130,61 @@ const ExpertPanel = () => {
                 <Text style={{color: '#979797', textAlign: 'right', fontFamily: 'bold', fontSize: 16, marginTop: 14}}>لیست
                   کشاورزان</Text>
               </View>
-              <View style={{backgroundColor:'#fff',marginTop:14,height:50,borderRadius:12,borderWidth:1,borderStyle:'solid',borderColor:'#eee',position:'relative'}}>
-                <TextInput placeholder={'جستجو'} style={{textAlign:'right',padding:12,fontFamily:'bold'}} placeholderTextColor={'#666'} />
-                <View style={{position:'absolute',top:12,left:12}}>
-                  <Icon name={'search'} />
+              <View style={{
+                backgroundColor: '#fff',
+                marginTop: 14,
+                height: 50,
+                borderRadius: 12,
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: '#eee',
+                position: 'relative'
+              }}>
+                <TextInput placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
+                           placeholderTextColor={'#666'}/>
+                <View style={{position: 'absolute', top: 12, left: 12}}>
+                  <Icon name={'search'}/>
                 </View>
               </View>
-              <View style={{marginBottom:30}}>
-                {farmers?.map((item:any,index:any) => {
+              <View style={{marginBottom: 30}}>
+                {farmers?.map((item: any, index: any) => {
                   return (
-                    <View onTouchEnd={() => router.push(`/expert-panel/farmer/${item?.id?.toString()}`)} key={index} style={{backgroundColor:'#fff',marginTop:8,height:50,borderRadius:12,borderWidth:1,borderStyle:'solid',borderColor:'#eee',position:'relative'}}><Text style={{textAlign:'right',padding:12,fontFamily:'bold'}}>{item?.full_name}</Text></View>
+                    <View onTouchEnd={() => router.push(`/expert-panel/farmer/${item?.id?.toString()}`)} key={index}
+                          style={{
+                            backgroundColor: '#fff',
+                            marginTop: 8,
+                            height: 50,
+                            borderRadius: 12,
+                            borderWidth: 1,
+                            borderStyle: 'solid',
+                            borderColor: '#eee',
+                            position: 'relative'
+                          }}><Text
+                      style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}>{item?.full_name}</Text></View>
                   )
                 })}
               </View>
             </View>
           </SafeAreaView>
-        </ScrollView>
-        <View onTouchEnd={() => setAddFarmerOpen(true)} style={{position:'absolute', bottom:30, left:20, backgroundColor:Colors.primary, width:80, height:80, borderRadius:18, display:'flex', alignItems:'center', justifyContent:'center'}}>
-          <Text style={{color:'#fff', fontSize:40}}>+</Text>
-        </View>
-        <AddFarmer refreshFarmerData={getFarmers()} active={addFarmerOpen} setActive={setAddFarmerOpen}/>
-      </SafeAreaView>
-      <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup} />
+        </SafeAreaView>
+      </ScrollView>
+      <View onTouchEnd={() => setAddFarmerOpen(true)} style={{
+        position: 'absolute',
+        bottom: 30,
+        left: 20,
+        backgroundColor: Colors.primary,
+        width: 80,
+        height: 80,
+        borderRadius: 18,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <Text style={{color: '#fff', fontSize: 40}}>+</Text>
+      </View>
+      <AddFarmer refreshFarmerData={getFarmers()} active={addFarmerOpen} setActive={setAddFarmerOpen}/>
+
+      <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
     </View>
   )
 }
@@ -163,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: StatusBar.currentHeight,
     width: "100%",
-    height:'100%'
+    height: '100%'
     // paddingHorizontal : 16
   },
   inProductionBtn: {

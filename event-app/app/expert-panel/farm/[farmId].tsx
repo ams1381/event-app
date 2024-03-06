@@ -1,4 +1,14 @@
-import {SafeAreaView, ScrollView, StyleSheet, StatusBar, Text, TextInput, View, TouchableOpacity} from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  StatusBar,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Linking, ActivityIndicator
+} from "react-native";
 import Navbar from "../../../components/common/Navbar";
 import Icon from "../../../components/common/Icon";
 import HelpBottomSheet from "../../../components/common/HelpBottomSheet";
@@ -8,6 +18,8 @@ import Colors from "../../../constants/Colors";
 import {useRoute} from "@react-navigation/native";
 import {axiosInstance} from "../../../Utills/axios";
 import {useRouter} from "expo-router";
+import ProductItem from "../../../components/product/productItem";
+import AddRecommented from "../../../components/common/expert/Farm/AddRecommented";
 
 const FarmId = () => {
   const route = useRoute()
@@ -15,23 +27,46 @@ const FarmId = () => {
 
   const [isActivePopup, setIsActivePopup] = useState(false);
   const [farmerData, setFarmer] = useState<any>([])
+  const [loading, setLoading] = useState(false)
   const getData = () => {
-    axiosInstance.get(`api/expert/farms/?user_id=${route.params?.farmId}`).then(res => {
-      setFarmer(res?.data?.results)
-      console.log()
+    // api/expert/farms/single_farm/?farm_id=140
+    setLoading(true)
+    axiosInstance.get(`api/expert/farms/single_farm/?farm_id=${route?.params?.farmId}`).then(res => {
+      setFarmer(res?.data)
+      setLoading(false)
     }).catch(error => {
       console.log(error)
+      setLoading(false)
     })
   }
 
   useEffect(() => {
     getData()
   }, []);
+
+  const [addRecOpen, setAddRecOpen] = useState(false)
+
+  const [regs, setRegs] = useState<any>([])
+  const getRecs = () => {
+    axiosInstance.get('api/farm/recommendations/').then(res => {
+      setRegs(res?.data?.results)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    getRecs()
+  }, [])
+
   return (
-    <View style={{width: '100%', height: '100%', flex: 1,marginBottom:16}}>
+    <View style={{width: '100%', height: '100%', backgroundColor: '#fafafa', flex: 1}}>
       <SafeAreaView style={{width: '100%', paddingTop: StatusBar.currentHeight, height: '100%', flex: 1}}>
         <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
-        <ScrollView style={{paddingHorizontal: 16,}}>
+        {loading && (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+          <ActivityIndicator color={Colors.primary} size={50}/>
+        </View>)}
+        {!loading && (<ScrollView style={{paddingHorizontal: 16,}}>
           <TouchableOpacity style={{
             height: 40,
             backgroundColor: '#F7DBD6',
@@ -73,7 +108,8 @@ const FarmId = () => {
             marginTop: 16
           }}>
             <Text style={{textAlign: 'right', color: '#A8A8A8', fontFamily: 'bold', fontSize: 16}}>نام زمین</Text>
-            <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 24}}>نام پروژه</Text>
+            <Text
+              style={{color: '#393939', fontFamily: 'bold', fontSize: 24, textAlign: 'right'}}>{farmerData?.name}</Text>
           </View>
           <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8}}>
             <View style={{
@@ -90,7 +126,7 @@ const FarmId = () => {
               marginTop: 8
             }}>
               <Text style={{textAlign: 'right', color: '#A8A8A8', fontFamily: 'bold', fontSize: 16}}>کشاورز</Text>
-              <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 24}}>امید مددی</Text>
+              <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 20}}>{farmerData?.owner}</Text>
             </View>
             <View style={{
               width: '50%',
@@ -106,10 +142,10 @@ const FarmId = () => {
               marginTop: 8
             }}>
               <Text style={{textAlign: 'right', color: '#A8A8A8', fontFamily: 'bold', fontSize: 16}}>متراژ</Text>
-              <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 24}}>۲۳۰ هکتار</Text>
+              <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 20}}>{farmerData?.area} هکتار</Text>
             </View>
           </View>
-          <Text style={{color: Colors.primary, fontFamily: 'bold', fontSize: 20, marginTop: 16}}>مقعیت مکانی زمین</Text>
+          <Text style={{color: Colors.primary, fontFamily: 'bold', fontSize: 20, marginTop: 16}}>موقیت مکانی زمین</Text>
           <Image style={{width: '100%', height: 200}} resizeMode="contain"
                  source={require('../../../assets/images/Map.png')}/>
 
@@ -125,7 +161,7 @@ const FarmId = () => {
             backgroundColor: '#fff',
             flexDirection: 'row'
           }}>
-            <View style={{transform: [{rotate: '90deg'}]}}>
+            <View onTouchEnd={() => router.push('/expert-panel/reqs')} style={{transform: [{rotate: '90deg'}]}}>
               <Icon name={'arrowIconDown'} style={{width: 25, height: 25, rotate: 90}}/>
             </View>
             <Text style={{color: '#393939', fontFamily: 'bold', fontSize: 20}}>درخواست ها (۳)</Text>
@@ -155,7 +191,7 @@ const FarmId = () => {
             justifyContent: 'space-between',
             width: '100%'
           }}>
-            <View style={{
+            <View onTouchEnd={() => setAddRecOpen(true)} style={{
               width: 48,
               height: 48,
               backgroundColor: '#fff',
@@ -169,7 +205,7 @@ const FarmId = () => {
             }}>
               <Text style={{fontFamily: 'bold', fontSize: 30, color: Colors.primary}}>+</Text>
             </View>
-            <Text style={{marginTop:10,color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>پیشنهادات</Text>
+            <Text style={{marginTop: 10, color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>پیشنهادات</Text>
           </View>
           <View style={{
             width: '100%',
@@ -180,12 +216,22 @@ const FarmId = () => {
             borderWidth: 1,
             borderRadius: 16,
             padding: 16,
-            marginTop:16,
+            marginTop: 16,
             display: 'flex',
             justifyContent: 'flex-start',
           }}>
-            <Text style={{textAlign: 'right', color: '#333', fontFamily: 'regular', fontSize: 16}}>این محصول تو سال اینده افزایش تقاضا دارد و در زمین های فراهان , لاریجان شما قابل کاشت و بهره بری مناسب است</Text>
-            <Text style={{color:Colors.primary,fontFamily:'bold',fontSize:16,marginTop:10}}>مشاهده آموزش</Text>
+            <Text style={{
+              textAlign: 'right',
+              color: '#333',
+              fontFamily: 'regular',
+              fontSize: 16
+            }}>{regs?.[0]?.description}</Text>
+            {regs?.[0]?.tutorial_link ? (<Text onPress={() => Linking.openURL(regs?.[0]?.tutorial_link)} style={{
+              color: Colors.primary,
+              fontFamily: 'bold',
+              fontSize: 16,
+              marginTop: 10
+            }}>مشاهده آموزش</Text>) : <View></View>}
           </View>
           <View style={{
             marginTop: 16,
@@ -208,11 +254,16 @@ const FarmId = () => {
             }}>
               <Text style={{fontFamily: 'bold', fontSize: 30, color: Colors.primary}}>+</Text>
             </View>
-            <Text style={{marginTop:10,color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>محصولات</Text>
+            <Text style={{marginTop: 10, color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>محصولات</Text>
           </View>
-        </ScrollView>
-        <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+          {farmerData?.products_percent?.length ? farmerData?.products_percent?.map((item: any, index: number) => {
+            return <Text>adas</Text>
+          }) : <View></View>}
+        </ScrollView>)}
       </SafeAreaView>
+      <AddRecommented refreshFarmerData={getRecs()} routeId={route?.params?.farmId} active={addRecOpen}
+                      setActive={setAddRecOpen}/>
+      <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
     </View>
   )
 }

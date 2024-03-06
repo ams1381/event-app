@@ -61,7 +61,6 @@ const index = () => {
     labels: ["Swim", "Bike", "Run"], // optional
     data: [0.4, 0.6, 0.8]
   };
-  console.log(data?.[0])
   return (<>
       {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
         <ActivityIndicator color={Colors.primary} size={50}/>
@@ -325,7 +324,8 @@ const index = () => {
                 <Text style={styles.headerTitle}>تقویم</Text>
               </View>
               <View style={{marginTop: 5}}>
-                <Image style={{width: '100%', height: 300}} source={require('./../../assets/images/Calendar.png')}/>
+                {/*<Image style={{width: '100%', height: 300}} source={require('./../../assets/images/Calendar.png')}/>*/}
+                <JalaaliExample />
               </View>
               {/* <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>

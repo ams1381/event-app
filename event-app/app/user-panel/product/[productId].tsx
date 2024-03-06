@@ -134,7 +134,7 @@ export function convertToRegularTime(dateTimeString : string) {
   
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-  function convertGregorianToJalali(gregorianDate : any) {
+  export function convertGregorianToJalali(gregorianDate : any) {
     // Convert the Gregorian date to a Jalali date using the jalali-moment library.
     const jalaliDate = moment(gregorianDate, 'YYYY-MM-DD').format('jYYYY/jM/jD');
     return jalaliDate;
