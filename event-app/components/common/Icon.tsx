@@ -77,7 +77,9 @@ const iconImages: IconImages = {
   expertVectorOne:require('./../../assets/images/expertVector1.png'),
   expertVectorTwo:require('./../../assets/images/expertVectorTwo.png'),
   expertVector3:require('./../../assets/images/exportVector3.png'),
-  arrowIconDown:require('./../../assets/images/ArrowBottomExpert.png')
+  arrowIconDown:require('./../../assets/images/ArrowBottomExpert.png'),
+  redTrash:require('./../../assets/images/redTrash.png'),
+  editOrg:require('./../../assets/images/edit-333333.png'),
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

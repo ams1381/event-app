@@ -137,7 +137,7 @@ const ExpertPanel = () => {
               <View style={{marginBottom:30}}>
                 {farmers?.map((item:any,index:any) => {
                   return (
-                    <View onTouchEnd={() => router.push(`/expert-panel/farmer/farmer${item?.id?.toString()}`)} key={index} style={{backgroundColor:'#fff',marginTop:8,height:50,borderRadius:12,borderWidth:1,borderStyle:'solid',borderColor:'#eee',position:'relative'}}><Text style={{textAlign:'right',padding:12,fontFamily:'bold'}}>{item?.full_name}</Text></View>
+                    <View onTouchEnd={() => router.push(`/expert-panel/farmer/${item?.id?.toString()}`)} key={index} style={{backgroundColor:'#fff',marginTop:8,height:50,borderRadius:12,borderWidth:1,borderStyle:'solid',borderColor:'#eee',position:'relative'}}><Text style={{textAlign:'right',padding:12,fontFamily:'bold'}}>{item?.full_name}</Text></View>
                   )
                 })}
               </View>
