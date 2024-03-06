@@ -35,12 +35,10 @@ const Welcome2 : React.FC<WelcomeType> = () => {
   return (
     <SafeAreaView style={styles?.container}>
       <Icon name="welComeGif2" style={styles.gif} />
-      <Text style={styles.title}>همیشه درحال پیشرفت</Text>
+      <Text style={styles.title}>کارشناسی رایگان محصولات و فرایند کشاورزی</Text>
       <Text style={styles.subTitle}>
-        سوپر اپلیکیشن بذرینو برای حمایت از کودکان غزه این اپلیکیشن امده است که به
-        کمک کودکان غزه بیایید و از اناها حماتی کتندسوپر اپلیکیشن بذرینو برای حمایت
-        از کودکان غزه این اپلیکیشن امده است که به کمک کودکان غزه بیایید و از
-        اناها حماتی کتند
+        کارشناسان برجسته ما با بررسی اقلیم و محل زمین کشاورزی شما به شما میگویند که چه محصولی برای شما بیشترین سود آوری را دارد.
+        همچنین پیشنهادات و زیرساخت های ما شما را به سمت کشاورزی مدرن سوق میدهد و شما درکنار حفظ توسعه پایدار میتوانید بیشترین سودآوری را داشته باشید.
       </Text>
       <Animated.View style={{ 
         ...styles.ButtomCircle ,
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     color: Colors?.primary,
     textAlign: "center",
     fontFamily: "bold",
-    fontSize: 28,
+    fontSize: 20,
     marginTop: 380,
   },
   subTitle: {

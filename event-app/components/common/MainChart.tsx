@@ -11,10 +11,12 @@ import {
 
   const MainChart = () => {
     return (
-        <View style={{marginLeft:-55}}>
+        <View style={{transform: [
+            {scale: 1},
+          ],marginLeft:-20}}>
   <LineChart
     data={{
-      labels: ['سشیشسی'],
+      labels: ['1398','1399','1400','1401','1402'],
       datasets: [
         {
           data: [
@@ -38,7 +40,7 @@ import {
       backgroundGradientTo: "#fff",
       fillShadowGradientFromOpacity:0.5,
       color: (opacity = 1) => `#44898E`,
-      labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 0) => `#44898E`,
       style: {
         borderRadius: 16,
         marginTop:20,
@@ -49,6 +51,7 @@ import {
         stroke: "#44898E"
       }
     }}
+    bezier
     style={{
         marginTop:20,
         

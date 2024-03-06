@@ -190,26 +190,17 @@
 import {StatusBar, StyleSheet, Text, View, ActivityIndicator, ScrollView, Dimensions, SafeAreaView  } from "react-native";
 import React, {useEffect, useState} from "react";
 import Navbar from "../../../components/common/Navbar";
-import Icon from "../../../components/common/Icon";
 import Colors from "../../../constants/Colors";
-import {LinearGradient} from "expo-linear-gradient";
 import moment from 'jalali-moment';
 import {axiosInstance} from "../../../Utills/axios";
-import {useRouter} from "expo-router";
 import {useRoute} from "@react-navigation/native";
-import {Image} from 'expo-image'
-import {
-    LineChart,
-  } from "react-native-chart-kit";
-import ProductItem from "../../../components/product/productItem";
 import HelpBottomSheet from "../../../components/common/HelpBottomSheet";
 import MainChart from "../../../components/common/MainChart";
 import TestChart from "../../../components/common/TestChart";
 
 const Index = () => {
     const router = useRoute();
-    console.log('router?.params?.product?.id',router?.params?.productId);
-    
+
     const [productData, setProductData] = useState<any>();
     const [isLoading, setIsloading] = useState<boolean>(false)
     const [isActivePopup, setIsActivePopup] = useState(false);
@@ -229,93 +220,94 @@ const Index = () => {
         RetrieveProduct()
     }, []);
     return (
-        <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
-            <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
-            <View style={ProductStyles.ProductContainer}>
-                <ScrollView style={{  width : '100%',paddingHorizontal:16,backgroundColor:'#fafafa',marginTop:-20,paddingTop:20 }}>
-                {
-                    productData ? 
-                        <View style={{ gap : 10 ,
-                         alignItems : 'center' , 
-                         width : '100%' , 
-                         }}>
-                            <View style={ProductStyles.ProductInfoContainer}>
-                            <View>
-                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>اطلاعات کلی</Text>
-                            </View>
-                            <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{productData.name}</Text>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نام محصول:</Text>
-                            </View>
-                            <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{productData.category.title}</Text>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نوع محصول:</Text>
-                            </View>
-                            <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>
-                                    {productData.status == 'nh' ? <Text>برداشت نشده</Text> :
-                                     productData.status == 'ws' ? <Text>آماده برای فروش</Text> : productData.status == 's' ? <Text>فروخته شده</Text> :
-                                     <Text>در حالت تولید</Text>} 
-                                    </Text>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>وضعیت :</Text>
-                            </View>
-                            <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{convertGregorianToJalali(convertToRegularTime(productData.created_at))}</Text>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ ایجاد :</Text>
-                            </View>
-                            <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>
-                                    {productData.product_analysis ? convertGregorianToJalali(productData.product_analysis.estimated_harvest_date) : ''}
-                                    </Text>
-                                <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ تخمین برداشت :</Text>
-                            </View>
-                            <View>
-                                <Text style={{ fontFamily : 'bold ', fontSize : 16 }}>
-                                <Text style={{fontFamily:'regular'}}>این محصول مطابق پیشنهاد است و ۱۰٪ سود برای شما دارد </Text>
-                                </Text>
-                                </View>
-                            
-                        </View>
-                        <TestChart />
-                        <View style={{
-                            ...ProductStyles.ProductChartContainer,
-                            marginBottom : productData.product_analysis ? 0 : 220
-                            }}>
-                            <View>
-                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>آمار</Text>
-                            </View>
-                            <View>
-                            {/* <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} /> */}
-                            <MainChart />
-                            </View>
-                        </View>
-                        {/* productData.product_analysis && */}
-                       { productData.product_analysis && <View style={{
-                        ...ProductStyles.ProcutRecommandContainer ,
-                        marginBottom : 230
-                        }}>
-                            <View>
-                                <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
-                            </View>
-                            <View style={{ padding : 16 , borderWidth : 1 ,borderColor : '#EEE' , marginTop : 10 }}>
-                                <Text>
-                                { productData.product_analysis?.description }
-                                </Text>
-                                <View>
-                                    <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#2E6F73' }}>مشاهده آموزش</Text>
-                                </View>
-                            </View>
-                        </View>}
-                    </View> 
-                      :  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',height:'100%'}}>
-                      <ActivityIndicator color={Colors.primary} size={50}/>
-                    </View>
-                }
-                </ScrollView>
-            </View> 
-            <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
-            
-            </SafeAreaView>
+       <View style={{width:'100%',height:'100%',flex:1}}>
+           <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
+               <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
+               <View style={ProductStyles.ProductContainer}>
+                   <ScrollView style={{  width : '100%',paddingHorizontal:16,backgroundColor:'#fafafa',marginTop:-20,paddingTop:20 }}>
+                       {
+                           productData ?
+                             <View style={{ gap : 10 ,
+                                 alignItems : 'center' ,
+                                 width : '100%' ,
+                             }}>
+                                 <View style={ProductStyles.ProductInfoContainer}>
+                                     <View>
+                                         <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>اطلاعات کلی</Text>
+                                     </View>
+                                     <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{productData.name}</Text>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نام محصول:</Text>
+                                     </View>
+                                     <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{productData.category.title}</Text>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>نوع محصول:</Text>
+                                     </View>
+                                     <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#4D4D4D' }}>
+                                             {productData.status == 'nh' ? <Text>برداشت نشده</Text> :
+                                               productData.status == 'ws' ? <Text>آماده برای فروش</Text> : productData.status == 's' ? <Text>فروخته شده</Text> :
+                                                 <Text>در حالت تولید</Text>}
+                                         </Text>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>وضعیت :</Text>
+                                     </View>
+                                     <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>{convertGregorianToJalali(convertToRegularTime(productData.created_at))}</Text>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ ایجاد :</Text>
+                                     </View>
+                                     <View style={{ flexDirection : 'row' , gap : 10 , height : 27 , alignItems : 'center' , justifyContent : 'flex-end' }}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' }}>
+                                             {productData.product_analysis ? convertGregorianToJalali(productData.product_analysis.estimated_harvest_date) : ''}
+                                         </Text>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#666666' }}>تاریخ تخمین برداشت :</Text>
+                                     </View>
+                                     <View>
+                                         <Text style={{ fontFamily : 'bold ', fontSize : 16 }}>
+                       {productData?.has_obeyed_suggestion && (  <Text style={{fontFamily:'regular'}}>این محصول مطابق پیشنهاد است و ۱۰٪ سود برای شما دارد </Text>)}
+                                         </Text>
+                                     </View>
+
+                                 </View>
+                                 <View style={{
+                                     ...ProductStyles.ProductChartContainer,
+                                     marginBottom : productData.product_analysis ? 0 : 220
+                                 }}>
+                                     <View style={{display:'flex',alignItems:'center',flexDirection:'row',justifyContent:'space-between'}}>
+                                         <Text style={{ fontSize : 16 , fontFamily : 'regular' , color : '#2E6F73' }}>برحسب تن</Text>
+                                         <Text style={{ fontSize : 20 , fontFamily : 'regular' , color : '#2E6F73' }}>آمار</Text>
+                                     </View>
+                                     <View>
+                                         {/* <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} /> */}
+                                         <MainChart />
+                                     </View>
+                                 </View>
+                                 {/* productData.product_analysis && */}
+                                 { productData.product_analysis && <View style={{
+                                     ...ProductStyles.ProcutRecommandContainer ,
+                                     marginBottom : 230
+                                 }}>
+                                     <View>
+                                         <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
+                                     </View>
+                                     <View  style={{ padding : 16 ,marginBottom:30, borderWidth : 1 ,borderColor : '#EEE' , marginTop : 10 }}>
+                                         <Text>
+                                             { productData.product_analysis?.description }
+                                         </Text>
+                                         <View>
+                                             <Text style={{ fontSize : 16 , fontFamily : 'bold' , color : '#2E6F73' }}>مشاهده آموزش</Text>
+                                         </View>
+                                     </View>
+                                 </View>}
+                             </View>
+                             :  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',height:'100%'}}>
+                                 <ActivityIndicator color={Colors.primary} size={50}/>
+                             </View>
+                       }
+                   </ScrollView>
+               </View>
+           </SafeAreaView>
+           <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+       </View>
     )
    
 }

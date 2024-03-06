@@ -73,6 +73,7 @@ const iconImages: IconImages = {
   filterOrg:require('./../../assets/images/FilterORG.png'),
   workerPerson:require('./../../assets/images/Worker.png'),
   workerPerson2:require('./../../assets/images/worker2222.png'),
+  welcomeOrg:require('./../../assets/images/gifs/welOne.gif')
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

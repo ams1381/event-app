@@ -43,39 +43,41 @@ const Index = () => {
           <ActivityIndicator color={Colors.primary} size={50}/>
         </View>
       ) : (
-        <ScrollView style={styles.container}>
-          <Navbar
-            isActivePopup={isActivePopup}
-            setIsActivePopup={setIsActivePopup}
-          />
-          <AddProduct getProduct={getProduct} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-          <FilterProduct modalVisible={filterPopup} setModalVisible={setFilterPopup}/>
-          <View style={styles.localContainer}>
-            <View style={{display:'flex',alignItems:'center',gap:10,flexDirection:'row',zIndex:999}}>
-            <View style={styles.filterHeader}>
-              <View style={styles.filterBtn} onTouchEnd={() => {
-                setModalVisible(true)
-              }}>
-                <Icon name="plusIcon"/>
-                <Text style={styles.filterBtnText}>ایجاد محصول</Text>
+        <View style={{width:'100%',height:'100%',flex:1}}>
+          <ScrollView style={styles.container}>
+            <Navbar
+              isActivePopup={isActivePopup}
+              setIsActivePopup={setIsActivePopup}
+            />
+            <AddProduct getProduct={getProduct} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+            <FilterProduct modalVisible={filterPopup} setModalVisible={setFilterPopup}/>
+            <View style={styles.localContainer}>
+              <View style={{display:'flex',alignItems:'center',gap:10,flexDirection:'row',zIndex:999}}>
+                <View style={styles.filterHeader}>
+                  <View style={styles.filterBtn} onTouchEnd={() => {
+                    setModalVisible(true)
+                  }}>
+                    <Icon name="plusIcon"/>
+                    <Text style={styles.filterBtnText}>ایجاد محصول</Text>
+                  </View>
+                </View>
+                <View onTouchEnd={() => setFilterPopup(true)}>
+                  <View style={styles.filterIcon}>
+                    <Icon name="filter"/>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.productsContainer}>
+                {data.map((item) => {
+                  return (
+                    <ProductItem item={item}/>
+                  );
+                })}
               </View>
             </View>
-            <View onTouchEnd={() => setFilterPopup(true)}>
-              <View style={styles.filterIcon}>
-                <Icon name="filter"/>
-              </View>
-              </View>
-            </View>
-            <View style={styles.productsContainer}>
-              {data.map((item) => {
-                return (
-                  <ProductItem item={item}/>
-                );
-              })}
-            </View>
-          </View>
+          </ScrollView>
           <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
-        </ScrollView>
+        </View>
       )}
 
     </>

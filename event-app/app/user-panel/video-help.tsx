@@ -1,22 +1,21 @@
-import {SafeAreaView, ScrollView, StatusBar, View, Text, TouchableNativeFeedback} from 'react-native'
-import {WebView} from 'react-native-webview';
+import { SafeAreaView, ScrollView, StatusBar, View , Text, TouchableNativeFeedback } from 'react-native'
+import { WebView } from 'react-native-webview';
 import Navbar from '../../components/common/Navbar';
-import {useState} from 'react';
+import { useState } from 'react';
 import Icon from '../../components/common/Icon';
-import {Image} from 'expo-image';
-import HelpBottomSheet from '../../components/common/HelpBottomSheet';
-
+import { Image } from 'expo-image';
+import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 type WebViewProp = {
-  webURL: string
+    webURL : string
 }
 const VideoHelp = () => {
-  const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-  const [WebViewOpen, setWebViewOpen] = useState(false);
-  const [WebViewuRL, setWebViewUrl] = useState('');
+    const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
+    const [ WebViewOpen , setWebViewOpen ] = useState(false);
+    const [ WebViewURL , setWebViewUrl ] = useState('');
 
 
 // <WebViewOpener webURL={WebViewuRL} /> : <SafeAreaView style={{ paddingTop : StatusBar.currentHeight }}>
-  return WebViewOpen ? <WebView source={{uri: WebViewuRL}} style={{flex: 1}}/> :
+  return WebViewOpen ? <WebView source={{uri: WebViewURL}} style={{flex: 1}}/> :
     <SafeAreaView style={{paddingTop: StatusBar.currentHeight,marginBottom:58}}>
       <StatusBar backgroundColor={"#fff"}/>
       <Navbar

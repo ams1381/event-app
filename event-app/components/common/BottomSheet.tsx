@@ -6,7 +6,7 @@ import {
     SafeAreaView,
     ActivityIndicator,
 } from "react-native";
-import React, {FC, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Colors from "../../constants/Colors";
 import {TextInput} from "react-native-gesture-handler";
 import Icon from "./Icon";
@@ -72,8 +72,9 @@ const BottomSheet: FC<BottomSheetProps> = ({
             newOtpCode[index] = value;
             setOtpCode(newOtpCode);
             focusInput(index);
-        } 
+        }
     };
+
     const sendSmsHandler = async () => {
       if(!phoneNumber) {
         ToastMessage(Toast,'لطفا شماره را وارد کنید ','error');
