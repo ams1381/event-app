@@ -26,6 +26,7 @@ import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 import MainChart from "../../components/common/MainChart";
 import EmptyBoxProduct from "../../components/common/EmptyProduct";
 import DatePicker2 from "../../components/common/DatePicker";
+import JalaaliExample from "../../components/common/DatePicker";
 
 interface Product {
     being_prepared: boolean;
@@ -275,7 +276,8 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
                         <View style={{ marginTop : 5 }}>
-                            <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
+                            {/* <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} /> */}
+                        <JalaaliExample />
                         </View>
                         {/* <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>

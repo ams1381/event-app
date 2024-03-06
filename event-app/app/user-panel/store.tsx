@@ -27,7 +27,6 @@ const Store = () => {
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-        <DatePicker />
         <Icon style={{width: 150, height: 150}} name="workerPerson2"/>
         <Text style={{marginTop: 10, fontFamily: 'bold', fontSize: 20, color: Colors.textColor}}>این صفحه در دست توسعه
           است.</Text>

@@ -6,6 +6,7 @@ import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
 
 import Toast from "react-native-toast-message";
+import JalaaliExample from '../../common/DatePicker';
 //
 const FilterProduct = (p: {
     modalVisible: any,
@@ -173,7 +174,8 @@ const FilterProduct = (p: {
                                     />
                                 </View>
                                 <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>تاریخ تخمین</Text>
-                                <Icon name={'datePicker3'} style={styles.datePicker}/>
+                                <JalaaliExample />
+                                {/* <Icon name={'datePicker3'} style={styles.datePicker}/> */}
                                 <Text style={{color: '#0F393D', fontFamily: 'bold', fontSize: 20, marginTop: 10}}>تخمین وزن برداشت</Text>
                                 <View style={styles.searchBar}>
                                     <TextInput keyboardType={'number-pad'} value={annual_capacity} onChangeText={(e) => setAnnual_capacity(e)} style={{width: '100%', fontFamily: 'bold', fontSize: 14, textAlign: 'right'}} placeholder={'تخمین وزن برداشت'} placeholderTextColor={'#7E7E7E'}/>

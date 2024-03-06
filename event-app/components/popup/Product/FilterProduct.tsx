@@ -7,6 +7,7 @@ import {SelectList} from 'react-native-dropdown-select-list'
 import {axiosInstance} from "../../../Utills/axios";
 
 import Checkbox from 'expo-checkbox';
+import JalaaliExample from '../../common/DatePicker';
 //
 const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
     const [selected, setSelected] = React.useState("");
@@ -72,7 +73,8 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
 
                                 />
                             </View>
-                            <Icon name={'datePicker3'} style={styles.datePicker}/>
+                            {/* <Icon name={'datePicker3'} style={styles.datePicker}/> */}
+                            <JalaaliExample />
                             <View style={{flexDirection: 'row', alignItems: 'baseline',justifyContent:'flex-end'}}>
                                 <Text style={{
                                     fontFamily: 'regular',

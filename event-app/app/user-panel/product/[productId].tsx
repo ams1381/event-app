@@ -203,9 +203,13 @@ import {
   } from "react-native-chart-kit";
 import ProductItem from "../../../components/product/productItem";
 import HelpBottomSheet from "../../../components/common/HelpBottomSheet";
+import MainChart from "../../../components/common/MainChart";
+import TestChart from "../../../components/common/TestChart";
 
 const Index = () => {
     const router = useRoute();
+    console.log('router?.params?.product?.id',router?.params?.productId);
+    
     const [productData, setProductData] = useState<any>();
     const [isLoading, setIsloading] = useState<boolean>(false)
     const [isActivePopup, setIsActivePopup] = useState(false);
@@ -215,7 +219,7 @@ const Index = () => {
         const RetrieveProduct = async () => {
             try 
             {
-                let { data } = await axiosInstance.get(`api/farm/products/${router.params?.productID}/`);
+                let { data } = await axiosInstance.get(`api/farm/products/${router?.params?.productId}/`);
                 setProductData(data);
             }
             catch(err) {
@@ -228,7 +232,7 @@ const Index = () => {
         <SafeAreaView style={{ paddingTop: StatusBar.currentHeight }}>
             <Navbar setIsActivePopup={setIsActivePopup} isActivePopup={isActivePopup}/>
             <View style={ProductStyles.ProductContainer}>
-                <ScrollView style={{  width : '92%' }}>
+                <ScrollView style={{  width : '100%',paddingHorizontal:16,backgroundColor:'#fafafa',marginTop:-20,paddingTop:20 }}>
                 {
                     productData ? 
                         <View style={{ gap : 10 ,
@@ -267,11 +271,12 @@ const Index = () => {
                             </View>
                             <View>
                                 <Text style={{ fontFamily : 'bold ', fontSize : 16 }}>
-                                این محصول مطابق پیشنهاد است و ۱۰٪ سود برای شما دارد 
+                                <Text style={{fontFamily:'regular'}}>این محصول مطابق پیشنهاد است و ۱۰٪ سود برای شما دارد </Text>
                                 </Text>
                                 </View>
                             
                         </View>
+                        <TestChart />
                         <View style={{
                             ...ProductStyles.ProductChartContainer,
                             marginBottom : productData.product_analysis ? 0 : 220
@@ -280,13 +285,14 @@ const Index = () => {
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>آمار</Text>
                             </View>
                             <View>
-                            <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} />
+                            {/* <Image style={{ width : '100%' , height : 308 }} source={require('../../../assets/images/LineChart.png')} /> */}
+                            <MainChart />
                             </View>
                         </View>
                         {/* productData.product_analysis && */}
                        { productData.product_analysis && <View style={{
                         ...ProductStyles.ProcutRecommandContainer ,
-                        marginBottom : 100
+                        marginBottom : 230
                         }}>
                             <View>
                                 <Text style={{ fontSize : 20 , fontFamily : 'bold' , color : '#2E6F73' }}>پیشنهادات سامانه</Text>
@@ -301,9 +307,9 @@ const Index = () => {
                             </View>
                         </View>}
                     </View> 
-                      : <Text>
-                        Loading
-                    </Text>
+                      :  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',height:'100%'}}>
+                      <ActivityIndicator color={Colors.primary} size={50}/>
+                    </View>
                 }
                 </ScrollView>
             </View> 
@@ -337,7 +343,7 @@ const ProductStyles = StyleSheet.create({
     ProductContainer : {
         width : '100%',
         height : '100%',
-        alignItems : 'center'
+        alignItems : 'center',
     },
     ProductInnerContainer : {
         width : '100%',
