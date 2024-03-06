@@ -73,7 +73,11 @@ const iconImages: IconImages = {
   filterOrg:require('./../../assets/images/FilterORG.png'),
   workerPerson:require('./../../assets/images/Worker.png'),
   workerPerson2:require('./../../assets/images/worker2222.png'),
-  welcomeOrg:require('./../../assets/images/gifs/welOne.gif')
+  welcomeOrg:require('./../../assets/images/gifs/welOne.gif'),
+  expertVectorOne:require('./../../assets/images/expertVector1.png'),
+  expertVectorTwo:require('./../../assets/images/expertVectorTwo.png'),
+  expertVector3:require('./../../assets/images/exportVector3.png'),
+  arrowIconDown:require('./../../assets/images/ArrowBottomExpert.png')
 };
 
 const Icon: FC<IconProps> = ({ name, style }) => {

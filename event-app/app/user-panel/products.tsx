@@ -121,7 +121,7 @@ export const styles = StyleSheet.create({
     color: Colors.whiteColor,
 
   },
-  filterIcon: {
+   filterIcon: {
     backgroundColor: "#E5E5CD",
     paddingHorizontal: 12,
     paddingVertical: 12,
