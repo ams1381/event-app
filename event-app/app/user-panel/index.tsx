@@ -67,7 +67,6 @@ const index = () => {
             {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                 <ActivityIndicator color={Colors.primary} size={50}/>
             </View>) : (
-              <View style={{width:'100%',flex:1,height:'100%'}}>
                 <SafeAreaView style={styles.container}>
                     <StatusBar backgroundColor={"#fff"}/>
                     <Navbar
@@ -326,16 +325,17 @@ const index = () => {
                             <Text style={styles.headerTitle}>تقویم</Text>
                         </View>
                         <View style={{ marginTop : 5 }}>
-                            {/* <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} /> */}
-                        <JalaaliExample />
+                            <Image style={{ width : '100%' , height : 300 }} source={require('./../../assets/images/Calendar.png')} />
                         </View>
                         {/* <View>
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
                         </View> */}
+
+          
                     </ScrollView>
-                </SafeAreaView>
-                  <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
-              </View>
+                    <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+
+                </SafeAreaView> 
             )}
         </>
 

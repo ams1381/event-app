@@ -6,7 +6,7 @@ import {
     View,
     StatusBar,
     TouchableNativeFeedback,
-    Image, ActivityIndicator,
+    Image, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback,
     // TouchableOpacity,
 } from "react-native";
 import React, {useEffect, useState} from "react";
@@ -22,6 +22,11 @@ import InfoBottomSheet from "../../components/common/InfoBottomSheet";
 import {axiosInstance} from "../../Utills/axios";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import HelpBottomSheet from "../../components/common/HelpBottomSheet";
+import {TabBarComponent} from "../../components/common/Tabbar";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import Toast from "react-native-toast-message";
+import {DeleteData} from "../../Utills/StorageUtils";
+import {useRouter} from "expo-router";
 
 const profile = () => {
     const [editName, setEditName] = useState<boolean>(false);
@@ -33,25 +38,27 @@ const profile = () => {
     const [phoneNumberValue, setPhoneNumberValue] = useState<string>();
     const [last_name, setLastName] = useState<string>()
     const [userId, setUserId] = useState<string>();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [showLanguageDropDownOpen,setShowLanguageDropDownOpen] = useState<boolean>(false)
     const [activeLang,setActiveLang] = useState('FA')
 
     const opacity = useSharedValue(1);
     const scale = useSharedValue(1);
-  
+
     const animatedStyle = useAnimatedStyle(() => {
       return {
         opacity: opacity.value,
         transform: [{ scale: scale.value }],
       };
     });
-  
+
     useEffect(() => {
       opacity.value = withTiming(0, { duration: 1000 });
       scale.value = withTiming(1.5, { duration: 1000 });
     }, []);
 
+    const [ logoutLoading , setLogoutLoading ] = useState(false);
     const getUserData = () => {
         setIsLoading(true)
         axiosInstance.get("api/core/users/me/").then((res) => {
@@ -66,7 +73,19 @@ const profile = () => {
     useEffect(() => {
         getUserData();
     }, []);
+    const LogoutHandler = async () => {
+        if(logoutLoading)
+            return
+        try {
+            setLogoutLoading(true)
+            await DeleteData('access');
+            router.push('../../')
+        } catch (err) {
 
+        } finally {
+            setLogoutLoading(false)
+        }
+    }
     return (
         <>
             {isLoading ? (
@@ -235,7 +254,7 @@ const profile = () => {
                                    overflow: 'hidden',
                                    gap: 4,
                                    direction:'ltr',
-                            }}> 
+                            }}>
                                <View style={{direction:'rtl',display:'flex',justifyContent:'flex-end',flexDirection:'column',gap:10}}>
                                 <View onTouchEnd={() => {
                                     setActiveLang('FA')
@@ -251,6 +270,13 @@ const profile = () => {
                                 </View>
                                </View>
                             </View>) : ''}
+                        {/* <TabBarComponent TabName="User" /> */}
+                        <View style={styles.LogoutButton} onTouchEnd={LogoutHandler}>
+                            { logoutLoading ? <ActivityIndicator color={'white'} size={50}/>
+                                : <Text style={{color: 'white', fontFamily: 'bold',}}>
+                                خروج از حساب کاربری
+                            </Text>}
+                        </View>
                     </View>
                     <HelpBottomSheet  active={isActivePopup} setActive={setIsActivePopup}/>
                 </SafeAreaView>
@@ -325,4 +351,13 @@ const styles = StyleSheet.create({
         fontFamily: "bold",
         fontSize: 20,
     },
+    LogoutButton : {
+        paddingHorizontal : 15 ,
+        paddingVertical : 7,
+        borderRadius : 8 ,
+        backgroundColor : Colors.LogoutColor ,
+        width : 180 ,
+        justifyContent : 'center' ,
+        alignItems : 'center'
+    }
 });

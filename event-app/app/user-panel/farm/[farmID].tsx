@@ -14,7 +14,8 @@ import HelpBottomSheet from '../../../components/common/HelpBottomSheet';
 
 const FarmPage = () => {
     const route = useRoute();
-    const router = useRouter()
+    const router = useRouter();
+    const [ sugguestionList , setSuggestionList ] = useState([]);
     const [ landData , setLandData ] = useState(null);
     const [ profuctsData , setProductsData ] = useState(null);
     const [ recommandsSwiperIndex , setRecommandsSwiperIndex ] = useState(0)
@@ -41,9 +42,11 @@ const FarmPage = () => {
             catch(err) {
 
             }
-        }
+        };
+
+
         FarmRetrieve();
-        GetProducts()
+        GetProducts();
     },[])
 
     // StatusBar.currentHeight

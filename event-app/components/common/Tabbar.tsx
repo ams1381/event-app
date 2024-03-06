@@ -44,7 +44,7 @@ export const TabBarComponent: React.FC<TabBarProp> = ({setCurrentTab, TabName}) 
                     router.push('/user-panel/profile')
                     setCurrentTab('User')
                 }} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-                    <Icon name='user'/>
+                    <Icon style={{ width : 30 , height : 30 }} name='user'/>
                 </View>}
             </View>
             <View style={{width: '25%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
