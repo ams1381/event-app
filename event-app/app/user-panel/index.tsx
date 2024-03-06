@@ -26,6 +26,8 @@ import HelpBottomSheet from "../../components/common/HelpBottomSheet";
 import MainChart from "../../components/common/MainChart";
 import EmptyBoxProduct from "../../components/common/EmptyProduct";
 import DatePicker2 from "../../components/common/DatePicker";
+import { BarChart, LineChart, PieChart, PopulationPyramid } from "react-native-gifted-charts";
+import {ProgressChart} from "react-native-chart-kit";
 
 interface Product {
     being_prepared: boolean;
@@ -37,15 +39,16 @@ const index = () => {
   const route = useRoute();
   const router = useRouter();
   const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>([]);
   const [productData, setProductData] = useState<Product[]>([]);
-const [isLoading,setIsLoading] = useState<boolean>(false)
+  const [isLoading,setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         setIsLoading(true)
         axiosInstance.get("api/farm/farms/").then((res) => {
             setIsLoading(false)
             setData(res?.data?.results);
+
         });
     }, [route]);
 
@@ -54,7 +57,11 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
             setProductData(res?.data?.results[0]);
         });
     }, [route]);
-
+    const ChartData = {
+        labels: ["Swim", "Bike", "Run"], // optional
+        data: [0.4, 0.6, 0.8]
+    };
+    console.log(data?.[0])
     return ( <>
             {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
                 <ActivityIndicator color={Colors.primary} size={50}/>
@@ -76,38 +83,80 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                         </View>
                         <View style={{alignItems: "center", borderRadius: 24}}>
                             <Swiper showsPagination={false} containerStyle={{gap: 10}} style={{height: 315}}>
-                                {data.length ? data.map((item: any) => (
-                                    <View style={styles.landSlider} onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
-                                        <View style={styles.landSliderHeader}>
-                                            <View style={styles.landSliderHeaderLeft}>
-                                                <Text style={styles.landSliderHeaderLeftSubTitle}>
-                                                    {item?.area} هکتار
-                                                </Text>
-                                                <Text style={styles.landSliderHeaderLeftTitle}>
-                                                    مساحت :
-                                                </Text>
+                                {
+                                    (data.length) ? data.map((item: any, index : number) => (
+                                        <View key={index} style={styles.landSlider}
+                                              onTouchEnd={() => router.push(`/user-panel/farm/farm${item?.id.toString()}`)}>
+                                            <View style={styles.landSliderHeader}>
+                                                <View style={styles.landSliderHeaderLeft}>
+                                                    <Text style={styles.landSliderHeaderLeftSubTitle}>
+                                                        {item?.area} هکتار
+                                                    </Text>
+                                                    <Text style={styles.landSliderHeaderLeftTitle}>
+                                                        مساحت :
+                                                    </Text>
+                                                </View>
+                                                <Text style={styles.landSliderTitle}>{item?.name}</Text>
                                             </View>
-                                            <Text style={styles.landSliderTitle}>{item?.name}</Text>
+                                            <View
+                                                style={{
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    marginVertical: 16,
+                                                }}
+                                            >
+                                                {
+                                                    item?.products_percent?.length ?
+                                                        <ProgressChart data={{
+                                                            data : item?.products_percent.map((ProductItem : any) => ProductItem.percent) ,
+                                                            labels : item?.products_percent.map((ProductItem : any) => ProductItem.category) ,
+                                                            colors : item?.products_percent.map((ProductItem : any) => ProductItem.hex)
+                                                        }}
+                                                                       height={220}
+                                                                       strokeWidth={16}
+                                                                       chartConfig={{
+                                                                           // backgroundGradientFrom: "#1E2923",
+                                                                           backgroundGradientFromOpacity: 0,
+                                                                           fillShadowGradientToOpacity : 0 ,
+                                                                           fillShadowGradientFromOpacity : 0 ,
+                                                                           fillShadowGradientOpacity : 0,
+                                                                           // backgroundGradientTo: "#08130D",
+                                                                           backgroundGradientToOpacity: 0,
+                                                                           color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+                                                                           // strokeWidth: 2, // optional, default 3
+                                                                           // barPercentage: 0.5,
+                                                                           // useShadowColorFromDataset: false // optional
+                                                                       }}
+                                                                       radius={32}
+                                                                       width={300}
+                                                                       hideLegend={true} />
+                                                        // <PieChart labelsPosition={'onBorder'}
+                                                        //
+                                                        //           textColor={'#44898E'} textSize={26}
+                                                        //           font={'bold'} showText={true}
+                                                        //           data={item?.products_percent.map((ProductItem : any) =>
+                                                        // {
+                                                        //     return ({ shadow : true , value : ProductItem.percent
+                                                        //         , text : ProductItem.category , showText : true })
+                                                        // })} />
+                                                         :
+                                                        <View style={{ height : 300 , justifyContent : 'center' , alignItems : 'center' }}>
+                                                            <Text style={{ fontFamily : 'bold' , color : Colors.primary }}>این زمین محصولی ندارد</Text>
+                                                        </View>
+                                                }
+
+                                                {/*<Image source={require("./../../assets/images/chart.png")}/>*/}
+                                            </View>
+                                            <View
+                                                onTouchEnd={() => {
+                                                    router.push(`/user-panel/`);
+                                                }}
+                                            >
+                                                <Text style={styles.seeMore}>مشاهده بیشتر</Text>
+                                            </View>
                                         </View>
-                                        <View
-                                            style={{
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                marginVertical: 16,
-                                            }}
-                                        >
-                                            <Image source={require("./../../assets/images/chart.png")}/>
-                                            {/* <MainChart /> */}
-                                        </View>
-                                        <View
-                                            onTouchEnd={() => {
-                                                router.push(`/user-panel/`);
-                                            }}
-                                        >
-                                            <Text style={styles.seeMore}>مشاهده بیشتر</Text>
-                                        </View>
-                                    </View>
-                                )) : <EmptyBox />}
+                                    )) : <EmptyBox />
+                                }
                             </Swiper>
                         </View>
                         <View style={styles.header}>
@@ -281,11 +330,11 @@ const [isLoading,setIsLoading] = useState<boolean>(false)
                             <InfoBottomSheet toUp={550} bottomSheetOpen={isActivePopup} isActivePopup={isActivePopup} setIsActivePopup={setIsActivePopup}/>
                         </View> */}
 
-          
+
                     </ScrollView>
                     <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
 
-                </SafeAreaView> 
+                </SafeAreaView>
             )}
         </>
 

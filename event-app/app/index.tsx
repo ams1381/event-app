@@ -97,7 +97,8 @@ const HomePage  = () => {
               </View>
           </Swiper>
     </View>
-    { !initialSwierActiveState && <PaginatioinComponent CurPage={currentIndex} otpBackground={SliderSwipable == false} />}
+    { !initialSwierActiveState &&
+        <PaginatioinComponent CurPage={currentIndex} otpBackground={SliderSwipable == false} />}
     </>
 
   );

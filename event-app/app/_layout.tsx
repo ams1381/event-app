@@ -5,8 +5,11 @@
 //   ThemeProvider,
 // } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import {SplashScreen, Stack, useRouter} from "expo-router";
 import { useEffect } from "react";
+import {getData} from "../Utills/StorageUtils";
+import {useRoute} from "@react-navigation/native";
+import {axiosInstance} from "../Utills/axios";
 // import { useEffect } from "react";
 // import { useColorScheme } from "react-native";
 
@@ -23,13 +26,20 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const router = useRouter();
   const [loaded, error] = useFonts({
     regular: require("./../assets/fonts/IRANSansXFaNum-Regular.ttf"),
     medium: require("./../assets/fonts/IRANSansXFaNum-Medium.ttf"),
     bold: require("./../assets/fonts/IRANSansXFaNum-Bold.ttf"),
     Black: require("./../assets/fonts/IRANSansXFaNum-Black.ttf"),
   });
+  getData<string>('access').then((userToken) => {
+    if(userToken) {
+      router.push('/user-panel/');
+      axiosInstance.defaults.headers['Authorization'] = 'JWT ' + userToken;
+    }
 
+  });
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -49,6 +59,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+
   return (
     <Stack
       screenOptions={{

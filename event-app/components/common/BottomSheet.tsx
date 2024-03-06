@@ -3,18 +3,16 @@ import {
     Text,
     TouchableNativeFeedback,
     View,
-    SafeAreaView,
     ActivityIndicator,
 } from "react-native";
 import React, {FC, useRef, useState} from "react";
 import Colors from "../../constants/Colors";
 import {TextInput} from "react-native-gesture-handler";
 import Icon from "./Icon";
-import axios from 'axios'
-import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { axiosInstance } from "../../Utills/axios";
 import Toast from 'react-native-toast-message';
 import { useRouter } from "expo-router";
+import {getData, saveData} from "../../Utills/StorageUtils";
 
 type BottomSheetProps = {
   color?: any;
@@ -91,7 +89,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
           ToastMessage(Toast,'با موفقیت ارسال شد','success')
           
         }
-        catch(err) {
+        catch(err : any) {
           console.log(err?.response)
           setBottomSheetLoading(false)
           if(err?.response?.status == 500) 
@@ -113,11 +111,13 @@ const BottomSheet: FC<BottomSheetProps> = ({
         code : otpCode.join('')
       })
       axiosInstance.defaults.headers['Authorization'] = 'JWT ' + data.access;
+      await saveData('access',data.access)
+
+      // console.log(getData('access'))
       setBottomSheetLoading(false)
       router.push('/user-panel/home')
     }
-    catch(err) {
-
+    catch(err : any) {
       setBottomSheetLoading(false)
       if(err?.response?.status == 500) 
         ToastMessage(Toast,'خطا در شبکه','error')

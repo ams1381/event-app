@@ -25,5 +25,6 @@ export default {
   secondary:'#EEE',
   popup: "rgba(0, 0, 0, 0.10)",
   secondaryBg:'#FAFAFA',
-  GuideTextColor : '#2E6F73'
+  GuideTextColor : '#2E6F73' ,
+  LogoutColor : '#BD0000'
 };
