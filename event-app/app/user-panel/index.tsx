@@ -108,9 +108,13 @@ const index = () => {
                                                 {
                                                     item?.products_percent?.length ?
                                                         <ProgressChart data={{
-                                                            data : item?.products_percent.map((ProductItem : any) => ProductItem.percent) ,
-                                                            labels : item?.products_percent.map((ProductItem : any) => ProductItem.category) ,
-                                                            colors : item?.products_percent.map((ProductItem : any) => ProductItem.hex)
+                                                            // data : item?.products_percent.map((ProductItem : any) => ProductItem.percent) ,
+                                                            // labels : item?.products_percent.map((ProductItem : any) => ProductItem.category) ,
+                                                            data : [ 0.5 , 0.8 , 0.3 ] ,
+                                                            labels : [ '🍏' , '🍌' , '🧅' ] ,
+                                                            // colors : [ '#44898E'  , '#f3ff2e' , '#18eaba']
+                                                            // colors : item?.products_percent.map((ProductItem : any) => ProductItem.hex) ,
+
                                                         }}
                                                                        height={220}
                                                                        strokeWidth={16}
@@ -120,25 +124,18 @@ const index = () => {
                                                                            fillShadowGradientToOpacity : 0 ,
                                                                            fillShadowGradientFromOpacity : 0 ,
                                                                            fillShadowGradientOpacity : 0,
-                                                                           // backgroundGradientTo: "#08130D",
+                                                                           propsForLabels : {
+                                                                               fontSize : 18 ,
+                                                                               fontFamily: 'Arial',
+                                                                               fontVariantLigatures : 'normal' ,
+                                                                               fontFeatureSettings : 'clig off, liga off'
+                                                                           },
                                                                            backgroundGradientToOpacity: 0,
-                                                                           color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-                                                                           // strokeWidth: 2, // optional, default 3
-                                                                           // barPercentage: 0.5,
-                                                                           // useShadowColorFromDataset: false // optional
+                                                                           color: (opacity = 1) => `rgba(68, 137, 148, ${opacity})`,
                                                                        }}
                                                                        radius={32}
                                                                        width={300}
-                                                                       hideLegend={true} />
-                                                        // <PieChart labelsPosition={'onBorder'}
-                                                        //
-                                                        //           textColor={'#44898E'} textSize={26}
-                                                        //           font={'bold'} showText={true}
-                                                        //           data={item?.products_percent.map((ProductItem : any) =>
-                                                        // {
-                                                        //     return ({ shadow : true , value : ProductItem.percent
-                                                        //         , text : ProductItem.category , showText : true })
-                                                        // })} />
+                                                                       hideLegend={false} />
                                                          :
                                                         <View style={{ height : 300 , justifyContent : 'center' , alignItems : 'center' }}>
                                                             <Text style={{ fontFamily : 'bold' , color : Colors.primary }}>این زمین محصولی ندارد</Text>

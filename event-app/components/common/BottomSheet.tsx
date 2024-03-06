@@ -115,7 +115,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
 
       // console.log(getData('access'))
       setBottomSheetLoading(false)
-      router.push('/user-panel/home')
+      router.push('/expert-panel/')
     }
     catch(err : any) {
       setBottomSheetLoading(false)

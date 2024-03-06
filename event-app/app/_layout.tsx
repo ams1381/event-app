@@ -35,7 +35,7 @@ export default function RootLayout() {
   });
   getData<string>('access').then((userToken) => {
     if(userToken) {
-      router.push('/user-panel/');
+      router.push('/expert-panel/');
       axiosInstance.defaults.headers['Authorization'] = 'JWT ' + userToken;
     }
 
