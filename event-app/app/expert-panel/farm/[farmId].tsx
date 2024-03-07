@@ -20,6 +20,7 @@ import {axiosInstance} from "../../../Utills/axios";
 import {useRouter} from "expo-router";
 import ProductItem from "../../../components/product/productItem";
 import AddRecommented from "../../../components/common/expert/Farm/AddRecommented";
+import AddProduct from "../../../components/popup/Product/AddProduct";
 
 const FarmId = () => {
   const route = useRoute()
@@ -58,6 +59,22 @@ const FarmId = () => {
   useEffect(() => {
     getRecs()
   }, [])
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState([]);
+  const getProduct = () => {
+    axiosInstance
+      .get(`api/farm/products/`)
+      .then((res) => {
+        setData(res?.data?.results);
+      });
+  }
+
+
+  useEffect(() => {
+    getProduct()
+  }, []);
+
 
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: '#fafafa', flex: 1}}>
@@ -240,7 +257,7 @@ const FarmId = () => {
             justifyContent: 'space-between',
             width: '100%'
           }}>
-            <View style={{
+            <View onTouchEnd={() => setModalVisible(true)} style={{
               width: 48,
               height: 48,
               backgroundColor: '#fff',
@@ -256,14 +273,19 @@ const FarmId = () => {
             </View>
             <Text style={{marginTop: 10, color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>محصولات</Text>
           </View>
-          {farmerData?.products_percent?.length ? farmerData?.products_percent?.map((item: any, index: number) => {
-            return <Text>adas</Text>
+          {data?.length ? data?.map((item: any, index: number) => {
+            return <View style={{marginBottom:16}}>
+              <ProductItem item={item} key={index}/>
+            </View>
           }) : <View></View>}
         </ScrollView>)}
+        <AddProduct getProduct={getProduct} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
       </SafeAreaView>
       <AddRecommented refreshFarmerData={getRecs()} routeId={route?.params?.farmId} active={addRecOpen}
                       setActive={setAddRecOpen}/>
       <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
+
     </View>
   )
 }
