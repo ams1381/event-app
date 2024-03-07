@@ -30,21 +30,21 @@ const FarmId = () => {
   const [isActivePopup, setIsActivePopup] = useState(false);
   const [farmerData, setFarmer] = useState<any>([])
   const [loading, setLoading] = useState(false)
-  // const getData = () => {
-  //   // api/expert/farms/single_farm/?farm_id=140
-  //   setLoading(true)
-  //   axiosInstance.get(`api/expert/farms/single_farm/?farm_id=${route?.params?.farmId}`).then(res => {
-  //     setFarmer(res?.data)
-  //     setLoading(false)
-  //   }).catch(error => {
-  //     console.log(error)
-  //     setLoading(false)
-  //   })
-  // }
-  //
-  // useEffect(() => {
-  //   getData()
-  // }, []);
+  const getData = () => {
+    // api/expert/farms/single_farm/?farm_id=140
+    setLoading(true)
+    axiosInstance.get(`api/expert/farms/single_farm/?farm_id=${route?.params?.farmId}`).then(res => {
+      setFarmer(res?.data)
+      setLoading(false)
+    }).catch(error => {
+      console.log(error)
+      setLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    getData()
+  }, []);
 
   const [addRecOpen, setAddRecOpen] = useState(false)
 
