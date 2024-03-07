@@ -1,4 +1,14 @@
-import { View,Text,StyleSheet,Animated, ScrollView, Image, TouchableNativeFeedback, Dimensions } from "react-native"
+import {
+    View,
+    Text,
+    StyleSheet,
+    Animated,
+    ScrollView,
+    Image,
+    TouchableNativeFeedback,
+    Dimensions,
+    Linking
+} from "react-native"
 import Colors from "../../constants/Colors";
 import Icon from "./Icon";
 import { useEffect, useState } from "react";
@@ -79,7 +89,7 @@ const HelpBottomSheet: React.FC<HelpBottomSheet> = ({active,setActive}) => {
 ویدیو های آموزشی سامانه :
 از منو پایین اپلیکیشن روی اولین آیکن از سمت راست بزنید تا وارد صفحه ویدئو های آموزشی شوید. در این بخش شما میتوانید آموزش های متنوعی در زمینه کشاورزی و باغداری و پرورش بهتر محصولات را دریافت کنید.</Text>
                     <View style={styles.btnContainer}>
-                        <TouchableNativeFeedback style={{borderRadius: 10}}>
+                        <TouchableNativeFeedback onPress={() => Linking.openURL('https://s31.uupload.ir/files/omidmadadi/%D8%A8%D8%B0%D8%B1%DB%8C%D9%86%D9%88.pdf')} style={{borderRadius: 10}}>
                             <View style={styles.btn}>
                                 <Text style={styles.btnText}>دانلود فایل PDF</Text>
                             </View>

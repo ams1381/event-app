@@ -38,10 +38,10 @@ const startTransition = () => {
 
 const AddRecommented: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData, routeId}) => {
 
-  const [title, setTitle] = useState<string>()
-  const [description, setDescription] = useState<string>()
-  const [tutorial_link, setTutorial_link] = useState<string>()
-  const [loading, setLoading] = useState(false)
+  const [title, setTitle] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [tutorial_link, setTutorial_link] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   const BottomSheetAnimation = useState(new Animated.Value(0))[0];
 

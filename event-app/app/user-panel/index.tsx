@@ -52,15 +52,28 @@ const index = () => {
     });
   }, [route]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   axiosInstance.get("api/farm/products-list/").then((res) => {
+  //     setProductData(res?.data?.results[0]);
+  //     console.log(res?.data?.results[0])
+  //   }).catch(error => {
+  //     console.log(error.response)
+  //   })
+  // }, [route]);
+
+
+  const getProductData = () => {
     axiosInstance.get("api/farm/products-list/").then((res) => {
       setProductData(res?.data?.results[0]);
-    });
-  }, [route]);
-  const ChartData = {
-    labels: ["Swim", "Bike", "Run"], // optional
-    data: [0.4, 0.6, 0.8]
-  };
+    }).catch(error => {
+      console.log(error.response)
+    })
+  }
+
+  useEffect(() => {
+    getProductData()
+  }, []);
+
   return (<>
       {isLoading ? (<View style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
         <ActivityIndicator color={Colors.primary} size={50}/>
@@ -148,6 +161,7 @@ const index = () => {
                           {/*<Image source={require("./../../assets/images/chart.png")}/>*/}
                         </View>
                         <View
+                          style={{marginTop:-30}}
                           onTouchEnd={() => {
                             router.push(`/user-panel/`);
                           }}
@@ -165,7 +179,7 @@ const index = () => {
                 </View>
                 <Text style={styles.headerTitle}>محصولات</Text>
               </View>
-              {productData.length ? (<View style={styles.productContainer}>
+              {productData ? (<View style={styles.productContainer}>
                 <View style={{width: "43%", gap: 8}}>
                   <LinearGradient
                     colors={["#E5E5CD", "rgba(229, 229, 205, 0.42)"]}
@@ -189,6 +203,7 @@ const index = () => {
                     </View>
 
                     <LinearGradient
+                      onTouchEnd={() => router.push('/user-panel/products')}
                       colors={["#B3B37A", "rgba(179, 179, 122, 0.60)"]}
                       start={{x: 0, y: 0}}
                       end={{x: 1, y: 1}}
@@ -199,6 +214,7 @@ const index = () => {
                     </LinearGradient>
                   </LinearGradient>
                   <LinearGradient
+                    onTouchEnd={() => router.push('/user-panel/products')}
                     colors={["#44898E", "rgba(68, 137, 142, 0.64)"]}
                     start={{x: 0, y: 0}}
                     end={{x: 1, y: 1}}
@@ -228,6 +244,7 @@ const index = () => {
 
                 <View style={styles.readyToSell}>
                   <LinearGradient
+                    onTouchEnd={() => router.push('/user-panel/products')}
                     colors={["#CEE9EB", "rgba(206, 233, 235, 0.00)"]}
                     start={{x: 0, y: 0}}
                     end={{x: 1, y: 1}}
@@ -255,6 +272,7 @@ const index = () => {
                     </LinearGradient>
                   </LinearGradient>
                   <LinearGradient
+                    onTouchEnd={() => router.push('/user-panel/products')}
                     colors={["#D3E0F5", "rgba(211, 224, 245, 0.00)"]}
                     start={{x: 0, y: 0}}
                     end={{x: 1, y: 0}}
@@ -316,7 +334,14 @@ const index = () => {
               </View>) : <View style={{height: 350}}>
                 <EmptyBoxProduct/></View>}
               {/* <Icon name="datePicker"/> */}
-              <View style={styles.header}>
+              <View style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: "100%",
+                marginVertical: 8,
+                marginTop:20,
+              }}>
                 <View style={styles.headerMore}>
                   <Icon name="arrowLeft"/>
                   <Text style={styles.headerTitle}>بیشتر</Text>

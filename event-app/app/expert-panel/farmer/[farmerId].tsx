@@ -17,18 +17,20 @@ const FarmerId = () => {
   const ref = useRef<any>(null)
   const [farmerData, setFarmer] = useState<any>([])
   const [addFarmPopup, setAddFarmPopup] = useState(false)
+  const [searchValue,setSearchValue] = useState<string>()
 
   const getData = () => {
-    axiosInstance.get(`api/expert/farms/?user_id=${route?.params?.farmerId}`).then(res => {
+
+    axiosInstance.get(searchValue ? `api/expert/farms/?user_id=${route?.params?.farmerId}&?search=${searchValue}` : `api/expert/farms/?user_id=${route?.params?.farmerId}`).then(res => {
       setFarmer(res?.data?.results)
     }).catch(error => {
-      console.log(error)
+      console.log(error.response)
     })
   }
 
   useEffect(() => {
     getData()
-  }, []);
+  }, [searchValue]);
 
   return (
     <View style={{width: '100%', height: '100%', flex: 1}}>
@@ -53,7 +55,7 @@ const FarmerId = () => {
                 borderColor: '#eee',
                 position: 'relative'
               }}>
-                <TextInput placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
+                <TextInput value={searchValue} onChangeText={(e) => setSearchValue(e)} placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
                            placeholderTextColor={'#666'}/>
                 <View style={{position: 'absolute', top: 12, left: 12}}>
                   <Icon name={'search'}/>
@@ -103,7 +105,7 @@ const FarmerId = () => {
           <Text style={{color: '#fff', fontSize: 40}}>+</Text>
         </View> : ''}
       </SafeAreaView>
-      <AddFarm refreshFarmerData={getData()} active={addFarmPopup} setActive={setAddFarmPopup}/>
+      <AddFarm userId={route?.params?.farmerId} refreshFarmerData={getData()} active={addFarmPopup} setActive={setAddFarmPopup}/>
       <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
 
     </View>

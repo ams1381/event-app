@@ -13,9 +13,10 @@ const ExpertPanel = () => {
   const [isActivePopup, setIsActivePopup] = useState<boolean>(false);
   const [farmers, setFarmers] = useState([])
   const router = useRouter()
+  const [searchValue,setSearchValue] = useState<string>()
 
   const getFarmers = () => {
-    axiosInstance.get('api/expert/users/').then((res) => {
+    axiosInstance.get(searchValue ? `api/expert/users/?search=${searchValue}` : `api/expert/users/`).then((res) => {
       setFarmers(res?.data?.results)
     }).catch((err) => {
       console.log(err)
@@ -24,7 +25,7 @@ const ExpertPanel = () => {
 
   useEffect(() => {
     getFarmers()
-  }, []);
+  }, [searchValue]);
 
   return (
     <View style={{width: '100%', height: '100%', flex: 1}}>
@@ -140,14 +141,14 @@ const ExpertPanel = () => {
                 borderColor: '#eee',
                 position: 'relative'
               }}>
-                <TextInput placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
+                <TextInput value={searchValue} onChangeText={(e) => setSearchValue(e)} placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
                            placeholderTextColor={'#666'}/>
                 <View style={{position: 'absolute', top: 12, left: 12}}>
                   <Icon name={'search'}/>
                 </View>
               </View>
               <View style={{marginBottom: 30}}>
-                {farmers?.map((item: any, index: any) => {
+                {farmers?.length ? farmers?.map((item: any, index: any) => {
                   return (
                     <View onTouchEnd={() => router.push(`/expert-panel/farmer/${item?.id?.toString()}`)} key={index}
                           style={{
@@ -162,7 +163,9 @@ const ExpertPanel = () => {
                           }}><Text
                       style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}>{item?.full_name}</Text></View>
                   )
-                })}
+                }) : <View>
+                  <Text style={{color:"#2E6F73",fontSize:32,fontFamily:'bold',textAlign:'center',paddingBottom:400,marginTop:100}}>کشاورزی با این مشحصات یافت نشد.</Text>
+                </View>}
               </View>
             </View>
           </SafeAreaView>
@@ -183,7 +186,6 @@ const ExpertPanel = () => {
         <Text style={{color: '#fff', fontSize: 40}}>+</Text>
       </View>
       <AddFarmer refreshFarmerData={getFarmers()} active={addFarmerOpen} setActive={setAddFarmerOpen}/>
-
       <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
     </View>
   )

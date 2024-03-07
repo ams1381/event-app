@@ -28,7 +28,6 @@ const FilterProduct = (p: { modalVisible: any, setModalVisible: any }) => {
         const selectItem = datas.find(item => {
             return item?.title === param
         })
-        console.log(selectItem?.id)
     }
     const [isChecked, setChecked] = useState(false);
     return (

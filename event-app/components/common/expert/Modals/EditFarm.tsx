@@ -19,7 +19,7 @@ interface AddFarmer {
   active: any,
   setActive: any,
   refreshFarmerData?: any,
-  userId:string
+  farmId?:any
 }
 
 
@@ -34,7 +34,7 @@ const startTransition = () => {
   }).start();
 };
 
-const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,userId}) => {
+const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,farmId}) => {
 
   const [name, setName] = useState<string>()
   const [area, setArea] = useState<string>()
@@ -44,8 +44,7 @@ const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,user
   const confirmSmsHandler = () => {
     if (name?.length && area?.length)
       setLoading(true)
-    axiosInstance.post('/api/farm/farms/', {
-      owner:userId,
+    axiosInstance.put(`/api/farm/farms/${farmId}`, {
       name: name?.trim(),
       area: area,
       location: {
@@ -58,11 +57,12 @@ const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,user
         Toast.show({
           type: 'success',
           position: 'top',
-          text1: 'با موفقیت ایجاد شد.',
+          text1: 'با موفقیت ویرایش شد.',
         });
         setArea('')
         setName('')
         setActive(false)
+        refreshFarmerData()
       }
     }).catch(err => {
       setLoading(false)
@@ -114,7 +114,7 @@ const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,user
             }}>
               <Icon name={'X'}/>
             </View>
-            <Text style={styles.headText}> افزودن زمین</Text>
+            <Text style={styles.headText}> ویرایش زمین</Text>
           </View>
           <View style={{marginBottom: 10}}>
             <View style={{paddingHorizontal: 16, marginTop: 16}}>
@@ -141,7 +141,7 @@ const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,user
               <TouchableNativeFeedback style={{borderRadius: 16}}>
                 <View style={styles.btnSms} onTouchEnd={() => confirmSmsHandler()}>
                   <Text style={styles.btnSmsText}>
-                    {loading ? 'در حال ایجاد' : 'ایجاد'}
+                    {loading ? 'در حال ویرایش' : 'ویرایش'}
                   </Text>
                 </View>
               </TouchableNativeFeedback>

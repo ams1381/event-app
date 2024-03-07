@@ -21,6 +21,7 @@ import {useRouter} from "expo-router";
 import ProductItem from "../../../components/product/productItem";
 import AddRecommented from "../../../components/common/expert/Farm/AddRecommented";
 import AddProduct from "../../../components/popup/Product/AddProduct";
+import EditFarm from "../../../components/common/expert/Modals/EditFarm";
 
 const FarmId = () => {
   const route = useRoute()
@@ -29,21 +30,21 @@ const FarmId = () => {
   const [isActivePopup, setIsActivePopup] = useState(false);
   const [farmerData, setFarmer] = useState<any>([])
   const [loading, setLoading] = useState(false)
-  const getData = () => {
-    // api/expert/farms/single_farm/?farm_id=140
-    setLoading(true)
-    axiosInstance.get(`api/expert/farms/single_farm/?farm_id=${route?.params?.farmId}`).then(res => {
-      setFarmer(res?.data)
-      setLoading(false)
-    }).catch(error => {
-      console.log(error)
-      setLoading(false)
-    })
-  }
-
-  useEffect(() => {
-    getData()
-  }, []);
+  // const getData = () => {
+  //   // api/expert/farms/single_farm/?farm_id=140
+  //   setLoading(true)
+  //   axiosInstance.get(`api/expert/farms/single_farm/?farm_id=${route?.params?.farmId}`).then(res => {
+  //     setFarmer(res?.data)
+  //     setLoading(false)
+  //   }).catch(error => {
+  //     console.log(error)
+  //     setLoading(false)
+  //   })
+  // }
+  //
+  // useEffect(() => {
+  //   getData()
+  // }, []);
 
   const [addRecOpen, setAddRecOpen] = useState(false)
 
@@ -64,10 +65,12 @@ const FarmId = () => {
   const [data, setData] = useState([]);
   const getProduct = () => {
     axiosInstance
-      .get(`api/farm/products/`)
+      .get(`api/expert/farms/${route?.params?.farmId}/products/`)
       .then((res) => {
-        setData(res?.data?.results);
-      });
+        setData(res?.data);
+      }).catch(error => {
+      console.log(error)
+    })
   }
 
 
@@ -75,6 +78,22 @@ const FarmId = () => {
     getProduct()
   }, []);
 
+
+  const [editFarmOpen, setEditFarmOpen] = useState(false)
+
+  // const getProductsData = () => {
+  //   axiosInstance.get(`/api/expert/farms/${route?.params?.farmId}/products/`).then(res => {
+  //     setData(res?.data)
+  //     console.log(res?.data)
+  //   }).catch(error => {
+  //     console.log(error)
+  //   })
+  // }
+  //
+  // useEffect(() => {
+  //   getProductsData()
+  // },[])
+  //
 
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: '#fafafa', flex: 1}}>
@@ -106,7 +125,7 @@ const FarmId = () => {
             flexDirection: 'row',
             marginTop: 16
           }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setEditFarmOpen(true)}>
               <Icon style={{width: 30, height: 30}} name={'editOrg'}/>
             </TouchableOpacity>
             <Text style={{color: '#A8A8A8', fontFamily: 'bold', fontSize: 16}}>اطلاعات اولیه زمین</Text>
@@ -274,7 +293,7 @@ const FarmId = () => {
             <Text style={{marginTop: 10, color: Colors.primary, fontFamily: 'bold', fontSize: 20}}>محصولات</Text>
           </View>
           {data?.length ? data?.map((item: any, index: number) => {
-            return <View style={{marginBottom:16}}>
+            return <View style={{marginTop: 16}}>
               <ProductItem item={item} key={index}/>
             </View>
           }) : <View></View>}
@@ -282,8 +301,9 @@ const FarmId = () => {
         <AddProduct getProduct={getProduct} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
 
       </SafeAreaView>
-      <AddRecommented refreshFarmerData={getRecs()} routeId={route?.params?.farmId} active={addRecOpen}
+      <AddRecommented refreshFarmerData={getRecs} routeId={route?.params?.farmId} active={addRecOpen}
                       setActive={setAddRecOpen}/>
+      <EditFarm farmId={route?.params?.farmId} active={editFarmOpen} setActive={setEditFarmOpen}/>
       <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
 
     </View>
