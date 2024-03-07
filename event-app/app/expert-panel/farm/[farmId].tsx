@@ -303,7 +303,7 @@ const FarmId = () => {
       </SafeAreaView>
       <AddRecommented refreshFarmerData={getRecs} routeId={route?.params?.farmId} active={addRecOpen}
                       setActive={setAddRecOpen}/>
-      <EditFarm farmId={route?.params?.farmId} active={editFarmOpen} setActive={setEditFarmOpen}/>
+      <EditFarm refreshFarmerData={getData} farmId={route?.params?.farmId} active={editFarmOpen} setActive={setEditFarmOpen}/>
       <HelpBottomSheet active={isActivePopup} setActive={setIsActivePopup}/>
 
     </View>

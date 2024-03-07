@@ -19,7 +19,7 @@ interface AddFarmer {
   active: any,
   setActive: any,
   refreshFarmerData?: any,
-  farmId?:any
+  farmId?: any
 }
 
 
@@ -34,7 +34,7 @@ const startTransition = () => {
   }).start();
 };
 
-const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,farmId}) => {
+const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData, farmId}) => {
 
   const [name, setName] = useState<string>()
   const [area, setArea] = useState<string>()
@@ -44,28 +44,23 @@ const AddFarm: React.FC<AddFarmer> = ({active, setActive, refreshFarmerData,farm
   const confirmSmsHandler = () => {
     if (name?.length && area?.length)
       setLoading(true)
-    axiosInstance.put(`/api/farm/farms/${farmId}`, {
+    axiosInstance.patch(`api/farm/farms/${farmId}/`, {
       name: name?.trim(),
       area: area,
-      location: {
-        "latitude": 0,
-        "longitude": 0
-      },
     }).then(res => {
       setLoading(false)
-      if (res.status === 201) {
-        Toast.show({
-          type: 'success',
-          position: 'top',
-          text1: 'با موفقیت ویرایش شد.',
-        });
-        setArea('')
-        setName('')
-        setActive(false)
-        refreshFarmerData()
-      }
+      Toast.show({
+        type: 'success',
+        position: 'top',
+        text1: 'با موفقیت ویرایش شد.',
+      });
+      setArea('')
+      setName('')
+      setActive(false)
+      refreshFarmerData()
     }).catch(err => {
       setLoading(false)
+
       console.log(err.response)
       const ERROR_MESSAGE =
         err?.response?.data[Object.keys(err?.response?.data)[0]];

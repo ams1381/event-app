@@ -20,7 +20,6 @@ const FarmerId = () => {
   const [searchValue,setSearchValue] = useState<string>()
 
   const getData = () => {
-
     axiosInstance.get(searchValue ? `api/expert/farms/?user_id=${route?.params?.farmerId}&?search=${searchValue}` : `api/expert/farms/?user_id=${route?.params?.farmerId}`).then(res => {
       setFarmer(res?.data?.results)
     }).catch(error => {
@@ -30,7 +29,18 @@ const FarmerId = () => {
 
   useEffect(() => {
     getData()
-  }, [searchValue]);
+  }, []);
+
+  const getNewData = (e:any) => {
+    if (e) {
+      axiosInstance.get(e ? `api/expert/farms/?user_id=${route?.params?.farmerId}&?search=${e}` : `api/expert/farms/?user_id=${route?.params?.farmerId}`).then(res => {
+        setFarmer(res?.data?.results)
+      }).catch(error => {
+        console.log(error.response)
+      })
+    }
+  }
+
 
   return (
     <View style={{width: '100%', height: '100%', flex: 1}}>
@@ -55,7 +65,7 @@ const FarmerId = () => {
                 borderColor: '#eee',
                 position: 'relative'
               }}>
-                <TextInput value={searchValue} onChangeText={(e) => setSearchValue(e)} placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
+                <TextInput value={searchValue} onChangeText={(e) => getNewData(e)} placeholder={'جستجو'} style={{textAlign: 'right', padding: 12, fontFamily: 'bold'}}
                            placeholderTextColor={'#666'}/>
                 <View style={{position: 'absolute', top: 12, left: 12}}>
                   <Icon name={'search'}/>
